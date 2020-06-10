@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.pytorch","l":"DType"},{"p":"org.pytorch","l":"IValue"},{"p":"org.pytorch","l":"Module"},{"p":"org.pytorch","l":"Tensor"}]
