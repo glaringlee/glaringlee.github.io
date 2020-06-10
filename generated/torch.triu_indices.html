@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="torch.addbmm" href="torch.addbmm.html" />
+    <link rel="next" title="torch.vander" href="torch.vander.html" />
     <link rel="prev" title="torch.triu" href="torch.triu.html" /> 
 
   
@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-triu-indices">
 <h1>torch.triu_indices<a class="headerlink" href="#torch-triu-indices" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.triu_indices">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">triu_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">torch.long</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em>, <em class="sig-param"><span class="n">layout</span><span class="o">=</span><span class="default_value">torch.strided</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.triu_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">triu_indices</code><span class="sig-paren">(</span><em class="sig-param">row</em>, <em class="sig-param">col</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">dtype=torch.long</em>, <em class="sig-param">device='cpu'</em>, <em class="sig-param">layout=torch.strided</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.triu_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the indices of the upper triangular part of a <code class="xref py py-attr docutils literal notranslate"><span class="pre">row</span></code> by
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">col</span></code> matrix in a 2-by-N Tensor, where the first row contains row
 coordinates of all indices and the second row contains column coordinates.
@@ -410,7 +410,7 @@ for CPU tensor types and the current CUDA device for CUDA tensor types.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="torch.addbmm.html" class="btn btn-neutral float-right" title="torch.addbmm" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="torch.vander.html" class="btn btn-neutral float-right" title="torch.vander" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
         <a href="torch.triu.html" class="btn btn-neutral" title="torch.triu" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-einsum">
 <h1>torch.einsum<a class="headerlink" href="#torch-einsum" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.einsum">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">einsum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">equation</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">operands</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="reference internal" href="../_modules/torch/functional.html#einsum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.einsum" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">einsum</code><span class="sig-paren">(</span><em class="sig-param">equation</em>, <em class="sig-param">*operands</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="reference internal" href="../_modules/torch/functional.html#einsum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.einsum" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function provides a way of computing multilinear expressions (i.e. sums of products) using the
 Einstein summation convention.</p>
 <dl class="field-list simple">
@@ -362,6 +362,12 @@ the ellipsis dimensions are at the beginning of the output.</p></li>
 </ul>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function does not optimize the given expression, so a different formula for the same computation may
+run faster or consume less memory. Projects like opt_einsum (<a class="reference external" href="https://optimized-einsum.readthedocs.io/en/stable/">https://optimized-einsum.readthedocs.io/en/stable/</a>)
+can optimize the formula for you.</p>
+</div>
 <p>Examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-lu">
 <h1>torch.lu<a class="headerlink" href="#torch-lu" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.lu">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">lu</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.lu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">lu</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.lu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the LU factorization of a matrix or batches of matrices
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code>. Returns a tuple containing the LU factorization and
 pivots of <code class="xref py py-attr docutils literal notranslate"><span class="pre">A</span></code>.  Pivoting is done if <code class="xref py py-attr docutils literal notranslate"><span class="pre">pivot</span></code> is set to
@@ -369,6 +369,10 @@ third element of the return tuple.</p>
 equal to 32 on a CUDA device, the LU factorization is repeated
 for singular matrices due to the bug in the MAGMA library (see
 magma issue 13).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">L</span></code>, <code class="docutils literal notranslate"><span class="pre">U</span></code>, and <code class="docutils literal notranslate"><span class="pre">P</span></code> can be derived using <a class="reference internal" href="torch.lu_unpack.html#torch.lu_unpack" title="torch.lu_unpack"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.lu_unpack()</span></code></a>.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

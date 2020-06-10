@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -338,18 +338,16 @@
   <div class="section" id="torch-utils-model-zoo">
 <h1>torch.utils.model_zoo<a class="headerlink" href="#torch-utils-model-zoo" title="Permalink to this headline">¶</a></h1>
 <p>Moved to <cite>torch.hub</cite>.</p>
-<span class="target" id="module-torch.utils.model_zoo"></span><dl class="py function">
+<span class="target" id="module-torch.utils.model_zoo"></span><dl class="function">
 <dt id="torch.utils.model_zoo.load_url">
-<code class="sig-prename descclassname">torch.utils.model_zoo.</code><code class="sig-name descname">load_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="n">model_dir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">map_location</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">progress</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">check_hash</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.utils.model_zoo.load_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.model_zoo.</code><code class="sig-name descname">load_url</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">model_dir=None</em>, <em class="sig-param">map_location=None</em>, <em class="sig-param">progress=True</em>, <em class="sig-param">check_hash=False</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.utils.model_zoo.load_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads the Torch serialized object at the given URL.</p>
 <p>If downloaded file is a zip file, it will be automatically
 decompressed.</p>
 <p>If the object is already present in <cite>model_dir</cite>, it’s deserialized and
 returned.
-The default value of <cite>model_dir</cite> is <code class="docutils literal notranslate"><span class="pre">$TORCH_HOME/checkpoints</span></code> where
-environment variable <code class="docutils literal notranslate"><span class="pre">$TORCH_HOME</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME/torch</span></code>.
-<code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME</span></code> follows the X Design Group specification of the Linux
-filesytem layout, with a default value <code class="docutils literal notranslate"><span class="pre">~/.cache</span></code> if not set.</p>
+The default value of <cite>model_dir</cite> is <code class="docutils literal notranslate"><span class="pre">&lt;hub_dir&gt;/checkpoints</span></code> where
+<cite>hub_dir</cite> is the directory returned by <a class="reference internal" href="hub.html#torch.hub.get_dir" title="torch.hub.get_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_dir()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

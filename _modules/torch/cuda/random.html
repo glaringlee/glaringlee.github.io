@@ -157,7 +157,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -368,7 +368,7 @@
 
 
 <div class="viewcode-block" id="get_rng_state_all"><a class="viewcode-back" href="../../../cuda.html#torch.cuda.get_rng_state_all">[docs]</a><span class="k">def</span> <span class="nf">get_rng_state_all</span><span class="p">():</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns a tuple of ByteTensor representing the random number states of all devices.&quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns a list of ByteTensor representing the random number states of all devices.&quot;&quot;&quot;</span>
 
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">device_count</span><span class="p">()):</span>
@@ -404,7 +404,7 @@
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sets the random number generator state of all devices.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        new_state (tuple of torch.ByteTensor): The desired state for each device&quot;&quot;&quot;</span>
+<span class="sd">        new_state (Iterable of torch.ByteTensor): The desired state for each device&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_states</span><span class="p">):</span>
         <span class="n">set_rng_state</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span></div>
 

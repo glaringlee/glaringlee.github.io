@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -583,10 +583,10 @@ and if not, <a class="reference external" href="https://github.com/pytorch/pytor
 <p>In this section please find the documentation for named tensor specific APIs.
 For a comprehensive reference for how names are propagated through other PyTorch
 operators, see <a class="reference internal" href="name_inference.html#name-inference-reference-doc"><span class="std std-ref">Named Tensors operator coverage</span></a>.</p>
-<dl class="py class">
+<dl class="class">
 <dt>
 <em class="property">class </em><code class="sig-prename descclassname">torch.</code><code class="sig-name descname">Tensor</code></dt>
-<dd><dl class="py attribute">
+<dd><dl class="attribute">
 <dt id="torch.Tensor.names">
 <code class="sig-name descname">names</code><a class="headerlink" href="#torch.Tensor.names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stores names for each of this tensor’s dimensions.</p>
@@ -602,9 +602,9 @@ name must be a valid Python variable name (i.e., does not start with underscore)
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Tensor.rename">
-<code class="sig-name descname">rename</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">names</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">rename_map</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.rename" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rename</code><span class="sig-paren">(</span><em class="sig-param">*names</em>, <em class="sig-param">**rename_map</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.rename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renames dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code>.</p>
 <p>There are two main usages:</p>
 <p><code class="docutils literal notranslate"><span class="pre">self.rename(**rename_map)</span></code> returns a view on tensor that has dims
@@ -635,15 +635,15 @@ Use <code class="docutils literal notranslate"><span class="pre">self.rename(Non
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Tensor.rename_">
-<code class="sig-name descname">rename_</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">names</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">rename_map</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.rename_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rename_</code><span class="sig-paren">(</span><em class="sig-param">*names</em>, <em class="sig-param">**rename_map</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.rename_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.rename_" title="Permalink to this definition">¶</a></dt>
 <dd><p>In-place version of <a class="reference internal" href="#torch.Tensor.rename" title="torch.Tensor.rename"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rename()</span></code></a>.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Tensor.refine_names">
-<code class="sig-name descname">refine_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">names</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.refine_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">refine_names</code><span class="sig-paren">(</span><em class="sig-param">*names</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.refine_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.refine_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Refines the dimension names of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> according to <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>.</p>
 <p>Refining is a special case of renaming that “lifts” unnamed dimensions.
 A <code class="docutils literal notranslate"><span class="pre">None</span></code> dim can be refined to have any name; a named dim can only be
@@ -681,9 +681,9 @@ contain up to one Ellipsis.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Tensor.align_as">
-<code class="sig-name descname">align_as</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.Tensor.align_as" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">align_as</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.Tensor.align_as" title="Permalink to this definition">¶</a></dt>
 <dd><p>Permutes the dimensions of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor to match the dimension order
 in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">other</span></code> tensor, adding size-one dims for any new names.</p>
 <p>This operation is useful for explicit broadcasting by names (see examples).</p>
@@ -701,9 +701,9 @@ the output tensor has a size-one dimension for each of those new names.</p>
 
 
 <span class="c1"># Example 2: Applying a per-channel-scale</span>
-<span class="k">def</span> <span class="nf">scale_channels</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
-    <span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span><span class="o">.</span><span class="n">refine_names</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">input</span> <span class="o">*</span> <span class="n">scale</span><span class="o">.</span><span class="n">align_as</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">scale_channels</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span><span class="o">.</span><span class="n">refine_names</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="k">return</span> <span class="nb">input</span> <span class="o">*</span> <span class="n">scale</span><span class="o">.</span><span class="n">align_as</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">num_channels</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;C&#39;</span><span class="p">,))</span>
@@ -723,9 +723,9 @@ the output tensor has a size-one dimension for each of those new names.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Tensor.align_to">
-<code class="sig-name descname">align_to</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">names</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.align_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">align_to</code><span class="sig-paren">(</span><em class="sig-param">*names</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.align_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.align_to" title="Permalink to this definition">¶</a></dt>
 <dd><p>Permutes the dimensions of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor to match the order
 specified in <a class="reference internal" href="#torch.Tensor.names" title="torch.Tensor.names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">names</span></code></a>, adding size-one dims for any new names.</p>
 <p>All of the dims of <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> must be named in order to use this method.
@@ -760,9 +760,9 @@ to all unmentioned dim names of <code class="xref py py-attr docutils literal no
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Tensor.unflatten">
-<code class="sig-name descname">unflatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dim</span></em>, <em class="sig-param"><span class="n">namedshape</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.unflatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.unflatten" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">unflatten</code><span class="sig-paren">(</span><em class="sig-param">dim</em>, <em class="sig-param">namedshape</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/tensor.html#Tensor.unflatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.Tensor.unflatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unflattens the named dimension <a class="reference internal" href="tensors.html#torch.Tensor.dim" title="torch.Tensor.dim"><code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code></a>, viewing it in the shape
 specified by <code class="xref py py-attr docutils literal notranslate"><span class="pre">namedshape</span></code>.</p>
 <dl class="field-list simple">
@@ -773,7 +773,7 @@ specified by <code class="xref py py-attr docutils literal notranslate"><span cl
 <p>Examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flat_imgs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">128</span> <span class="o">*</span> <span class="mi">128</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;features&#39;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">imgs</span> <span class="o">=</span> <span class="n">flat_imgs</span><span class="o">.</span><span class="n">unflatten</span><span class="p">(</span><span class="s1">&#39;features&#39;</span><span class="p">,</span> <span class="p">((</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="mi">128</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="mi">128</span><span class="p">)))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">imgs</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imgs</span><span class="o">.</span><span class="n">names</span><span class="p">,</span> <span class="n">imgs</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">((&#39;N&#39;, &#39;C&#39;, &#39;H&#39;, &#39;W&#39;), torch.Size([32, 3, 128, 128]))</span>
 </pre></div>
 </div>
@@ -783,9 +783,9 @@ specified by <code class="xref py py-attr docutils literal notranslate"><span cl
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt>
-<code class="sig-name descname">flatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dims</span></em>, <em class="sig-param"><span class="n">out_dim</span></em><span class="sig-paren">)</span> &#x2192; Tensor</dt>
+<code class="sig-name descname">flatten</code><span class="sig-paren">(</span><em class="sig-param">dims</em>, <em class="sig-param">out_dim</em><span class="sig-paren">)</span> &#x2192; Tensor</dt>
 <dd><p>Flattens <code class="xref py py-attr docutils literal notranslate"><span class="pre">dims</span></code> into a single dimension with name <code class="xref py py-attr docutils literal notranslate"><span class="pre">out_dim</span></code>.</p>
 <p>All of <cite>dims</cite> must be consecutive in order in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">self</span></code> tensor,
 but not necessary contiguous in memory.</p>

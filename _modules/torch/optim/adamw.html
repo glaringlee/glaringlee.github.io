@@ -157,7 +157,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -411,7 +411,7 @@
                 <span class="c1"># Perform optimization step</span>
                 <span class="n">grad</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span>
                 <span class="k">if</span> <span class="n">grad</span><span class="o">.</span><span class="n">is_sparse</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Adam does not support sparse gradients, please consider SparseAdam instead&#39;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;AdamW does not support sparse gradients&#39;</span><span class="p">)</span>
                 <span class="n">amsgrad</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;amsgrad&#39;</span><span class="p">]</span>
 
                 <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>

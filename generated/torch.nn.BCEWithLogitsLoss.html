@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="bcewithlogitsloss">
 <h1>BCEWithLogitsLoss<a class="headerlink" href="#bcewithlogitsloss" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.BCEWithLogitsLoss">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">BCEWithLogitsLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weight</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size_average</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reduce</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reduction</span><span class="o">=</span><span class="default_value">'mean'</span></em>, <em class="sig-param"><span class="n">pos_weight</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/loss.html#BCEWithLogitsLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.BCEWithLogitsLoss" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">BCEWithLogitsLoss</code><span class="sig-paren">(</span><em class="sig-param">weight=None</em>, <em class="sig-param">size_average=None</em>, <em class="sig-param">reduce=None</em>, <em class="sig-param">reduction='mean'</em>, <em class="sig-param">pos_weight=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/loss.html#BCEWithLogitsLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.BCEWithLogitsLoss" title="Permalink to this definition">¶</a></dt>
 <dd><p>This loss combines a <cite>Sigmoid</cite> layer and the <cite>BCELoss</cite> in one single
 class. This version is more numerically stable than using a plain <cite>Sigmoid</cite>
 followed by a <cite>BCELoss</cite> as, by combining the operations into one layer,

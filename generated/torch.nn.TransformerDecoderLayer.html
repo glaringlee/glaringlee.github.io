@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="transformerdecoderlayer">
 <h1>TransformerDecoderLayer<a class="headerlink" href="#transformerdecoderlayer" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.TransformerDecoderLayer">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">TransformerDecoderLayer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d_model</span></em>, <em class="sig-param"><span class="n">nhead</span></em>, <em class="sig-param"><span class="n">dim_feedforward</span><span class="o">=</span><span class="default_value">2048</span></em>, <em class="sig-param"><span class="n">dropout</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">activation</span><span class="o">=</span><span class="default_value">'relu'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/transformer.html#TransformerDecoderLayer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.TransformerDecoderLayer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">TransformerDecoderLayer</code><span class="sig-paren">(</span><em class="sig-param">d_model</em>, <em class="sig-param">nhead</em>, <em class="sig-param">dim_feedforward=2048</em>, <em class="sig-param">dropout=0.1</em>, <em class="sig-param">activation='relu'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/transformer.html#TransformerDecoderLayer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.TransformerDecoderLayer" title="Permalink to this definition">¶</a></dt>
 <dd><p>TransformerDecoderLayer is made up of self-attn, multi-head-attn and feedforward network.
 This standard decoder layer is based on the paper “Attention Is All You Need”.
 Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez,
@@ -368,9 +368,9 @@ in a different way during application.</p>
 </div>
 </dd>
 </dl>
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.TransformerDecoderLayer.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tgt</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">memory</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">tgt_mask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tensor<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">memory_mask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tensor<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tgt_key_padding_mask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tensor<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">memory_key_padding_mask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tensor<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="reference internal" href="../_modules/torch/nn/modules/transformer.html#TransformerDecoderLayer.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.TransformerDecoderLayer.forward" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">tgt: torch.Tensor</em>, <em class="sig-param">memory: torch.Tensor</em>, <em class="sig-param">tgt_mask: Optional[torch.Tensor] = None</em>, <em class="sig-param">memory_mask: Optional[torch.Tensor] = None</em>, <em class="sig-param">tgt_key_padding_mask: Optional[torch.Tensor] = None</em>, <em class="sig-param">memory_key_padding_mask: Optional[torch.Tensor] = None</em><span class="sig-paren">)</span> &#x2192; torch.Tensor<a class="reference internal" href="../_modules/torch/nn/modules/transformer.html#TransformerDecoderLayer.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.TransformerDecoderLayer.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pass the inputs (and mask) through the decoder layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

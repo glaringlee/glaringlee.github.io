@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-nn-utils-rnn-pad-packed-sequence">
 <h1>torch.nn.utils.rnn.pad_packed_sequence<a class="headerlink" href="#torch-nn-utils-rnn-pad-packed-sequence" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.nn.utils.rnn.pad_packed_sequence">
-<code class="sig-prename descclassname">torch.nn.utils.rnn.</code><code class="sig-name descname">pad_packed_sequence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence</span><span class="p">:</span> <span class="n">PackedSequence</span></em>, <em class="sig-param"><span class="n">batch_first</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">padding_value</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">total_length</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tensor<span class="p">, </span>Tensor<span class="p">]</span><a class="reference internal" href="../_modules/torch/nn/utils/rnn.html#pad_packed_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.rnn.pad_packed_sequence" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.nn.utils.rnn.</code><code class="sig-name descname">pad_packed_sequence</code><span class="sig-paren">(</span><em class="sig-param">sequence: PackedSequence</em>, <em class="sig-param">batch_first: bool = False</em>, <em class="sig-param">padding_value: float = 0.0</em>, <em class="sig-param">total_length: Optional[int] = None</em><span class="sig-paren">)</span> &#x2192; Tuple[Tensor, Tensor]<a class="reference internal" href="../_modules/torch/nn/utils/rnn.html#pad_packed_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.rnn.pad_packed_sequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pads a packed batch of variable length sequences.</p>
 <p>It is an inverse operation to <a class="reference internal" href="torch.nn.utils.rnn.pack_padded_sequence.html#torch.nn.utils.rnn.pack_padded_sequence" title="torch.nn.utils.rnn.pack_padded_sequence"><code class="xref py py-func docutils literal notranslate"><span class="pre">pack_padded_sequence()</span></code></a>.</p>
 <p>The returned Tensor’s data will be of size <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">x</span> <span class="pre">B</span> <span class="pre">x</span> <span class="pre">*</span></code>, where <cite>T</cite> is the length

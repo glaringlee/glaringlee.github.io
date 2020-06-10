@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -359,9 +359,9 @@ Tensors to a new device (“new” meaning not belonging to the set of
 [current device + devices of Tensor arguments]) within <code class="docutils literal notranslate"><span class="pre">run_fn</span></code>, deterministic
 output compared to non-checkpointed passes is never guaranteed.</p>
 </div>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.checkpoint.checkpoint">
-<code class="sig-prename descclassname">torch.utils.checkpoint.</code><code class="sig-name descname">checkpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/checkpoint.html#checkpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.checkpoint.checkpoint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.checkpoint.</code><code class="sig-name descname">checkpoint</code><span class="sig-paren">(</span><em class="sig-param">function</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/checkpoint.html#checkpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.checkpoint.checkpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checkpoint a model or part of the model</p>
 <p>Checkpointing works by trading compute for memory. Rather than storing all
 intermediate activations of the entire computation graph for computing
@@ -387,6 +387,15 @@ than the one during forward, e.g., due to some global variable, the
 checkpointed version won’t be equivalent, and unfortunately it can’t be
 detected.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If checkpointed segment contains tensors detached from the computational
+graph by <cite>detach()</cite> or <cite>torch.no_grad()</cite>, the backward pass will raise an
+error. This is because <cite>checkpoint</cite> makes all the outputs require
+gradients which causes issues when a tensor is defined to have no
+gradient in the model. To circumvent this, detach the tensors outside of
+the <cite>checkpoint</cite> function.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -406,9 +415,9 @@ the RNG state during each checkpoint.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.checkpoint.checkpoint_sequential">
-<code class="sig-prename descclassname">torch.utils.checkpoint.</code><code class="sig-name descname">checkpoint_sequential</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">functions</span></em>, <em class="sig-param"><span class="n">segments</span></em>, <em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/checkpoint.html#checkpoint_sequential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.checkpoint.checkpoint_sequential" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.checkpoint.</code><code class="sig-name descname">checkpoint_sequential</code><span class="sig-paren">(</span><em class="sig-param">functions</em>, <em class="sig-param">segments</em>, <em class="sig-param">input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/checkpoint.html#checkpoint_sequential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.checkpoint.checkpoint_sequential" title="Permalink to this definition">¶</a></dt>
 <dd><p>A helper function for checkpointing sequential models.</p>
 <p>Sequential models execute a list of modules/functions in order
 (sequentially). Therefore, we can divide such a model in various segments

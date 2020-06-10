@@ -157,7 +157,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -332,8 +332,7 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch</h1><div class="highlight"><pre>
-<span></span><span class="c1"># @lint-ignore-every PYTHON3COMPATIMPORTS</span>
-
+<span></span>
 <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">The torch package contains data structures for multi-dimensional</span>
 <span class="sd">tensors and mathematical operations over these are defined.</span>
@@ -354,9 +353,11 @@
 
 <span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">_import_dotted_name</span>
 <span class="kn">from</span> <span class="nn">._utils_internal</span> <span class="kn">import</span> <span class="n">get_file_path</span><span class="p">,</span> <span class="n">prepare_multiprocessing_environment</span><span class="p">,</span> \
-    <span class="n">USE_RTLD_GLOBAL_WITH_LIBTORCH</span>
+    <span class="n">USE_RTLD_GLOBAL_WITH_LIBTORCH</span><span class="p">,</span> <span class="n">USE_GLOBAL_DEPS</span>
 <span class="kn">from</span> <span class="nn">.version</span> <span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">._six</span> <span class="kn">import</span> <span class="n">string_classes</span> <span class="k">as</span> <span class="n">_string_classes</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Type</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;typename&#39;</span><span class="p">,</span> <span class="s1">&#39;is_tensor&#39;</span><span class="p">,</span> <span class="s1">&#39;is_storage&#39;</span><span class="p">,</span> <span class="s1">&#39;set_default_tensor_type&#39;</span><span class="p">,</span>
@@ -374,13 +375,22 @@
 <span class="c1"># Load the extension module</span>
 <span class="c1">################################################################################</span>
 
-<span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Windows&#39;</span><span class="p">:</span>
-    <span class="n">is_conda</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="s1">&#39;conda-meta&#39;</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
     <span class="n">py_dll_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exec_prefix</span><span class="p">,</span> <span class="s1">&#39;Library&#39;</span><span class="p">,</span> <span class="s1">&#39;bin&#39;</span><span class="p">)</span>
     <span class="n">th_dll_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;lib&#39;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">th_dll_path</span><span class="p">,</span> <span class="s1">&#39;nvToolsExt64_1.dll&#39;</span><span class="p">))</span> <span class="ow">and</span> \
-            <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">py_dll_path</span><span class="p">,</span> <span class="s1">&#39;nvToolsExt64_1.dll&#39;</span><span class="p">)):</span>
+    <span class="c1"># When users create a virtualenv that inherits the base environment,</span>
+    <span class="c1"># we will need to add the corresponding library directory into</span>
+    <span class="c1"># DLL search directories. Otherwise, it will rely on `PATH` which</span>
+    <span class="c1"># is dependent on user settings.</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">exec_prefix</span> <span class="o">!=</span> <span class="n">sys</span><span class="o">.</span><span class="n">base_exec_prefix</span><span class="p">:</span>
+        <span class="n">base_py_dll_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">base_exec_prefix</span><span class="p">,</span> <span class="s1">&#39;Library&#39;</span><span class="p">,</span> <span class="s1">&#39;bin&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">base_py_dll_path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="n">dll_paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">,</span> <span class="p">[</span><span class="n">th_dll_path</span><span class="p">,</span> <span class="n">py_dll_path</span><span class="p">,</span> <span class="n">base_py_dll_path</span><span class="p">]))</span>
+
+    <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;nvToolsExt64_1.dll&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">dll_paths</span><span class="p">]):</span>
         <span class="n">nvtoolsext_dll_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NVTOOLSEXT_PATH&#39;</span><span class="p">,</span> <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">Program Files</span><span class="se">\\</span><span class="s1">NVIDIA Corporation</span><span class="se">\\</span><span class="s1">NvToolsExt&#39;</span><span class="p">),</span> <span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;x64&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -388,8 +398,7 @@
 
     <span class="kn">from</span> <span class="nn">.version</span> <span class="kn">import</span> <span class="n">cuda</span> <span class="k">as</span> <span class="n">cuda_version</span>
     <span class="kn">import</span> <span class="nn">glob</span>
-    <span class="k">if</span> <span class="n">cuda_version</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">th_dll_path</span><span class="p">,</span> <span class="s1">&#39;cudart64*.dll&#39;</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
-            <span class="nb">len</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">py_dll_path</span><span class="p">,</span> <span class="s1">&#39;cudart64*.dll&#39;</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">cuda_version</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">([</span><span class="ow">not</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;cudart64*.dll&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">dll_paths</span><span class="p">]):</span>
         <span class="n">cuda_version_1</span> <span class="o">=</span> <span class="n">cuda_version</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
         <span class="n">cuda_path_var</span> <span class="o">=</span> <span class="s1">&#39;CUDA_PATH_V&#39;</span> <span class="o">+</span> <span class="n">cuda_version_1</span>
         <span class="n">default_path</span> <span class="o">=</span> <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">Program Files</span><span class="se">\\</span><span class="s1">NVIDIA GPU Computing Toolkit</span><span class="se">\\</span><span class="s1">CUDA</span><span class="se">\\</span><span class="s1">v&#39;</span> <span class="o">+</span> <span class="n">cuda_version</span>
@@ -397,22 +406,51 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">cuda_path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
-        <span class="n">dll_paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">,</span> <span class="p">[</span><span class="n">th_dll_path</span><span class="p">,</span> <span class="n">py_dll_path</span><span class="p">,</span> <span class="n">nvtoolsext_dll_path</span><span class="p">,</span> <span class="n">cuda_path</span><span class="p">]))</span>
+    <span class="n">dll_paths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">,</span> <span class="p">[</span><span class="n">nvtoolsext_dll_path</span><span class="p">,</span> <span class="n">cuda_path</span><span class="p">]))</span>
 
-        <span class="k">for</span> <span class="n">dll_path</span> <span class="ow">in</span> <span class="n">dll_paths</span><span class="p">:</span>
+    <span class="n">kernel32</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">WinDLL</span><span class="p">(</span><span class="s1">&#39;kernel32.dll&#39;</span><span class="p">,</span> <span class="n">use_last_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">with_load_library_flags</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">kernel32</span><span class="p">,</span> <span class="s1">&#39;AddDllDirectory&#39;</span><span class="p">)</span>
+    <span class="n">prev_error_mode</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">SetErrorMode</span><span class="p">(</span><span class="mh">0x0001</span><span class="p">)</span>
+
+    <span class="n">kernel32</span><span class="o">.</span><span class="n">LoadLibraryW</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span>
+    <span class="k">if</span> <span class="n">with_load_library_flags</span><span class="p">:</span>
+        <span class="n">kernel32</span><span class="o">.</span><span class="n">AddDllDirectory</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span>
+        <span class="n">kernel32</span><span class="o">.</span><span class="n">LoadLibraryExW</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span>
+
+    <span class="k">for</span> <span class="n">dll_path</span> <span class="ow">in</span> <span class="n">dll_paths</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">add_dll_directory</span><span class="p">(</span><span class="n">dll_path</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">with_load_library_flags</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">AddDllDirectory</span><span class="p">(</span><span class="n">dll_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">err</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">WinError</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">get_last_error</span><span class="p">())</span>
+                <span class="n">err</span><span class="o">.</span><span class="n">strerror</span> <span class="o">+=</span> <span class="s1">&#39; Error adding &quot;</span><span class="si">{}</span><span class="s1">&quot; to the DLL directories.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dll_path</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">err</span>
 
-    <span class="k">if</span> <span class="n">is_conda</span> <span class="ow">or</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
-        <span class="n">dll_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">th_dll_path</span><span class="p">,</span> <span class="n">py_dll_path</span><span class="p">,</span> <span class="n">nvtoolsext_dll_path</span><span class="p">,</span> <span class="n">cuda_path</span><span class="p">]</span>
-        <span class="n">dll_paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">,</span> <span class="n">dll_paths</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;PATH&#39;</span><span class="p">]]</span>
-
-        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dll_paths</span><span class="p">)</span>
-
-    <span class="kn">import</span> <span class="nn">glob</span>
     <span class="n">dlls</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">th_dll_path</span><span class="p">,</span> <span class="s1">&#39;*.dll&#39;</span><span class="p">))</span>
+    <span class="n">path_patched</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="k">for</span> <span class="n">dll</span> <span class="ow">in</span> <span class="n">dlls</span><span class="p">:</span>
-        <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span><span class="p">(</span><span class="n">dll</span><span class="p">)</span>
+        <span class="n">is_loaded</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">with_load_library_flags</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">LoadLibraryExW</span><span class="p">(</span><span class="n">dll</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mh">0x00001100</span><span class="p">)</span>
+            <span class="n">last_error</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">get_last_error</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">last_error</span> <span class="o">!=</span> <span class="mi">126</span><span class="p">:</span>
+                <span class="n">err</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">WinError</span><span class="p">(</span><span class="n">last_error</span><span class="p">)</span>
+                <span class="n">err</span><span class="o">.</span><span class="n">strerror</span> <span class="o">+=</span> <span class="s1">&#39; Error loading &quot;</span><span class="si">{}</span><span class="s1">&quot; or one of its dependencies.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dll</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">err</span>
+            <span class="k">elif</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">is_loaded</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_loaded</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">path_patched</span><span class="p">:</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;PATH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dll_paths</span> <span class="o">+</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;PATH&#39;</span><span class="p">]])</span>
+                <span class="n">path_patched</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">kernel32</span><span class="o">.</span><span class="n">LoadLibraryW</span><span class="p">(</span><span class="n">dll</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">err</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">WinError</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">get_last_error</span><span class="p">())</span>
+                <span class="n">err</span><span class="o">.</span><span class="n">strerror</span> <span class="o">+=</span> <span class="s1">&#39; Error loading &quot;</span><span class="si">{}</span><span class="s1">&quot; or one of its dependencies.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dll</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">err</span>
+
+    <span class="n">kernel32</span><span class="o">.</span><span class="n">SetErrorMode</span><span class="p">(</span><span class="n">prev_error_mode</span><span class="p">)</span>
 
 
 <span class="c1"># See Note [Global dependencies]</span>
@@ -449,10 +487,10 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">_dl_flags</span><span class="p">,</span> <span class="s1">&#39;RTLD_GLOBAL&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">_dl_flags</span><span class="p">,</span> <span class="s1">&#39;RTLD_LAZY&#39;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># next try if DLFCN exists</span>
-            <span class="kn">import</span> <span class="nn">DLFCN</span> <span class="k">as</span> <span class="nn">_dl_flags</span>
+            <span class="kn">import</span> <span class="nn">DLFCN</span> <span class="k">as</span> <span class="nn">_dl_flags</span>  <span class="c1"># type: ignore</span>
         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
             <span class="c1"># as a last attempt, use compile-time constants</span>
-            <span class="kn">import</span> <span class="nn">torch._dl</span> <span class="k">as</span> <span class="nn">_dl_flags</span>
+            <span class="kn">import</span> <span class="nn">torch._dl</span> <span class="k">as</span> <span class="nn">_dl_flags</span>  <span class="c1"># type: ignore</span>
     <span class="n">old_flags</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">getdlopenflags</span><span class="p">()</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">setdlopenflags</span><span class="p">(</span><span class="n">_dl_flags</span><span class="o">.</span><span class="n">RTLD_GLOBAL</span> <span class="o">|</span> <span class="n">_dl_flags</span><span class="o">.</span><span class="n">RTLD_LAZY</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="o">*</span>
@@ -465,9 +503,19 @@
     <span class="c1"># C++ symbols from libtorch clobbering C++ symbols from other</span>
     <span class="c1"># libraries, leading to mysterious segfaults.</span>
     <span class="c1">#</span>
+    <span class="c1"># If building in an environment where libtorch_global_deps isn&#39;t available</span>
+    <span class="c1"># like parts of fbsource, but where RTLD_GLOBAL causes segfaults, you will</span>
+    <span class="c1"># want USE_RTLD_GLOBAL_WITH_LIBTORCH = False and USE_GLOBAL_DEPS = False</span>
+    <span class="c1">#</span>
     <span class="c1"># See Note [Global dependencies]</span>
-    <span class="n">_load_global_deps</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">USE_GLOBAL_DEPS</span><span class="p">:</span>
+        <span class="n">_load_global_deps</span><span class="p">()</span>
     <span class="kn">from</span> <span class="nn">torch._C</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Appease the type checker; ordinarily this binding is inserted by the</span>
+<span class="c1"># torch._C module initialization code in C</span>
+<span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">torch._C</span> <span class="k">as</span> <span class="nn">_C</span>
 
 <span class="n">__all__</span> <span class="o">+=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">_C</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;_&#39;</span> <span class="ow">and</span>
@@ -500,6 +548,11 @@
 
 <span class="k">def</span> <span class="nf">is_tensor</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns True if `obj` is a PyTorch tensor.</span>
+
+<span class="sd">    Note that this function is simply doing ``isinstance(obj, Tensor)``.</span>
+<span class="sd">    Using that ``isinstance`` check is better for typechecking with mypy,</span>
+<span class="sd">    and more explicit - so it&#39;s recommended to use that instead of</span>
+<span class="sd">    ``is_tensor``.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        obj (Object): Object to test</span>
@@ -613,6 +666,11 @@
 <span class="k">class</span> <span class="nc">BFloat16Storage</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">BFloat16StorageBase</span><span class="p">,</span> <span class="n">_StorageBase</span><span class="p">):</span>
     <span class="k">pass</span>
 
+<span class="k">class</span> <span class="nc">ComplexDoubleStorage</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">ComplexDoubleStorageBase</span><span class="p">,</span> <span class="n">_StorageBase</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">ComplexFloatStorage</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">ComplexFloatStorageBase</span><span class="p">,</span> <span class="n">_StorageBase</span><span class="p">):</span>
+    <span class="k">pass</span>
 
 <span class="k">class</span> <span class="nc">QUInt8Storage</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">QUInt8StorageBase</span><span class="p">,</span> <span class="n">_StorageBase</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -627,11 +685,11 @@
 <span class="n">_storage_classes</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">DoubleStorage</span><span class="p">,</span> <span class="n">FloatStorage</span><span class="p">,</span> <span class="n">LongStorage</span><span class="p">,</span> <span class="n">IntStorage</span><span class="p">,</span> <span class="n">ShortStorage</span><span class="p">,</span>
     <span class="n">CharStorage</span><span class="p">,</span> <span class="n">ByteStorage</span><span class="p">,</span> <span class="n">HalfStorage</span><span class="p">,</span> <span class="n">BoolStorage</span><span class="p">,</span> <span class="n">QUInt8Storage</span><span class="p">,</span> <span class="n">QInt8Storage</span><span class="p">,</span>
-    <span class="n">QInt32Storage</span><span class="p">,</span> <span class="n">BFloat16Storage</span>
+    <span class="n">QInt32Storage</span><span class="p">,</span> <span class="n">BFloat16Storage</span><span class="p">,</span> <span class="n">ComplexFloatStorage</span><span class="p">,</span> <span class="n">ComplexDoubleStorage</span>
 <span class="p">}</span>
 
 <span class="c1"># The _tensor_classes set is initialized by the call to _C._initialize_tensor_type_bindings()</span>
-<span class="n">_tensor_classes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="n">_tensor_classes</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Type</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
 
 <span class="c1">################################################################################</span>
@@ -652,10 +710,18 @@
 <span class="n">_C</span><span class="o">.</span><span class="n">_initExtension</span><span class="p">(</span><span class="n">manager_path</span><span class="p">())</span>
 <span class="k">del</span> <span class="n">manager_path</span>
 
+<span class="c1"># Appease the type checker: it can&#39;t deal with direct setting of globals().</span>
+<span class="c1"># Note that we will see &quot;too many&quot; functions when reexporting this way; there</span>
+<span class="c1"># is not a good way to fix this problem.  Perhaps, try to redesign VariableFunctions</span>
+<span class="c1"># so that this import is good enough</span>
+<span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">torch._C._VariableFunctions</span> <span class="kn">import</span> <span class="o">*</span>
+
 <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">_VariableFunctions</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">):</span>
         <span class="k">continue</span>
     <span class="nb">globals</span><span class="p">()[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_C</span><span class="o">.</span><span class="n">_VariableFunctions</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="n">__all__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
 <span class="c1">################################################################################</span>
 <span class="c1"># Import interface functions defined in Python</span>
@@ -679,6 +745,8 @@
 <span class="k">del</span> <span class="n">BoolStorageBase</span>
 <span class="k">del</span> <span class="n">QUInt8StorageBase</span>
 <span class="k">del</span> <span class="n">BFloat16StorageBase</span>
+<span class="k">del</span> <span class="n">ComplexDoubleStorageBase</span>
+<span class="k">del</span> <span class="n">ComplexFloatStorageBase</span>
 
 <span class="c1">################################################################################</span>
 <span class="c1"># Import most common subpackages</span>
@@ -687,6 +755,7 @@
 <span class="kn">import</span> <span class="nn">torch.cuda</span>
 <span class="kn">import</span> <span class="nn">torch.autograd</span>
 <span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">no_grad</span><span class="p">,</span> <span class="n">enable_grad</span><span class="p">,</span> <span class="n">set_grad_enabled</span>
+<span class="kn">import</span> <span class="nn">torch.futures</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span>
 <span class="kn">import</span> <span class="nn">torch.nn.intrinsic</span>
 <span class="kn">import</span> <span class="nn">torch.nn.quantized</span>
@@ -717,9 +786,9 @@
 <span class="k">del</span> <span class="n">_torch_docs</span><span class="p">,</span> <span class="n">_tensor_docs</span><span class="p">,</span> <span class="n">_storage_docs</span>
 
 
-<div class="viewcode-block" id="compiled_with_cxx11_abi"><a class="viewcode-back" href="../generated/torch.compiled_with_cxx11_abi.html#torch.compiled_with_cxx11_abi">[docs]</a><span class="k">def</span> <span class="nf">compiled_with_cxx11_abi</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">compiled_with_cxx11_abi</span><span class="p">():</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns whether PyTorch was built with _GLIBCXX_USE_CXX11_ABI=1&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_C</span><span class="o">.</span><span class="n">_GLIBCXX_USE_CXX11_ABI</span></div>
+    <span class="k">return</span> <span class="n">_C</span><span class="o">.</span><span class="n">_GLIBCXX_USE_CXX11_ABI</span>
 
 
 <span class="c1"># Import the ops &quot;namespace&quot;</span>
@@ -742,6 +811,12 @@
 <span class="c1"># Import tools that require fully imported torch (for applying</span>
 <span class="c1"># torch.jit.script as a decorator, for instance):</span>
 <span class="kn">from</span> <span class="nn">._lobpcg</span> <span class="kn">import</span> <span class="n">lobpcg</span>
+
+<span class="c1"># These were previously defined in native_functions.yaml and appeared on the</span>
+<span class="c1"># `torch` namespace, but we moved them to c10 dispatch to facilitate custom</span>
+<span class="c1"># class usage. We add these lines here to preserve backward compatbility.</span>
+<span class="n">quantized_lstm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">quantized_lstm</span>
+<span class="n">quantized_gru</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">aten</span><span class="o">.</span><span class="n">quantized_gru</span>
 </pre></div>
 
              </article>

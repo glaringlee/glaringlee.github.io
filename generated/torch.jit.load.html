@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,21 +339,23 @@
               
   <div class="section" id="torch-jit-load">
 <h1>torch.jit.load<a class="headerlink" href="#torch-jit-load" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.jit.load">
 <code class="sig-prename descclassname">torch.jit.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">f</em>, <em class="sig-param">map_location=None</em>, <em class="sig-param">_extra_files=ExtraFilesMap{}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/jit.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.jit.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> or <a class="reference internal" href="torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a> previously
 saved with <a class="reference internal" href="torch.jit.save.html#torch.jit.save" title="torch.jit.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.save</span></code></a></p>
 <p>All previously saved modules, no matter their device, are first loaded onto CPU,
-and then are moved to the devices they were saved from. If this fails (e.g. because
-the run time system doesn’t have certain devices), an exception is raised.</p>
+and then are moved to the devices they were saved from. If this fails (e.g.
+because the run time system doesn’t have certain devices), an exception is
+raised.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>f</strong> – a file-like object (has to implement read, readline, tell, and seek),
 or a string containing a file name</p></li>
-<li><p><strong>map_location</strong> (<em>string</em><em> or </em><a class="reference internal" href="../tensor_attributes.html#torch.torch.device" title="torch.torch.device"><em>torch.device</em></a>) – A simplified version of <code class="docutils literal notranslate"><span class="pre">map_location</span></code> in
-<code class="docutils literal notranslate"><span class="pre">torch.save</span></code> used to dynamically remap storages to an alternative set of devices.</p></li>
+<li><p><strong>map_location</strong> (<em>string</em><em> or </em><a class="reference internal" href="../tensor_attributes.html#torch.torch.device" title="torch.torch.device"><em>torch.device</em></a>) – A simplified version of
+<code class="docutils literal notranslate"><span class="pre">map_location</span></code> in <cite>torch.jit.save</cite> used to dynamically remap
+storages to an alternative set of devices.</p></li>
 <li><p><strong>_extra_files</strong> (<em>dictionary of filename to content</em>) – The extra
 filenames given in the map would be loaded and their content
 would be stored in the provided map.</p></li>

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="convtranspose2d">
 <h1>ConvTranspose2d<a class="headerlink" href="#convtranspose2d" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.ConvTranspose2d">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">ConvTranspose2d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_channels</span></em>, <em class="sig-param"><span class="n">out_channels</span></em>, <em class="sig-param"><span class="n">kernel_size</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">output_padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">groups</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">dilation</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding_mode</span><span class="o">=</span><span class="default_value">'zeros'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/conv.html#ConvTranspose2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ConvTranspose2d" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">ConvTranspose2d</code><span class="sig-paren">(</span><em class="sig-param">in_channels</em>, <em class="sig-param">out_channels</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">output_padding=0</em>, <em class="sig-param">groups=1</em>, <em class="sig-param">bias=True</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">padding_mode='zeros'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/conv.html#ConvTranspose2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ConvTranspose2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies a 2D transposed convolution operator over an input image
 composed of several input planes.</p>
 <p>This module can be seen as the gradient of Conv2d with respect to its input.
@@ -401,6 +401,15 @@ shape. <code class="xref py py-attr docutils literal notranslate"><span class="p
 effectively increasing the calculated output shape on one side. Note
 that <code class="xref py py-attr docutils literal notranslate"><span class="pre">output_padding</span></code> is only used to find output shape, but does
 not actually add zero-padding to output.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In some circumstances when using the CUDA backend with CuDNN, this operator
+may select a nondeterministic algorithm to increase performance. If this is
+undesirable, you can try to make the operation deterministic (potentially at
+a performance cost) by setting <code class="docutils literal notranslate"><span class="pre">torch.backends.cudnn.deterministic</span> <span class="pre">=</span>
+<span class="pre">True</span></code>.
+Please see the notes on <a class="reference internal" href="../notes/randomness.html"><span class="doc">Reproducibility</span></a> for background.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="conv2d">
 <h1>Conv2d<a class="headerlink" href="#conv2d" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.Conv2d">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">Conv2d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_channels</span></em>, <em class="sig-param"><span class="n">out_channels</span></em>, <em class="sig-param"><span class="n">kernel_size</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">dilation</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">groups</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">padding_mode</span><span class="o">=</span><span class="default_value">'zeros'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/conv.html#Conv2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.Conv2d" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">Conv2d</code><span class="sig-paren">(</span><em class="sig-param">in_channels</em>, <em class="sig-param">out_channels</em>, <em class="sig-param">kernel_size</em>, <em class="sig-param">stride=1</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">dilation=1</em>, <em class="sig-param">groups=1</em>, <em class="sig-param">bias=True</em>, <em class="sig-param">padding_mode='zeros'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/conv.html#Conv2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.Conv2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies a 2D convolution over an input signal composed of several input
 planes.</p>
 <p>In the simplest case, the output value of the layer with input size
@@ -405,6 +405,15 @@ literature as depthwise convolution.</p>
 a depthwise convolution with a depthwise multiplier <cite>K</cite>, can be constructed by arguments
 <span class="math">\((in\_channels=C_{in}, out\_channels=C_{in} \times K, ..., groups=C_{in})\)</span>.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In some circumstances when using the CUDA backend with CuDNN, this operator
+may select a nondeterministic algorithm to increase performance. If this is
+undesirable, you can try to make the operation deterministic (potentially at
+a performance cost) by setting <code class="docutils literal notranslate"><span class="pre">torch.backends.cudnn.deterministic</span> <span class="pre">=</span>
+<span class="pre">True</span></code>.
+Please see the notes on <a class="reference internal" href="../notes/randomness.html"><span class="doc">Reproducibility</span></a> for background.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -412,11 +421,15 @@ a depthwise convolution with a depthwise multiplier <cite>K</cite>, can be const
 <li><p><strong>out_channels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Number of channels produced by the convolution</p></li>
 <li><p><strong>kernel_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – Size of the convolving kernel</p></li>
 <li><p><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>, </em><em>optional</em>) – Stride of the convolution. Default: 1</p></li>
-<li><p><strong>padding</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>, </em><em>optional</em>) – Zero-padding added to both sides of the input. Default: 0</p></li>
-<li><p><strong>padding_mode</strong> (<em>string</em><em>, </em><em>optional</em>) – <code class="docutils literal notranslate"><span class="pre">'zeros'</span></code>, <code class="docutils literal notranslate"><span class="pre">'reflect'</span></code>, <code class="docutils literal notranslate"><span class="pre">'replicate'</span></code> or <code class="docutils literal notranslate"><span class="pre">'circular'</span></code>. Default: <code class="docutils literal notranslate"><span class="pre">'zeros'</span></code></p></li>
+<li><p><strong>padding</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>, </em><em>optional</em>) – Zero-padding added to both sides of
+the input. Default: 0</p></li>
+<li><p><strong>padding_mode</strong> (<em>string</em><em>, </em><em>optional</em>) – <code class="docutils literal notranslate"><span class="pre">'zeros'</span></code>, <code class="docutils literal notranslate"><span class="pre">'reflect'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'replicate'</span></code> or <code class="docutils literal notranslate"><span class="pre">'circular'</span></code>. Default: <code class="docutils literal notranslate"><span class="pre">'zeros'</span></code></p></li>
 <li><p><strong>dilation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em>, </em><em>optional</em>) – Spacing between kernel elements. Default: 1</p></li>
-<li><p><strong>groups</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Number of blocked connections from input channels to output channels. Default: 1</p></li>
-<li><p><strong>bias</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, adds a learnable bias to the output. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+<li><p><strong>groups</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Number of blocked connections from input
+channels to output channels. Default: 1</p></li>
+<li><p><strong>bias</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, adds a learnable bias to the
+output. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 </ul>
 </dd>
 </dl>
@@ -447,15 +460,16 @@ a depthwise convolution with a depthwise multiplier <cite>K</cite>, can be const
 The values of these weights are sampled from
 <span class="math">\(\mathcal{U}(-\sqrt{k}, \sqrt{k})\)</span> where
 <span class="math">\(k = \frac{groups}{C_\text{in} * \prod_{i=0}^{1}\text{kernel\_size}[i]}\)</span></p></li>
-<li><p><strong>~Conv2d.bias</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the learnable bias of the module of shape (out_channels). If <code class="xref py py-attr docutils literal notranslate"><span class="pre">bias</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>,
+<li><p><strong>~Conv2d.bias</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the learnable bias of the module of shape
+(out_channels). If <code class="xref py py-attr docutils literal notranslate"><span class="pre">bias</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>,
 then the values of these weights are
 sampled from <span class="math">\(\mathcal{U}(-\sqrt{k}, \sqrt{k})\)</span> where
 <span class="math">\(k = \frac{groups}{C_\text{in} * \prod_{i=0}^{1}\text{kernel\_size}[i]}\)</span></p></li>
 </ul>
 </dd>
 </dl>
-<p>Examples:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With square kernels and equal stride</span>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With square kernels and equal stride</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># non-square kernels and unequal stride and with padding</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>

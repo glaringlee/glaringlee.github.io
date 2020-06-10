@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,15 +339,15 @@
               
   <div class="section" id="basepruningmethod">
 <h1>BasePruningMethod<a class="headerlink" href="#basepruningmethod" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.utils.prune.BasePruningMethod">
 <em class="property">class </em><code class="sig-prename descclassname">torch.nn.utils.prune.</code><code class="sig-name descname">BasePruningMethod</code><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract base class for creation of new pruning techniques.</p>
 <p>Provides a skeleton for customization requiring the overriding of methods
 such as <a class="reference internal" href="#torch.nn.utils.prune.BasePruningMethod.compute_mask" title="torch.nn.utils.prune.BasePruningMethod.compute_mask"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_mask()</span></code></a> and <a class="reference internal" href="#torch.nn.utils.prune.BasePruningMethod.apply" title="torch.nn.utils.prune.BasePruningMethod.apply"><code class="xref py py-meth docutils literal notranslate"><span class="pre">apply()</span></code></a>.</p>
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.prune.BasePruningMethod.apply">
-<em class="property">classmethod </em><code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.apply" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">module</em>, <em class="sig-param">name</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds the forward pre-hook that enables pruning on the fly and
 the reparametrization of a tensor in terms of the original tensor
 and the pruning mask.</p>
@@ -366,9 +366,9 @@ will act.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.prune.BasePruningMethod.apply_mask">
-<code class="sig-name descname">apply_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.apply_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.apply_mask" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">apply_mask</code><span class="sig-paren">(</span><em class="sig-param">module</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.apply_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.apply_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simply handles the multiplication between the parameter being
 pruned and the generated mask.
 Fetches the mask and the original tensor from the module
@@ -386,9 +386,9 @@ and returns the pruned version of the tensor.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.prune.BasePruningMethod.compute_mask">
-<em class="property">abstract </em><code class="sig-name descname">compute_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">default_mask</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.compute_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.compute_mask" title="Permalink to this definition">¶</a></dt>
+<em class="property">abstract </em><code class="sig-name descname">compute_mask</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">default_mask</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.compute_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.compute_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes and returns a mask for the input tensor <code class="docutils literal notranslate"><span class="pre">t</span></code>.
 Starting from a base <code class="docutils literal notranslate"><span class="pre">default_mask</span></code> (which should be a mask of ones
 if the tensor has not been pruned yet), generate a random mask to
@@ -398,9 +398,9 @@ method recipe.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a>) – tensor representing the parameter to prune</p></li>
-<li><p><strong>default_mask</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a>) – Base mask from previous pruning
-iterations, that need to be respected after the new mask is
-applied. Same dims as <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p></li>
+<li><p><strong>default_mask</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>torch.Tensor</em></a>) – Base mask from previous pruning</p></li>
+<li><p><strong>that need to be respected after the new mask is</strong> (<em>iterations</em><em>,</em>) – </p></li>
+<li><p><strong>Same dims as t.</strong> (<em>applied.</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -412,9 +412,9 @@ applied. Same dims as <code class="docutils literal notranslate"><span class="pr
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.prune.BasePruningMethod.prune">
-<code class="sig-name descname">prune</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">default_mask</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.prune"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.prune" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">prune</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">default_mask=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.prune"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.prune" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes and returns a pruned version of input tensor <code class="docutils literal notranslate"><span class="pre">t</span></code>
 according to the pruning rule specified in <a class="reference internal" href="#torch.nn.utils.prune.BasePruningMethod.compute_mask" title="torch.nn.utils.prune.BasePruningMethod.compute_mask"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute_mask()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -434,9 +434,9 @@ default to a mask of ones.</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.prune.BasePruningMethod.remove">
-<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.remove" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param">module</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/prune.html#BasePruningMethod.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.prune.BasePruningMethod.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes the pruning reparameterization from a module. The pruned
 parameter named <code class="docutils literal notranslate"><span class="pre">name</span></code> remains permanently pruned, and the parameter
 named <code class="docutils literal notranslate"><span class="pre">name+'_orig'</span></code> is removed from the parameter list. Similarly,

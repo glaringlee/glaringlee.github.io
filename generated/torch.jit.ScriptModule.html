@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,15 +339,15 @@
               
   <div class="section" id="scriptmodule">
 <h1>ScriptModule<a class="headerlink" href="#scriptmodule" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.jit.ScriptModule">
 <em class="property">class </em><code class="sig-prename descclassname">torch.jit.</code><code class="sig-name descname">ScriptModule</code><a class="reference internal" href="../_modules/torch/jit.html#ScriptModule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.jit.ScriptModule" title="Permalink to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="pre">ScriptModule``s</span> <span class="pre">wrap</span> <span class="pre">a</span> <span class="pre">C++</span> <span class="pre">``torch::jit::Module</span></code>. <code class="docutils literal notranslate"><span class="pre">ScriptModule``s</span>
 <span class="pre">contain</span> <span class="pre">methods,</span> <span class="pre">attributes,</span> <span class="pre">parameters,</span> <span class="pre">and</span>
 <span class="pre">constants.</span> <span class="pre">These</span> <span class="pre">can</span> <span class="pre">be</span> <span class="pre">accessed</span> <span class="pre">the</span> <span class="pre">same</span> <span class="pre">as</span> <span class="pre">on</span> <span class="pre">a</span> <span class="pre">normal</span> <span class="pre">``nn.Module</span></code>.</p>
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.add_module">
-<code class="sig-name descname">add_module</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">module</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.add_module" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_module</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">module</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.add_module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a child module to the current module.</p>
 <p>The module can be accessed as an attribute using the given name.</p>
 <dl class="field-list simple">
@@ -361,9 +361,9 @@ accessed from this module using the given name</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.apply">
-<code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.apply" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">fn</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies <code class="docutils literal notranslate"><span class="pre">fn</span></code> recursively to every submodule (as returned by <code class="docutils literal notranslate"><span class="pre">.children()</span></code>)
 as well as self. Typical use includes initializing the parameters of a model
 (see also <a class="reference internal" href="../nn.init.html#nn-init-doc"><span class="std std-ref">torch.nn.init</span></a>).</p>
@@ -407,7 +407,7 @@ as well as self. Typical use includes initializing the parameters of a model
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.bfloat16">
 <code class="sig-name descname">bfloat16</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.bfloat16" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> datatype.</p>
@@ -421,9 +421,9 @@ as well as self. Typical use includes initializing the parameters of a model
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.buffers">
-<code class="sig-name descname">buffers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recurse</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.buffers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">buffers</code><span class="sig-paren">(</span><em class="sig-param">recurse=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.buffers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over module buffers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -444,7 +444,7 @@ are direct members of this module.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.children">
 <code class="sig-name descname">children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over immediate children modules.</p>
@@ -455,15 +455,26 @@ are direct members of this module.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.code">
 <em class="property">property </em><code class="sig-name descname">code</code><a class="headerlink" href="#torch.jit.ScriptModule.code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a pretty-printed representation (as valid Python syntax) of
-the internal graph for the <code class="docutils literal notranslate"><span class="pre">forward</span></code> method. See <a href="#id4"><span class="problematic" id="id5">`Inspecting Code`_</span></a>
+the internal graph for the <code class="docutils literal notranslate"><span class="pre">forward</span></code> method. See <a href="#id1"><span class="problematic" id="id2">`Inspecting Code`_</span></a>
 for details.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
+<dt id="torch.jit.ScriptModule.code_with_constants">
+<em class="property">property </em><code class="sig-name descname">code_with_constants</code><a class="headerlink" href="#torch.jit.ScriptModule.code_with_constants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple of:</p>
+<p>[0] a pretty-printed representation (as valid Python syntax) of
+the internal graph for the <code class="docutils literal notranslate"><span class="pre">forward</span></code> method. See <cite>code</cite>.
+[1] a ConstMap following the CONSTANT.cN format of the output in [0].
+The indices in the [0] output are keys to the underlying constant’s values.</p>
+<p>See <a href="#id3"><span class="problematic" id="id4">`Inspecting Code`_</span></a> for details.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="torch.jit.ScriptModule.cpu">
 <code class="sig-name descname">cpu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.cpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves all model parameters and buffers to the CPU.</p>
@@ -477,9 +488,9 @@ for details.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.cuda">
-<code class="sig-name descname">cuda</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.cuda" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cuda</code><span class="sig-paren">(</span><em class="sig-param">device=None</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.cuda" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves all model parameters and buffers to the GPU.</p>
 <p>This also makes associated parameters and buffers different objects. So
 it should be called before constructing optimizer if the module will
@@ -498,7 +509,7 @@ copied to that device</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.double">
 <code class="sig-name descname">double</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">double</span></code> datatype.</p>
@@ -512,7 +523,7 @@ copied to that device</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.eval">
 <code class="sig-name descname">eval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.eval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the module in evaluation mode.</p>
@@ -531,7 +542,7 @@ etc.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.extra_repr">
 <code class="sig-name descname">extra_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.extra_repr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the extra representation of the module</p>
@@ -540,7 +551,7 @@ this method in your own modules. Both single-line and multi-line
 strings are acceptable.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.float">
 <code class="sig-name descname">float</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all floating point parameters and buffers to float datatype.</p>
@@ -554,14 +565,14 @@ strings are acceptable.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.graph">
 <em class="property">property </em><code class="sig-name descname">graph</code><a class="headerlink" href="#torch.jit.ScriptModule.graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a string representation of the internal graph for the
-<code class="docutils literal notranslate"><span class="pre">forward</span></code> method. See <a href="#id6"><span class="problematic" id="id7">`Interpreting Graphs`_</span></a> for details.</p>
+<code class="docutils literal notranslate"><span class="pre">forward</span></code> method. See <a href="#id5"><span class="problematic" id="id6">`Interpreting Graphs`_</span></a> for details.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.half">
 <code class="sig-name descname">half</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.half" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">half</span></code> datatype.</p>
@@ -575,17 +586,17 @@ strings are acceptable.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.inlined_graph">
 <em class="property">property </em><code class="sig-name descname">inlined_graph</code><a class="headerlink" href="#torch.jit.ScriptModule.inlined_graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a string representation of the internal graph for the
 <code class="docutils literal notranslate"><span class="pre">forward</span></code> method. This graph will be preprocessed to inline all function and method calls.
-See <a href="#id8"><span class="problematic" id="id9">`Interpreting Graphs`_</span></a> for details.</p>
+See <a href="#id7"><span class="problematic" id="id8">`Interpreting Graphs`_</span></a> for details.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.load_state_dict">
-<code class="sig-name descname">load_state_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state_dict</span></em>, <em class="sig-param"><span class="n">strict</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.load_state_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load_state_dict</code><span class="sig-paren">(</span><em class="sig-param">state_dict</em>, <em class="sig-param">strict=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.load_state_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies parameters and buffers from <a class="reference internal" href="#torch.jit.ScriptModule.state_dict" title="torch.jit.ScriptModule.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> into
 this module and its descendants. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">strict</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, then
 the keys of <a class="reference internal" href="#torch.jit.ScriptModule.state_dict" title="torch.jit.ScriptModule.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> must exactly match the keys returned
@@ -613,7 +624,7 @@ in <a class="reference internal" href="#torch.jit.ScriptModule.state_dict" title
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.modules">
 <code class="sig-name descname">modules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.modules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over all modules in the network.</p>
@@ -642,9 +653,9 @@ example, <code class="docutils literal notranslate"><span class="pre">l</span></
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.named_buffers">
-<code class="sig-name descname">named_buffers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">recurse</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.named_buffers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">named_buffers</code><span class="sig-paren">(</span><em class="sig-param">prefix=''</em>, <em class="sig-param">recurse=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.named_buffers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over module buffers, yielding both the
 name of the buffer as well as the buffer itself.</p>
 <dl class="field-list simple">
@@ -668,7 +679,7 @@ are direct members of this module.</p></li>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.named_children">
 <code class="sig-name descname">named_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.named_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over immediate children modules, yielding both
@@ -686,9 +697,9 @@ the name of the module as well as the module itself.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.named_modules">
-<code class="sig-name descname">named_modules</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memo</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.named_modules" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">named_modules</code><span class="sig-paren">(</span><em class="sig-param">memo=None</em>, <em class="sig-param">prefix=''</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.named_modules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over all modules in the network, yielding
 both the name of the module as well as the module itself.</p>
 <dl class="field-list simple">
@@ -716,9 +727,9 @@ example, <code class="docutils literal notranslate"><span class="pre">l</span></
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.named_parameters">
-<code class="sig-name descname">named_parameters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">recurse</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.named_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">named_parameters</code><span class="sig-paren">(</span><em class="sig-param">prefix=''</em>, <em class="sig-param">recurse=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.named_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over module parameters, yielding both the
 name of the parameter as well as the parameter itself.</p>
 <dl class="field-list simple">
@@ -742,9 +753,9 @@ are direct members of this module.</p></li>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.parameters">
-<code class="sig-name descname">parameters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recurse</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parameters</code><span class="sig-paren">(</span><em class="sig-param">recurse=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over module parameters.</p>
 <p>This is typically passed to an optimizer.</p>
 <dl class="field-list simple">
@@ -766,29 +777,10 @@ are direct members of this module.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.register_backward_hook">
-<code class="sig-name descname">register_backward_hook</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hook</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_backward_hook" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_backward_hook</code><span class="sig-paren">(</span><em class="sig-param">hook</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_backward_hook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a backward hook on the module.</p>
-<p>The hook will be called every time the gradients with respect to module
-inputs are computed. The hook should have the following signature:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">grad_input</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span> <span class="ow">or</span> <span class="kc">None</span>
-</pre></div>
-</div>
-<p>The <code class="xref py py-attr docutils literal notranslate"><span class="pre">grad_input</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">grad_output</span></code> may be tuples if the
-module has multiple inputs or outputs. The hook should not modify its
-arguments, but it can optionally return a new gradient with respect to
-input that will be used in place of <code class="xref py py-attr docutils literal notranslate"><span class="pre">grad_input</span></code> in subsequent
-computations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>a handle that can be used to remove the added hook by calling
-<code class="docutils literal notranslate"><span class="pre">handle.remove()</span></code></p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.hooks.RemovableHandle</span></code></p>
-</dd>
-</dl>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The current implementation will not have the presented behavior
@@ -798,15 +790,40 @@ contain the gradients for a subset of the inputs and outputs.
 For such <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code>, you should use <a class="reference internal" href="../autograd.html#torch.Tensor.register_hook" title="torch.Tensor.register_hook"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.register_hook()</span></code></a>
 directly on a specific input or output to get the required gradients.</p>
 </div>
+<p>The hook will be called every time the gradients with respect to module
+inputs are computed. The hook should have the following signature:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">grad_input</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span> <span class="ow">or</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>The <code class="xref py py-attr docutils literal notranslate"><span class="pre">grad_input</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">grad_output</span></code> may be tuples if the
+module has multiple inputs or outputs. The hook should not modify its
+arguments, but it can optionally return a new gradient with respect to
+input that will be used in place of <code class="xref py py-attr docutils literal notranslate"><span class="pre">grad_input</span></code> in subsequent
+computations. <code class="xref py py-attr docutils literal notranslate"><span class="pre">grad_input</span></code> will only correspond to the inputs given
+as positional arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a handle that can be used to remove the added hook by calling
+<code class="docutils literal notranslate"><span class="pre">handle.remove()</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.hooks.RemovableHandle</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.register_buffer">
-<code class="sig-name descname">register_buffer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">tensor</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_buffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a persistent buffer to the module.</p>
+<code class="sig-name descname">register_buffer</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">tensor</em>, <em class="sig-param">persistent=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a buffer to the module.</p>
 <p>This is typically used to register a buffer that should not to be
 considered a model parameter. For example, BatchNorm’s <code class="docutils literal notranslate"><span class="pre">running_mean</span></code>
-is not a parameter, but is part of the persistent state.</p>
+is not a parameter, but is part of the module’s state. Buffers, by
+default, are persistent and will be saved alongside parameters. This
+behavior can be changed by setting <code class="xref py py-attr docutils literal notranslate"><span class="pre">persistent</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code>. The
+only difference between a persistent buffer and a non-persistent buffer
+is that the latter will not be a part of this module’s
+<a class="reference internal" href="#torch.jit.ScriptModule.state_dict" title="torch.jit.ScriptModule.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p>
 <p>Buffers can be accessed as attributes using given names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -814,6 +831,8 @@ is not a parameter, but is part of the persistent state.</p>
 <li><p><strong>name</strong> (<em>string</em>) – name of the buffer. The buffer can be accessed
 from this module using the given name</p></li>
 <li><p><strong>tensor</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – buffer to be registered.</p></li>
+<li><p><strong>persistent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – whether the buffer is part of this module’s
+<a class="reference internal" href="#torch.jit.ScriptModule.state_dict" title="torch.jit.ScriptModule.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -823,16 +842,18 @@ from this module using the given name</p></li>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.register_forward_hook">
-<code class="sig-name descname">register_forward_hook</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hook</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_forward_hook" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_forward_hook</code><span class="sig-paren">(</span><em class="sig-param">hook</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_forward_hook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a forward hook on the module.</p>
 <p>The hook will be called every time after <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> has computed an output.
 It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">modified</span> <span class="n">output</span>
 </pre></div>
 </div>
-<p>The hook can modify the output. It can modify the input inplace but
+<p>The input contains only the positional arguments given to the module.
+Keyword arguments won’t be passed to the hooks and only to the <code class="docutils literal notranslate"><span class="pre">forward</span></code>.
+The hook can modify the output. It can modify the input inplace but
 it will not have effect on forward since this is called after
 <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> is called.</p>
 <dl class="field-list simple">
@@ -846,16 +867,18 @@ it will not have effect on forward since this is called after
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.register_forward_pre_hook">
-<code class="sig-name descname">register_forward_pre_hook</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hook</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_forward_pre_hook" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_forward_pre_hook</code><span class="sig-paren">(</span><em class="sig-param">hook</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_forward_pre_hook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a forward pre-hook on the module.</p>
 <p>The hook will be called every time before <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> is invoked.
 It should have the following signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hook</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">modified</span> <span class="nb">input</span>
 </pre></div>
 </div>
-<p>The hook can modify the input. User can either return a tuple or a
+<p>The input contains only the positional arguments given to the module.
+Keyword arguments won’t be passed to the hooks and only to the <code class="docutils literal notranslate"><span class="pre">forward</span></code>.
+The hook can modify the input. User can either return a tuple or a
 single modified value in the hook. We will wrap the value into a tuple
 if a single value is returned(unless that value is already a tuple).</p>
 <dl class="field-list simple">
@@ -869,9 +892,9 @@ if a single value is returned(unless that value is already a tuple).</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.register_parameter">
-<code class="sig-name descname">register_parameter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">param</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_parameter</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">param</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.register_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a parameter to the module.</p>
 <p>The parameter can be accessed as an attribute using given name.</p>
 <dl class="field-list simple">
@@ -885,9 +908,9 @@ from this module using the given name</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.requires_grad_">
-<code class="sig-name descname">requires_grad_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">requires_grad</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.requires_grad_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">requires_grad_</code><span class="sig-paren">(</span><em class="sig-param">requires_grad=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.requires_grad_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change if autograd should record operations on parameters in this
 module.</p>
 <p>This method sets the parameters’ <code class="xref py py-attr docutils literal notranslate"><span class="pre">requires_grad</span></code> attributes
@@ -908,15 +931,15 @@ parameters in this module. Default: <code class="docutils literal notranslate"><
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.save">
 <code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">f</em>, <em class="sig-param">_extra_files=ExtraFilesMap{}</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>See <a class="reference internal" href="torch.jit.save.html#torch.jit.save" title="torch.jit.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.save</span></code></a> for details.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.state_dict">
-<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">destination</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">keep_vars</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.state_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><em class="sig-param">destination=None</em>, <em class="sig-param">prefix=''</em>, <em class="sig-param">keep_vars=False</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.state_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dictionary containing a whole state of the module.</p>
 <p>Both parameters and persistent buffers (e.g. running averages) are
 included. Keys are corresponding parameter and buffer names.</p>
@@ -935,32 +958,32 @@ included. Keys are corresponding parameter and buffer names.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.to">
-<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.to" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.to" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves and/or casts the parameters and buffers.</p>
 <p>This can be called as</p>
-<dl class="py function">
-<dt id="id0">
-<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">non_blocking</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt>
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param">device=None</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">non_blocking=False</em><span class="sig-paren">)</span></dt>
 <dd></dd></dl>
 
-<dl class="py function">
-<dt id="id1">
-<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dtype</span></em>, <em class="sig-param"><span class="n">non_blocking</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt>
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param">dtype</em>, <em class="sig-param">non_blocking=False</em><span class="sig-paren">)</span></dt>
 <dd></dd></dl>
 
-<dl class="py function">
-<dt id="id2">
-<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em>, <em class="sig-param"><span class="n">non_blocking</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt>
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">non_blocking=False</em><span class="sig-paren">)</span></dt>
 <dd></dd></dl>
 
-<dl class="py function">
-<dt id="id3">
-<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">memory_format</span><span class="o">=</span><span class="default_value">torch.channels_last</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt>
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param">memory_format=torch.channels_last</em><span class="sig-paren">)</span></dt>
 <dd></dd></dl>
 
-<p>Its signature is similar to <a class="reference internal" href="../tensors.html#id8" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.to()</span></code></a>, but only accepts
+<p>Its signature is similar to <a class="reference internal" href="../tensors.html#torch.Tensor.to" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.to()</span></code></a>, but only accepts
 floating point desired <code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype</span></code> s. In addition, this method will
 only cast the floating point parameters and buffers to <code class="xref py py-attr docutils literal notranslate"><span class="pre">dtype</span></code>
 (if given). The integral parameters and buffers will be moved
@@ -1024,9 +1047,9 @@ only argument)</p></li>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.train">
-<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.train" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">mode=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.train" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the module in training mode.</p>
 <p>This has any effect only on certain modules. See documentations of
 particular modules for details of their behaviors in training/evaluation
@@ -1046,9 +1069,9 @@ mode (<code class="docutils literal notranslate"><span class="pre">False</span><
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.type">
-<code class="sig-name descname">type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dst_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">type</code><span class="sig-paren">(</span><em class="sig-param">dst_type</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all parameters and buffers to <code class="xref py py-attr docutils literal notranslate"><span class="pre">dst_type</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1063,7 +1086,7 @@ mode (<code class="docutils literal notranslate"><span class="pre">False</span><
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.jit.ScriptModule.zero_grad">
 <code class="sig-name descname">zero_grad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.jit.ScriptModule.zero_grad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets gradients of all model parameters to zero.</p>

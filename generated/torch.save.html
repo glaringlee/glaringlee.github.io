@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,7 +339,7 @@
               
   <div class="section" id="torch-save">
 <h1>torch.save<a class="headerlink" href="#torch-save" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.save">
 <code class="sig-prename descclassname">torch.</code><code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">obj</em>, <em class="sig-param">f</em>, <em class="sig-param">pickle_module=&lt;module 'pickle' from '/home/lixinyu/local/anaconda3/envs/pytorch/lib/python3.8/pickle.py'&gt;</em>, <em class="sig-param">pickle_protocol=2</em>, <em class="sig-param">_use_new_zipfile_serialization=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/serialization.html#save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves an object to a disk file.</p>
@@ -355,6 +355,10 @@ containing a file name</p></li>
 </ul>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A common PyTorch convention is to save tensors using .pt file extension.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you are using Python 2, <a class="reference internal" href="#torch.save" title="torch.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.save()</span></code></a> does NOT support <code class="xref py py-class docutils literal notranslate"><span class="pre">StringIO.StringIO</span></code>

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,16 +339,17 @@
               
   <div class="section" id="torch-from-numpy">
 <h1>torch.from_numpy<a class="headerlink" href="#torch-from-numpy" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.from_numpy">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">from_numpy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ndarray</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.from_numpy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">from_numpy</code><span class="sig-paren">(</span><em class="sig-param">ndarray</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.from_numpy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a> from a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.18)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.</p>
 <p>The returned tensor and <code class="xref py py-attr docutils literal notranslate"><span class="pre">ndarray</span></code> share the same memory. Modifications to
 the tensor will be reflected in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">ndarray</span></code> and vice versa. The returned
 tensor is not resizable.</p>
 <p>It currently accepts <code class="xref py py-attr docutils literal notranslate"><span class="pre">ndarray</span></code> with dtypes of <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code>,
-<code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.float16</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.int64</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.int32</span></code>,
-<code class="docutils literal notranslate"><span class="pre">numpy.int16</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.int8</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.uint8</span></code>, and <code class="docutils literal notranslate"><span class="pre">numpy.bool</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">numpy.float32</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.float16</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.complex64</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.complex128</span></code>,
+<code class="docutils literal notranslate"><span class="pre">numpy.int64</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.int32</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.int16</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.int8</span></code>, <code class="docutils literal notranslate"><span class="pre">numpy.uint8</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">numpy.bool</span></code>.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>

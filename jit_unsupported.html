@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -349,8 +349,8 @@ file a GitHub issue. Deprecated ops are not listed below.</p>
 <h3>Unsupported Tensor Methods<a class="headerlink" href="#unsupported-tensor-methods" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference internal" href="named_tensor.html#torch.Tensor.align_to" title="torch.Tensor.align_to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">align_to()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.apply_" title="torch.Tensor.apply_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">apply_()</span></code></a></p></li>
+<li><p><a class="reference internal" href="tensors.html#torch.Tensor.as_subclass" title="torch.Tensor.as_subclass"><code class="xref py py-meth docutils literal notranslate"><span class="pre">as_subclass()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.bfloat16" title="torch.Tensor.bfloat16"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bfloat16()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.bool" title="torch.Tensor.bool"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bool()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.data_ptr" title="torch.Tensor.data_ptr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">data_ptr()</span></code></a></p></li>
@@ -363,16 +363,11 @@ file a GitHub issue. Deprecated ops are not listed below.</p>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.new_tensor" title="torch.Tensor.new_tensor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">new_tensor()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.numpy" title="torch.Tensor.numpy"><code class="xref py py-meth docutils literal notranslate"><span class="pre">numpy()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.record_stream" title="torch.Tensor.record_stream"><code class="xref py py-meth docutils literal notranslate"><span class="pre">record_stream()</span></code></a></p></li>
-<li><p><a class="reference internal" href="named_tensor.html#torch.Tensor.refine_names" title="torch.Tensor.refine_names"><code class="xref py py-meth docutils literal notranslate"><span class="pre">refine_names()</span></code></a></p></li>
 <li><p><a class="reference internal" href="autograd.html#torch.Tensor.register_hook" title="torch.Tensor.register_hook"><code class="xref py py-meth docutils literal notranslate"><span class="pre">register_hook()</span></code></a></p></li>
-<li><p><a class="reference internal" href="named_tensor.html#torch.Tensor.rename" title="torch.Tensor.rename"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rename()</span></code></a></p></li>
-<li><p><a class="reference internal" href="named_tensor.html#torch.Tensor.rename_" title="torch.Tensor.rename_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">rename_()</span></code></a></p></li>
-<li><p><a class="reference internal" href="autograd.html#torch.Tensor.retain_grad" title="torch.Tensor.retain_grad"><code class="xref py py-meth docutils literal notranslate"><span class="pre">retain_grad()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.share_memory_" title="torch.Tensor.share_memory_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">share_memory_()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.storage" title="torch.Tensor.storage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">storage()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.storage_type" title="torch.Tensor.storage_type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">storage_type()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.type" title="torch.Tensor.type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">type()</span></code></a></p></li>
-<li><p><a class="reference internal" href="named_tensor.html#torch.Tensor.unflatten" title="torch.Tensor.unflatten"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unflatten()</span></code></a></p></li>
 <li><p><a class="reference internal" href="tensors.html#torch.Tensor.unique" title="torch.Tensor.unique"><code class="xref py py-meth docutils literal notranslate"><span class="pre">unique()</span></code></a></p></li>
 </ul>
 </div></blockquote>
@@ -422,7 +417,7 @@ argument, except for <cite>torch.tensor</cite>. This covers the following ops:</
 <li><p><a class="reference internal" href="generated/torch.hann_window.html#torch.hann_window" title="torch.hann_window"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.hann_window()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.linspace.html#torch.linspace" title="torch.linspace"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.linspace()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.logspace.html#torch.logspace" title="torch.logspace"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.logspace()</span></code></a></p></li>
-<li><p><a class="reference internal" href="torch.html#torch.normal" title="torch.normal"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.normal()</span></code></a></p></li>
+<li><p><a class="reference internal" href="generated/torch.normal.html#torch.normal" title="torch.normal"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.normal()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.ones.html#torch.ones" title="torch.ones"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.ones()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.rand.html#torch.rand" title="torch.rand"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.rand()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.rand_like.html#torch.rand_like" title="torch.rand_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.rand_like()</span></code></a></p></li>
@@ -432,7 +427,7 @@ argument, except for <cite>torch.tensor</cite>. This covers the following ops:</
 <li><p><a class="reference internal" href="generated/torch.randperm.html#torch.randperm" title="torch.randperm"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.randperm()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.tril_indices.html#torch.tril_indices" title="torch.tril_indices"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.tril_indices()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.triu_indices.html#torch.triu_indices" title="torch.triu_indices"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.triu_indices()</span></code></a></p></li>
-<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vander()</span></code></p></li>
+<li><p><a class="reference internal" href="generated/torch.vander.html#torch.vander" title="torch.vander"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.vander()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.zeros.html#torch.zeros" title="torch.zeros"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.zeros()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.zeros_like.html#torch.zeros_like" title="torch.zeros_like"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.zeros_like()</span></code></a></p></li>
 </ul>
@@ -443,7 +438,7 @@ but these parameters are optional in Python.</p>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="generated/torch.randint.html#torch.randint" title="torch.randint"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.randint()</span></code></a></p></li>
 <li><p><a class="reference internal" href="generated/torch.sparse_coo_tensor.html#torch.sparse_coo_tensor" title="torch.sparse_coo_tensor"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.sparse_coo_tensor()</span></code></a></p></li>
-<li><p><a class="reference internal" href="tensors.html#id8" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to()</span></code></a></p></li>
+<li><p><a class="reference internal" href="tensors.html#torch.Tensor.to" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to()</span></code></a></p></li>
 </ul>
 </div></blockquote>
 </div>

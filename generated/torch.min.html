@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,15 +339,14 @@
               
   <div class="section" id="torch-min">
 <h1>torch.min<a class="headerlink" href="#torch-min" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.min">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.min" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py function">
-<dt id="id0">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>Returns the minimum value of all elements in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> tensor.</p>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param">input</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the minimum value of all elements in the <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> tensor.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This function produces deterministic (sub)gradients unlike <code class="docutils literal notranslate"><span class="pre">min(dim=0)</span></code></p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the input tensor.</p>
@@ -361,9 +360,9 @@
 <span class="go">tensor(0.6750)</span>
 </pre></div>
 </div>
-<dl class="py function">
-<dt id="id1">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">dim</span></em>, <em class="sig-param"><span class="n">keepdim</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">out</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">dim</em>, <em class="sig-param">keepdim=False</em>, <em class="sig-param">out=None) -&gt; (Tensor</em>, <em class="sig-param">LongTensor</em><span class="sig-paren">)</span></dt>
 <dd></dd></dl>
 
 <p>Returns a namedtuple <code class="docutils literal notranslate"><span class="pre">(values,</span> <span class="pre">indices)</span></code> where <code class="docutils literal notranslate"><span class="pre">values</span></code> is the minimum
@@ -375,7 +374,8 @@ value of each row of the <code class="xref py py-attr docutils literal notransla
 <p><code class="docutils literal notranslate"><span class="pre">indices</span></code> does not necessarily contain the first occurrence of each
 minimal value found, unless it is unique.
 The exact implementation details are device-specific.
-Do not expect the same result when run on CPU and GPU in general.</p>
+Do not expect the same result when run on CPU and GPU in general.
+For the same reason do not expect the gradients to be deterministic.</p>
 </div>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the output tensors are of the same size as
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> except in the dimension <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> where they are of size 1.
@@ -402,9 +402,9 @@ the output tensors having 1 fewer dimension than <code class="xref py py-attr do
 <span class="go">torch.return_types.min(values=tensor([-1.1899, -1.4644,  0.0384, -0.1153]), indices=tensor([2, 0, 1, 0]))</span>
 </pre></div>
 </div>
-<dl class="py function">
-<dt id="id2">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">out</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">min</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">other</em>, <em class="sig-param">out=None</em><span class="sig-paren">)</span> &#x2192; Tensor</dt>
 <dd></dd></dl>
 
 <p>Each element of the tensor <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> is compared with the corresponding

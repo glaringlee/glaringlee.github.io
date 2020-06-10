@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -346,7 +346,7 @@ of the selected device, and the results will be always placed in on the same
 device as the tensor.</p>
 <p>Cross-GPU operations are not allowed by default, with the exception of
 <a class="reference internal" href="../tensors.html#torch.Tensor.copy_" title="torch.Tensor.copy_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">copy_()</span></code></a> and other methods with copy-like functionality
-such as <a class="reference internal" href="../tensors.html#id8" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to()</span></code></a> and <a class="reference internal" href="../tensors.html#torch.Tensor.cuda" title="torch.Tensor.cuda"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cuda()</span></code></a>.
+such as <a class="reference internal" href="../tensors.html#torch.Tensor.to" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to()</span></code></a> and <a class="reference internal" href="../tensors.html#torch.Tensor.cuda" title="torch.Tensor.cuda"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cuda()</span></code></a>.
 Unless you enable peer-to-peer memory access, any attempts to launch ops on
 tensors spread across different devices will raise an error.</p>
 <p>Below you can find a small example showcasing this:</p>
@@ -416,7 +416,7 @@ to record times as following:</p>
 <span class="n">elapsed_time_ms</span> <span class="o">=</span> <span class="n">start_event</span><span class="o">.</span><span class="n">elapsed_time</span><span class="p">(</span><span class="n">end_event</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>As an exception, several functions such as <a class="reference internal" href="../tensors.html#id8" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to()</span></code></a> and
+<p>As an exception, several functions such as <a class="reference internal" href="../tensors.html#torch.Tensor.to" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to()</span></code></a> and
 <a class="reference internal" href="../tensors.html#torch.Tensor.copy_" title="torch.Tensor.copy_"><code class="xref py py-meth docutils literal notranslate"><span class="pre">copy_()</span></code></a> admit an explicit <code class="xref py py-attr docutils literal notranslate"><span class="pre">non_blocking</span></code> argument,
 which lets the caller bypass synchronization when it is unnecessary.
 Another exception is CUDA streams, explained below.</p>
@@ -587,7 +587,7 @@ memory. CPU tensors and storages expose a <a class="reference internal" href="..
 method, that returns a copy of the object, with data put in a pinned region.</p>
 <p>Also, once you pin a tensor or storage, you can use asynchronous GPU copies.
 Just pass an additional <code class="docutils literal notranslate"><span class="pre">non_blocking=True</span></code> argument to a
-<a class="reference internal" href="../tensors.html#id8" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to()</span></code></a> or a <a class="reference internal" href="../tensors.html#torch.Tensor.cuda" title="torch.Tensor.cuda"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cuda()</span></code></a> call. This can be used
+<a class="reference internal" href="../tensors.html#torch.Tensor.to" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">to()</span></code></a> or a <a class="reference internal" href="../tensors.html#torch.Tensor.cuda" title="torch.Tensor.cuda"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cuda()</span></code></a> call. This can be used
 to overlap data transfers with computation.</p>
 <p>You can make the <a class="reference internal" href="../data.html#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> return batches placed in
 pinned memory by passing <code class="docutils literal notranslate"><span class="pre">pin_memory=True</span></code> to its constructor.</p>

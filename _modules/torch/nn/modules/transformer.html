@@ -157,7 +157,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -334,8 +334,11 @@
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
   <h1>Source code for torch.nn.modules.transformer</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">copy</span>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
 <span class="kn">from</span> <span class="nn">.module</span> <span class="kn">import</span> <span class="n">Module</span>
 <span class="kn">from</span> <span class="nn">.activation</span> <span class="kn">import</span> <span class="n">MultiheadAttention</span>
@@ -346,7 +349,7 @@
 <span class="kn">from</span> <span class="nn">.normalization</span> <span class="kn">import</span> <span class="n">LayerNorm</span>
 
 
-<span class="k">class</span> <span class="nc">Transformer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="Transformer"><a class="viewcode-back" href="../../../../generated/torch.nn.Transformer.html#torch.nn.Transformer">[docs]</a><span class="k">class</span> <span class="nc">Transformer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;A transformer model. User is able to modify the attributes as needed. The architecture</span>
 <span class="sd">    is based on the paper &quot;Attention Is All You Need&quot;. Ashish Vaswani, Noam Shazeer,</span>
 <span class="sd">    Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Lukasz Kaiser, and</span>
@@ -399,7 +402,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">d_model</span> <span class="o">=</span> <span class="n">d_model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nhead</span> <span class="o">=</span> <span class="n">nhead</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">tgt</span><span class="p">,</span> <span class="n">src_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tgt_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Transformer.forward"><a class="viewcode-back" href="../../../../generated/torch.nn.Transformer.html#torch.nn.Transformer.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">tgt</span><span class="p">,</span> <span class="n">src_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tgt_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">memory_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_key_padding_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">tgt_key_padding_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">memory_key_padding_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># type: (Tensor, Tensor, Optional[Tensor], Optional[Tensor], Optional[Tensor], Optional[Tensor], Optional[Tensor], Optional[Tensor]) -&gt; Tensor  # noqa</span>
@@ -425,14 +428,15 @@
 <span class="sd">            - tgt_key_padding_mask: :math:`(N, T)`.</span>
 <span class="sd">            - memory_key_padding_mask: :math:`(N, S)`.</span>
 
-<span class="sd">            Note: [src/tgt/memory]_mask should be filled with</span>
-<span class="sd">            float(&#39;-inf&#39;) for the masked positions and float(0.0) else. These masks</span>
-<span class="sd">            ensure that predictions for position i depend only on the unmasked positions</span>
-<span class="sd">            j and are applied identically for each sequence in a batch.</span>
-<span class="sd">            [src/tgt/memory]_key_padding_mask should be a ByteTensor where True values are positions</span>
-<span class="sd">            that should be masked with float(&#39;-inf&#39;) and False values will be unchanged.</span>
-<span class="sd">            This mask ensures that no information will be taken from position i if</span>
-<span class="sd">            it is masked, and has a separate mask for each sequence in a batch.</span>
+<span class="sd">            Note: [src/tgt/memory]_mask ensures that position i is allowed to attend the unmasked</span>
+<span class="sd">            positions. If a ByteTensor is provided, the non-zero positions are not allowed to attend</span>
+<span class="sd">            while the zero positions will be unchanged. If a BoolTensor is provided, positions with ``True``</span>
+<span class="sd">            are not allowed to attend while ``False`` values will be unchanged. If a FloatTensor</span>
+<span class="sd">            is provided, it will be added to the attention weight. </span>
+<span class="sd">            [src/tgt/memory]_key_padding_mask provides specified elements in the key to be ignored by</span>
+<span class="sd">            the attention. If a ByteTensor is provided, the non-zero positions will be ignored while the zero</span>
+<span class="sd">            positions will be unchanged. If a BoolTensor is provided, the positions with the</span>
+<span class="sd">            value of ``True`` will be ignored while the position with the value of ``False`` will be unchanged.</span>
 
 <span class="sd">            - output: :math:`(T, N, E)`.</span>
 
@@ -457,25 +461,25 @@
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="n">tgt</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">tgt_mask</span><span class="o">=</span><span class="n">tgt_mask</span><span class="p">,</span> <span class="n">memory_mask</span><span class="o">=</span><span class="n">memory_mask</span><span class="p">,</span>
                               <span class="n">tgt_key_padding_mask</span><span class="o">=</span><span class="n">tgt_key_padding_mask</span><span class="p">,</span>
                               <span class="n">memory_key_padding_mask</span><span class="o">=</span><span class="n">memory_key_padding_mask</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">output</span>
+        <span class="k">return</span> <span class="n">output</span></div>
 
-    <span class="k">def</span> <span class="nf">generate_square_subsequent_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sz</span><span class="p">):</span>
+<div class="viewcode-block" id="Transformer.generate_square_subsequent_mask"><a class="viewcode-back" href="../../../../generated/torch.nn.Transformer.html#torch.nn.Transformer.generate_square_subsequent_mask">[docs]</a>    <span class="k">def</span> <span class="nf">generate_square_subsequent_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sz</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate a square mask for the sequence. The masked positions are filled with float(&#39;-inf&#39;).</span>
 <span class="sd">            Unmasked positions are filled with float(0.0).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">triu</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">sz</span><span class="p">,</span> <span class="n">sz</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="n">mask</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;-inf&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="n">mask</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">mask</span>
+        <span class="k">return</span> <span class="n">mask</span></div>
 
     <span class="k">def</span> <span class="nf">_reset_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Initiate parameters in the transformer model.&quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">xavier_uniform_</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="n">xavier_uniform_</span><span class="p">(</span><span class="n">p</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="TransformerEncoder"><a class="viewcode-back" href="../../../../generated/torch.nn.TransformerEncoder.html#torch.nn.TransformerEncoder">[docs]</a><span class="k">class</span> <span class="nc">TransformerEncoder</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">TransformerEncoder</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;TransformerEncoder is a stack of N encoder layers</span>
 
 <span class="sd">    Args:</span>
@@ -497,7 +501,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">=</span> <span class="n">norm</span>
 
-<div class="viewcode-block" id="TransformerEncoder.forward"><a class="viewcode-back" href="../../../../generated/torch.nn.TransformerEncoder.html#torch.nn.TransformerEncoder.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_key_padding_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_key_padding_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># type: (Tensor, Optional[Tensor], Optional[Tensor]) -&gt; Tensor</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Pass the input through the encoder layers in turn.</span>
 
@@ -517,10 +521,10 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">output</span></div></div>
+        <span class="k">return</span> <span class="n">output</span>
 
 
-<span class="k">class</span> <span class="nc">TransformerDecoder</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="TransformerDecoder"><a class="viewcode-back" href="../../../../generated/torch.nn.TransformerDecoder.html#torch.nn.TransformerDecoder">[docs]</a><span class="k">class</span> <span class="nc">TransformerDecoder</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;TransformerDecoder is a stack of N decoder layers</span>
 
 <span class="sd">    Args:</span>
@@ -543,7 +547,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">=</span> <span class="n">norm</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tgt</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">tgt_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="TransformerDecoder.forward"><a class="viewcode-back" href="../../../../generated/torch.nn.TransformerDecoder.html#torch.nn.TransformerDecoder.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tgt</span><span class="p">,</span> <span class="n">memory</span><span class="p">,</span> <span class="n">tgt_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">memory_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tgt_key_padding_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">memory_key_padding_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># type: (Tensor, Tensor, Optional[Tensor], Optional[Tensor], Optional[Tensor], Optional[Tensor]) -&gt; Tensor</span>
@@ -571,9 +575,9 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">output</span>
+        <span class="k">return</span> <span class="n">output</span></div></div>
 
-<div class="viewcode-block" id="TransformerEncoderLayer"><a class="viewcode-back" href="../../../../generated/torch.nn.TransformerEncoderLayer.html#torch.nn.TransformerEncoderLayer">[docs]</a><span class="k">class</span> <span class="nc">TransformerEncoderLayer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">TransformerEncoderLayer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;TransformerEncoderLayer is made up of self-attn and feedforward network.</span>
 <span class="sd">    This standard encoder layer is based on the paper &quot;Attention Is All You Need&quot;.</span>
 <span class="sd">    Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez,</span>
@@ -614,7 +618,7 @@
             <span class="n">state</span><span class="p">[</span><span class="s1">&#39;activation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">TransformerEncoderLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TransformerEncoderLayer.forward"><a class="viewcode-back" href="../../../../generated/torch.nn.TransformerEncoderLayer.html#torch.nn.TransformerEncoderLayer.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">src_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_key_padding_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">src_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_key_padding_mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># type: (Tensor, Optional[Tensor], Optional[Tensor]) -&gt; Tensor</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Pass the input through the encoder layer.</span>
 
@@ -633,7 +637,7 @@
         <span class="n">src2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linear1</span><span class="p">(</span><span class="n">src</span><span class="p">))))</span>
         <span class="n">src</span> <span class="o">=</span> <span class="n">src</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout2</span><span class="p">(</span><span class="n">src2</span><span class="p">)</span>
         <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm2</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">src</span></div></div>
+        <span class="k">return</span> <span class="n">src</span>
 
 
 <span class="k">class</span> <span class="nc">TransformerDecoderLayer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>

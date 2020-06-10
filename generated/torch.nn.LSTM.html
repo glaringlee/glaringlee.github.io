@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="lstm">
 <h1>LSTM<a class="headerlink" href="#lstm" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.LSTM">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">LSTM</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/rnn.html#LSTM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.LSTM" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">LSTM</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/rnn.html#LSTM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.LSTM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies a multi-layer long short-term memory (LSTM) RNN to an input
 sequence.</p>
 <p>For each element in the input sequence, each layer computes the following
@@ -442,6 +442,20 @@ Otherwise, the shape is <cite>(4*hidden_size, num_directions * hidden_size)</cit
 <p class="admonition-title">Note</p>
 <p>All the weights and biases are initialized from <span class="math">\(\mathcal{U}(-\sqrt{k}, \sqrt{k})\)</span>
 where <span class="math">\(k = \frac{1}{\text{hidden\_size}}\)</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Orphan</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the following conditions are satisfied:
+1) cudnn is enabled,
+2) input data is on the GPU
+3) input data has dtype <code class="docutils literal notranslate"><span class="pre">torch.float16</span></code>
+4) V100 GPU is used,
+5) input data is not in <code class="docutils literal notranslate"><span class="pre">PackedSequence</span></code> format
+persistent algorithm can be selected to improve performance.</p>
 </div>
 <p>Examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rnn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>

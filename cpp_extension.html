@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -337,9 +337,9 @@
               
   <div class="section" id="torch-utils-cpp-extension">
 <h1>torch.utils.cpp_extension<a class="headerlink" href="#torch-utils-cpp-extension" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.cpp_extension.CppExtension">
-<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">CppExtension</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">sources</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#CppExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.CppExtension" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">CppExtension</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">sources</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#CppExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.CppExtension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="xref py py-class docutils literal notranslate"><span class="pre">setuptools.Extension</span></code> for C++.</p>
 <p>Convenience method that creates a <code class="xref py py-class docutils literal notranslate"><span class="pre">setuptools.Extension</span></code> with the
 bare minimum (but often sufficient) arguments to build a C++ extension.</p>
@@ -363,9 +363,9 @@ constructor.</p>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.cpp_extension.CUDAExtension">
-<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">CUDAExtension</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">sources</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#CUDAExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.CUDAExtension" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">CUDAExtension</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">sources</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#CUDAExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.CUDAExtension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a <code class="xref py py-class docutils literal notranslate"><span class="pre">setuptools.Extension</span></code> for CUDA/C++.</p>
 <p>Convenience method that creates a <code class="xref py py-class docutils literal notranslate"><span class="pre">setuptools.Extension</span></code> with the
 bare minimum (but often sufficient) arguments to build a CUDA/C++
@@ -392,9 +392,9 @@ constructor.</p>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.cpp_extension.BuildExtension">
-<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">BuildExtension</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#BuildExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.BuildExtension" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">BuildExtension</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#BuildExtension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.BuildExtension" title="Permalink to this definition">¶</a></dt>
 <dd><p>A custom <code class="xref py py-mod docutils literal notranslate"><span class="pre">setuptools</span></code> build extension .</p>
 <p>This <code class="xref py py-class docutils literal notranslate"><span class="pre">setuptools.build_ext</span></code> subclass takes care of passing the
 minimum required compiler flags (e.g. <code class="docutils literal notranslate"><span class="pre">-std=c++14</span></code>) as well as mixed
@@ -417,9 +417,9 @@ variable to a non-negative number.</p>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.cpp_extension.load">
-<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">sources</span></em>, <em class="sig-param"><span class="n">extra_cflags</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extra_cuda_cflags</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extra_ldflags</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extra_include_paths</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">build_directory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">with_cuda</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_python_module</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">sources</em>, <em class="sig-param">extra_cflags=None</em>, <em class="sig-param">extra_cuda_cflags=None</em>, <em class="sig-param">extra_ldflags=None</em>, <em class="sig-param">extra_include_paths=None</em>, <em class="sig-param">build_directory=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">with_cuda=None</em>, <em class="sig-param">is_python_module=True</em>, <em class="sig-param">keep_intermediates=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads a PyTorch C++ extension just-in-time (JIT).</p>
 <p>To load an extension, a Ninja build file is emitted, which is used to
 compile the given sources into a dynamic library. This library is
@@ -491,9 +491,9 @@ effect).</p>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.cpp_extension.load_inline">
-<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">load_inline</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">cpp_sources</span></em>, <em class="sig-param"><span class="n">cuda_sources</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">functions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extra_cflags</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extra_cuda_cflags</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extra_ldflags</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extra_include_paths</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">build_directory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">with_cuda</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">is_python_module</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">with_pytorch_error_handling</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#load_inline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.load_inline" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">load_inline</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">cpp_sources</em>, <em class="sig-param">cuda_sources=None</em>, <em class="sig-param">functions=None</em>, <em class="sig-param">extra_cflags=None</em>, <em class="sig-param">extra_cuda_cflags=None</em>, <em class="sig-param">extra_ldflags=None</em>, <em class="sig-param">extra_include_paths=None</em>, <em class="sig-param">build_directory=None</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">with_cuda=None</em>, <em class="sig-param">is_python_module=True</em>, <em class="sig-param">with_pytorch_error_handling=True</em>, <em class="sig-param">keep_intermediates=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#load_inline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.load_inline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads a PyTorch C++ extension just-in-time (JIT) from string sources.</p>
 <p>This function behaves exactly like <a class="reference internal" href="#torch.utils.cpp_extension.load" title="torch.utils.cpp_extension.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a>, but takes its sources as
 strings rather than filenames. These strings are stored to files in the
@@ -545,11 +545,11 @@ causes issues.</p></li>
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">torch.utils.cpp_extension</span> <span class="kn">import</span> <span class="n">load_inline</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> \<span class="s1">&#39;</span><span class="se">\&#39;\&#39;</span>
 <span class="go">at::Tensor sin_add(at::Tensor x, at::Tensor y) {</span>
 <span class="go">  return x.sin() + y.sin();</span>
 <span class="go">}</span>
-<span class="go">&#39;&#39;&#39;</span>
+<span class="go">\&#39;\&#39;\&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">module</span> <span class="o">=</span> <span class="n">load_inline</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;inline_extension&#39;</span><span class="p">,</span>
 <span class="go">                         cpp_sources=[source],</span>
 <span class="go">                         functions=[&#39;sin_add&#39;])</span>
@@ -564,9 +564,9 @@ variable to a non-negative number.</p>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.cpp_extension.include_paths">
-<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">include_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cuda</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#include_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.include_paths" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">include_paths</code><span class="sig-paren">(</span><em class="sig-param">cuda=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#include_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.include_paths" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the include paths required to build a C++ or CUDA extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -578,9 +578,9 @@ variable to a non-negative number.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.cpp_extension.check_compiler_abi_compatibility">
-<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">check_compiler_abi_compatibility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">compiler</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#check_compiler_abi_compatibility"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.check_compiler_abi_compatibility" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">check_compiler_abi_compatibility</code><span class="sig-paren">(</span><em class="sig-param">compiler</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#check_compiler_abi_compatibility"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.check_compiler_abi_compatibility" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verifies that the given compiler is ABI-compatible with PyTorch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -594,11 +594,18 @@ else True.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.utils.cpp_extension.verify_ninja_availability">
 <code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">verify_ninja_availability</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#verify_ninja_availability"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.verify_ninja_availability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if <a class="reference external" href="https://ninja-build.org/">ninja</a> build system is not
+available on the system, does nothing otherwise.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="torch.utils.cpp_extension.is_ninja_available">
+<code class="sig-prename descclassname">torch.utils.cpp_extension.</code><code class="sig-name descname">is_ninja_available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/cpp_extension.html#is_ninja_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.cpp_extension.is_ninja_available" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the <a class="reference external" href="https://ninja-build.org/">ninja</a> build system is
-available on the system.</p>
+available on the system, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
 
 </div>

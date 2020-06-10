@@ -157,7 +157,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -335,7 +335,10 @@
               
   <h1>Source code for torch.nn.modules.activation</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
+
 <span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">Linear</span>
 <span class="kn">from</span> <span class="nn">torch.nn.init</span> <span class="kn">import</span> <span class="n">xavier_uniform_</span>
 <span class="kn">from</span> <span class="nn">torch.nn.init</span> <span class="kn">import</span> <span class="n">constant_</span>
@@ -405,7 +408,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/ReLU.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/ReLU.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -517,7 +520,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/Hardtanh.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/Hardtanh.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -565,7 +568,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/ReLU6.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/ReLU6.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -594,7 +597,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/Sigmoid.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/Sigmoid.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -611,7 +614,11 @@
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies the element-wise function:</span>
 
 <span class="sd">    .. math::</span>
-<span class="sd">        \text{Hardsigmoid}(x) = \frac{ReLU6(x + 3)}{6}</span>
+<span class="sd">        \text{Hardsigmoid}(x) = \begin{cases}</span>
+<span class="sd">            0 &amp; \text{if~} x \le -3, \\</span>
+<span class="sd">            1 &amp; \text{if~} x \ge +3, \\</span>
+<span class="sd">            x / 6 + 1 / 2 &amp; \text{otherwise}</span>
+<span class="sd">        \end{cases}</span>
 
 
 <span class="sd">    Shape:</span>
@@ -641,7 +648,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/Tanh.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/Tanh.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -652,6 +659,37 @@
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">Hardswish</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies the hardswish function, element-wise, as described in the paper:</span>
+
+<span class="sd">    `Searching for MobileNetV3`_.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{Hardswish}(x) = \begin{cases}</span>
+<span class="sd">            0 &amp; \text{if~} x \le -3, \\</span>
+<span class="sd">            x &amp; \text{if~} x \ge +3, \\</span>
+<span class="sd">            x \cdot (x + 3) /6 &amp; \text{otherwise}</span>
+<span class="sd">        \end{cases}</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: :math:`(N, *)` where `*` means, any number of additional</span>
+<span class="sd">          dimensions</span>
+<span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
+
+<span class="sd">    Examples::</span>
+
+<span class="sd">        &gt;&gt;&gt; m = nn.Hardswish()</span>
+<span class="sd">        &gt;&gt;&gt; input = torch.randn(2)</span>
+<span class="sd">        &gt;&gt;&gt; output = m(input)</span>
+
+<span class="sd">    .. _`Searching for MobileNetV3`:</span>
+<span class="sd">        https://arxiv.org/abs/1905.02244</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">hardswish</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">ELU</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
@@ -669,7 +707,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/ELU.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/ELU.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -709,7 +747,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/CELU.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/CELU.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -754,7 +792,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/SELU.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/SELU.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -813,8 +851,8 @@
 <span class="k">class</span> <span class="nc">GELU</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies the Gaussian Error Linear Units function:</span>
 
-<span class="sd">    .. math::</span>
-<span class="sd">        \text{GELU}(x) = x * \Phi(x)</span>
+<span class="sd">    .. math:: \text{GELU}(x) = x * \Phi(x)</span>
+
 <span class="sd">    where :math:`\Phi(x)` is the Cumulative Distribution Function for Gaussian Distribution.</span>
 
 <span class="sd">    Shape:</span>
@@ -822,7 +860,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/GELU.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/GELU.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -853,7 +891,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/Hardshrink.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/Hardshrink.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -899,7 +937,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/LeakyReLU.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/LeakyReLU.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -933,7 +971,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/LogSigmoid.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/LogSigmoid.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -946,7 +984,7 @@
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">logsigmoid</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">Softplus</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="Softplus"><a class="viewcode-back" href="../../../../generated/torch.nn.Softplus.html#torch.nn.Softplus">[docs]</a><span class="k">class</span> <span class="nc">Softplus</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies the element-wise function:</span>
 
 <span class="sd">    .. math::</span>
@@ -967,7 +1005,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/Softplus.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/Softplus.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -986,7 +1024,7 @@
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">softplus</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;beta=</span><span class="si">{}</span><span class="s1">, threshold=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;beta=</span><span class="si">{}</span><span class="s1">, threshold=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Softshrink"><a class="viewcode-back" href="../../../../generated/torch.nn.Softshrink.html#torch.nn.Softshrink">[docs]</a><span class="k">class</span> <span class="nc">Softshrink</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
@@ -1008,7 +1046,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/Softshrink.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/Softshrink.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -1047,7 +1085,7 @@
 <span class="sd">        add_zero_attn: add a new batch of zeros to the key and</span>
 <span class="sd">                       value sequences at dim=1.</span>
 <span class="sd">        kdim: total number of features in key. Default: None.</span>
-<span class="sd">        vdim: total number of features in key. Default: None.</span>
+<span class="sd">        vdim: total number of features in value. Default: None.</span>
 
 <span class="sd">        Note: if kdim and vdim are None, they will be set to embed_dim such that</span>
 <span class="sd">        query, key, and value have the same number of features.</span>
@@ -1133,11 +1171,12 @@
 <span class="sd">        query, key, value: map a query and a set of key-value pairs to an output.</span>
 <span class="sd">            See &quot;Attention Is All You Need&quot; for more details.</span>
 <span class="sd">        key_padding_mask: if provided, specified padding elements in the key will</span>
-<span class="sd">            be ignored by the attention. This is an binary mask. When the value is True,</span>
-<span class="sd">            the corresponding value on the attention layer will be filled with -inf.</span>
+<span class="sd">            be ignored by the attention. When given a binary mask and a value is True,</span>
+<span class="sd">            the corresponding value on the attention layer will be ignored. When given</span>
+<span class="sd">            a byte mask and a value is non-zero, the corresponding value on the attention</span>
+<span class="sd">            layer will be ignored</span>
 <span class="sd">        need_weights: output attn_output_weights.</span>
-<span class="sd">        attn_mask: 2D or 3D mask that prevents attention to certain positions. This is an additive mask</span>
-<span class="sd">            (i.e. the values will be added to the attention layer). A 2D mask will be broadcasted for all</span>
+<span class="sd">        attn_mask: 2D or 3D mask that prevents attention to certain positions. A 2D mask will be broadcasted for all</span>
 <span class="sd">            the batches while a 3D mask allows to specify a different mask for the entries of each batch.</span>
 
 <span class="sd">    Shape:</span>
@@ -1148,10 +1187,17 @@
 <span class="sd">          the embedding dimension.</span>
 <span class="sd">        - value: :math:`(S, N, E)` where S is the source sequence length, N is the batch size, E is</span>
 <span class="sd">          the embedding dimension.</span>
-<span class="sd">        - key_padding_mask: :math:`(N, S)`, ByteTensor, where N is the batch size, S is the source sequence length.</span>
+<span class="sd">        - key_padding_mask: :math:`(N, S)` where N is the batch size, S is the source sequence length.</span>
+<span class="sd">          If a ByteTensor is provided, the non-zero positions will be ignored while the position</span>
+<span class="sd">          with the zero positions will be unchanged. If a BoolTensor is provided, the positions with the</span>
+<span class="sd">          value of ``True`` will be ignored while the position with the value of ``False`` will be unchanged.</span>
 <span class="sd">        - attn_mask: 2D mask :math:`(L, S)` where L is the target sequence length, S is the source sequence length.</span>
 <span class="sd">          3D mask :math:`(N*num_heads, L, S)` where N is the batch size, L is the target sequence length,</span>
-<span class="sd">          S is the source sequence length.</span>
+<span class="sd">          S is the source sequence length. attn_mask ensure that position i is allowed to attend the unmasked</span>
+<span class="sd">          positions. If a ByteTensor is provided, the non-zero positions are not allowed to attend</span>
+<span class="sd">          while the zero positions will be unchanged. If a BoolTensor is provided, positions with ``True``</span>
+<span class="sd">          is not allowed to attend while ``False`` values will be unchanged. If a FloatTensor</span>
+<span class="sd">          is provided, it will be added to the attention weight.</span>
 
 <span class="sd">        - Outputs:</span>
 <span class="sd">        - attn_output: :math:`(L, N, E)` where L is the target sequence length, N is the batch size,</span>
@@ -1222,7 +1268,7 @@
 <span class="sd">    Attributes:</span>
 <span class="sd">        weight (Tensor): the learnable weights of shape (:attr:`num_parameters`).</span>
 
-<span class="sd">    .. image:: scripts/activation_images/PReLU.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/PReLU.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -1255,7 +1301,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/Softsign.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/Softsign.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -1279,7 +1325,7 @@
 <span class="sd">          dimensions</span>
 <span class="sd">        - Output: :math:`(N, *)`, same shape as the input</span>
 
-<span class="sd">    .. image:: scripts/activation_images/Tanhshrink.png</span>
+<span class="sd">    .. image:: ../scripts/activation_images/Tanhshrink.png</span>
 
 <span class="sd">    Examples::</span>
 
@@ -1292,7 +1338,7 @@
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">tanhshrink</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span></div>
 
 
-<span class="k">class</span> <span class="nc">Softmin</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="Softmin"><a class="viewcode-back" href="../../../../generated/torch.nn.Softmin.html#torch.nn.Softmin">[docs]</a><span class="k">class</span> <span class="nc">Softmin</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies the Softmin function to an n-dimensional input Tensor</span>
 <span class="sd">    rescaling them so that the elements of the n-dimensional output Tensor</span>
 <span class="sd">    lie in the range `[0, 1]` and sum to 1.</span>
@@ -1327,9 +1373,16 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Softmin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span>
 
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;dim&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="kc">None</span>
+
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">softmin</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">_stacklevel</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;dim=</span><span class="si">{dim}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span></div>
 
 <span class="k">class</span> <span class="nc">Softmax</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies the Softmax function to an n-dimensional input Tensor</span>
@@ -1340,6 +1393,9 @@
 
 <span class="sd">    .. math::</span>
 <span class="sd">        \text{Softmax}(x_{i}) = \frac{\exp(x_i)}{\sum_j \exp(x_j)}</span>
+
+<span class="sd">    When the input Tensor is a sparse tensor then the unspecifed</span>
+<span class="sd">    values are treated as ``-inf``.</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(*)` where `*` means, any number of additional</span>
@@ -1364,6 +1420,7 @@
 <span class="sd">        &gt;&gt;&gt; m = nn.Softmax(dim=1)</span>
 <span class="sd">        &gt;&gt;&gt; input = torch.randn(2, 3)</span>
 <span class="sd">        &gt;&gt;&gt; output = m(input)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__constants__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dim&#39;</span><span class="p">]</span>
 
@@ -1448,6 +1505,9 @@
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="n">_stacklevel</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;dim=</span><span class="si">{dim}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
 </pre></div>
 
              </article>

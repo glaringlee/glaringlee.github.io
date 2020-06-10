@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,7 +339,7 @@
               
   <div class="section" id="packedsequence">
 <h1>PackedSequence<a class="headerlink" href="#packedsequence" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.utils.rnn.PackedSequence">
 <em class="property">class </em><code class="sig-prename descclassname">torch.nn.utils.rnn.</code><code class="sig-name descname">PackedSequence</code><a class="reference internal" href="../_modules/torch/nn/utils/rnn.html#PackedSequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Holds the data and list of <a class="reference internal" href="#torch.nn.utils.rnn.PackedSequence.batch_sizes" title="torch.nn.utils.rnn.PackedSequence.batch_sizes"><code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_sizes</span></code></a> of a packed sequence.</p>
@@ -377,54 +377,54 @@ tensors on the same device as <a class="reference internal" href="#torch.nn.util
 and all functions that construct a <cite>:class:PackedSequence</cite> in PyTorch
 (i.e., they only pass in tensors conforming to this constraint).</p>
 </div>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="torch.nn.utils.rnn.PackedSequence.batch_sizes">
 <code class="sig-name descname">batch_sizes</code><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.batch_sizes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 1</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.rnn.PackedSequence.count">
 <code class="sig-name descname">count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return number of occurrences of value.</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="torch.nn.utils.rnn.PackedSequence.data">
 <code class="sig-name descname">data</code><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 0</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.rnn.PackedSequence.index">
 <code class="sig-name descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return first index of value.</p>
 <p>Raises ValueError if the value is not present.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.rnn.PackedSequence.is_cuda">
 <em class="property">property </em><code class="sig-name descname">is_cuda</code><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.is_cuda" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if <cite>self.data</cite> stored on a gpu</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.rnn.PackedSequence.is_pinned">
 <code class="sig-name descname">is_pinned</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/rnn.html#PackedSequence.is_pinned"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.is_pinned" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if <cite>self.data</cite> stored on in pinned memory</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="torch.nn.utils.rnn.PackedSequence.sorted_indices">
 <code class="sig-name descname">sorted_indices</code><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.sorted_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 2</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.utils.rnn.PackedSequence.to">
-<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/rnn.html#PackedSequence.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.to" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/rnn.html#PackedSequence.to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.to" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs dtype and/or device conversion on <cite>self.data</cite>.</p>
-<p>It has similar signature as <a class="reference internal" href="../tensors.html#id8" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.to()</span></code></a>, except optional
+<p>It has similar signature as <a class="reference internal" href="../tensors.html#torch.Tensor.to" title="torch.Tensor.to"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.Tensor.to()</span></code></a>, except optional
 arguments like <cite>non_blocking</cite> and <cite>copy</cite> should be passed as kwargs,
 not args, or they will not apply to the index tensors.</p>
 <div class="admonition note">
@@ -435,7 +435,7 @@ Otherwise, returns a copy with the desired configuration.</p>
 </div>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="torch.nn.utils.rnn.PackedSequence.unsorted_indices">
 <code class="sig-name descname">unsorted_indices</code><a class="headerlink" href="#torch.nn.utils.rnn.PackedSequence.unsorted_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Alias for field number 3</p>

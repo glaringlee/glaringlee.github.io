@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,18 +339,22 @@
               
   <div class="section" id="torch-jit-trace">
 <h1>torch.jit.trace<a class="headerlink" href="#torch-jit-trace" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.jit.trace">
-<code class="sig-prename descclassname">torch.jit.</code><code class="sig-name descname">trace</code><span class="sig-paren">(</span><em class="sig-param">func</em>, <em class="sig-param">example_inputs</em>, <em class="sig-param">optimize=None</em>, <em class="sig-param">check_trace=True</em>, <em class="sig-param">check_inputs=None</em>, <em class="sig-param">check_tolerance=1e-05</em>, <em class="sig-param">_force_outplace=False</em>, <em class="sig-param">_module_class=None</em>, <em class="sig-param">_compilation_unit=&lt;torch._C.CompilationUnit object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/jit.html#trace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.jit.trace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.jit.</code><code class="sig-name descname">trace</code><span class="sig-paren">(</span><em class="sig-param">func</em>, <em class="sig-param">example_inputs</em>, <em class="sig-param">optimize=None</em>, <em class="sig-param">check_trace=True</em>, <em class="sig-param">check_inputs=None</em>, <em class="sig-param">check_tolerance=1e-05</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">_force_outplace=False</em>, <em class="sig-param">_module_class=None</em>, <em class="sig-param">_compilation_unit=&lt;torch._C.CompilationUnit object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/jit.html#trace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.jit.trace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trace a function and return an executable  or <a class="reference internal" href="torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a>
 that will be optimized using just-in-time compilation. Tracing is ideal for
-code that operates only on <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>s and lists, dictionaries, and tuples of <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>s.</p>
-<p>Using <code class="docutils literal notranslate"><span class="pre">torch.jit.trace</span></code> and <a class="reference internal" href="torch.jit.trace_module.html#torch.jit.trace_module" title="torch.jit.trace_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.trace_module</span></code></a>, you can turn an existing module or Python
-function into a TorchScript <a class="reference internal" href="torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a> or <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a>. You must provide example inputs,
-and we run the function, recording the operations performed on all the tensors.</p>
+code that operates only on <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>s and lists, dictionaries, and
+tuples of <code class="docutils literal notranslate"><span class="pre">Tensor</span></code>s.</p>
+<p>Using <cite>torch.jit.trace</cite> and <cite>torch.jit.trace_module</cite>, you can turn an
+existing module or Python function into a TorchScript
+<a class="reference internal" href="torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a> or <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a>. You must provide example
+inputs, and we run the function, recording the operations performed on all
+the tensors.</p>
 <ul class="simple">
-<li><p>The resulting recording of a standalone function produces <a class="reference internal" href="torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a>.</p></li>
-<li><p>The resulting recording of <code class="docutils literal notranslate"><span class="pre">forward</span></code> function of <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> or <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> produces <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a>.</p></li>
+<li><p>The resulting recording of a standalone function produces <cite>ScriptFunction</cite>.</p></li>
+<li><p>The resulting recording of <cite>nn.Module.forward</cite> or <cite>nn.Module</cite> produces
+<cite>ScriptModule</cite>.</p></li>
 </ul>
 <p>This module also contains any parameters that the original
 module had as well.</p>
@@ -360,44 +364,42 @@ module had as well.</p>
 dependent (e.g., do not have conditionals on data in tensors) and do not have
 any untracked external dependencies (e.g., perform input/output or
 access global variables). Tracing only records operations done when the given
-function is run on the given
-tensors. Therefore, the returned <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> will always run the same traced
-graph on any input. This has some important implications when your module is
-expected to run different sets of operations, depending on the input and/or the
-module state. For example,</p>
+function is run on the given tensors. Therefore, the returned
+<cite>ScriptModule</cite> will always run the same traced graph on any input. This
+has some important implications when your module is expected to run
+different sets of operations, depending on the input and/or the module
+state. For example,</p>
 <ul class="simple">
 <li><p>Tracing will not record any control-flow like if-statements or loops.
-When this control-flow is constant across your module, this is fine and it often
-inlines the control-flow decisions. But sometimes the control-flow is actually part
-of the model itself. For instance, a recurrent network is a loop over
-the (possibly dynamic) length of an input sequence.</p></li>
+When this control-flow is constant across your module, this is fine
+and it often inlines the control-flow decisions. But sometimes the
+control-flow is actually part of the model itself. For instance, a
+recurrent network is a loop over the (possibly dynamic) length of an
+input sequence.</p></li>
 <li><p>In the returned <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a>, operations that have different
-behaviors in <code class="docutils literal notranslate"><span class="pre">training</span></code> and <code class="docutils literal notranslate"><span class="pre">eval</span></code> modes will always behave as if it
-is in the mode it was in during tracing, no matter which mode the
-<a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> is in.</p></li>
+behaviors in <code class="docutils literal notranslate"><span class="pre">training</span></code> and <code class="docutils literal notranslate"><span class="pre">eval</span></code> modes will always behave as if
+it is in the mode it was in during tracing, no matter which mode the
+<cite>ScriptModule</cite> is in.</p></li>
 </ul>
-<p>In cases like these, tracing would not be appropriate and <a class="reference internal" href="torch.jit.script.html#torch.jit.script" title="torch.jit.script"><code class="xref py py-func docutils literal notranslate"><span class="pre">scripting</span></code></a> is a better
-choice. If you trace such models, you may silently get
-incorrect results on subsequent invocations of the model. The tracer
-will try to emit warnings when doing something that may cause an
-incorrect trace to be produced.</p>
+<p>In cases like these, tracing would not be appropriate and
+<a class="reference internal" href="torch.jit.script.html#torch.jit.script" title="torch.jit.script"><code class="xref py py-func docutils literal notranslate"><span class="pre">scripting</span></code></a> is a better choice. If you trace
+such models, you may silently get incorrect results on subsequent
+invocations of the model. The tracer will try to emit warnings when
+doing something that may cause an incorrect trace to be produced.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> (<em>callable</em><em> or </em><a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>torch.nn.Module</em></a>) – A Python function or <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code>
-that will be run with <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code>.
-arguments and returns to <code class="docutils literal notranslate"><span class="pre">func</span></code> must be tensors
-or (possibly nested) tuples that
-contain tensors. When a module is passed to
-<a class="reference internal" href="#torch.jit.trace" title="torch.jit.trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.trace</span></code></a>, only the
-<code class="docutils literal notranslate"><span class="pre">forward</span></code> method is run and traced
-(see <a class="reference internal" href="torch.jit.trace_module.html#torch.jit.trace_module" title="torch.jit.trace_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.trace</span></code></a> for details).</p></li>
-<li><p><strong>example_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – A tuple of example inputs that will be passed to the function
-while tracing. The resulting trace can be run with
+<li><p><strong>func</strong> (<em>callable</em><em> or </em><a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>torch.nn.Module</em></a>) – A Python function or <cite>torch.nn.Module</cite>
+that will be run with <cite>example_inputs</cite>. <cite>func</cite> arguments and return
+values  must be tensors or (possibly nested) tuples that contain
+tensors. When a module is passed <cite>torch.jit.trace</cite>, only the
+<code class="docutils literal notranslate"><span class="pre">forward</span></code> method is run and traced (see <a class="reference internal" href="torch.jit.trace_module.html#torch.jit.trace_module" title="torch.jit.trace_module"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.trace</span></code></a> for details).</p></li>
+<li><p><strong>example_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – A tuple of example inputs that will be passed
+to the function while tracing. The resulting trace can be run with
 inputs of different types and shapes assuming the traced operations
-support those types and shapes. <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code> may also be a single
-Tensor in which case it is automatically wrapped in a tuple.</p></li>
+support those types and shapes. <cite>example_inputs</cite> may also be a
+single Tensor in which case it is automatically wrapped in a tuple.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Keyword Arguments</dt>
@@ -407,24 +409,32 @@ traced code produce the same outputs. Default: <code class="docutils literal not
 to disable this if, for example, your network contains non-
 deterministic ops or if you are sure that the network is correct despite
 a checker failure.</p></li>
-<li><p><strong>check_inputs</strong> (<em>list of tuples</em><em>, </em><em>optional</em>) – A list of tuples of input arguments that should be used
-to check the trace against what is expected. Each tuple
-is equivalent to a set of input arguments that would
-be specified in <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code>. For best results, pass in a
-set of checking inputs representative of the space of
-shapes and types of inputs you expect the network to see.
-If not specified, the original <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code> are used for checking</p></li>
-<li><p><strong>check_tolerance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Floating-point comparison tolerance to use in the checker procedure.
-This can be used to relax the checker strictness in the event that
-results diverge numerically for a known reason, such as operator fusion.</p></li>
+<li><p><strong>check_inputs</strong> (<em>list of tuples</em><em>, </em><em>optional</em>) – A list of tuples of input
+arguments that should be used to check the trace against what is
+expected. Each tuple is equivalent to a set of input arguments that
+would be specified in <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code>. For best results, pass in
+a set of checking inputs representative of the space of shapes and
+types of inputs you expect the network to see.  If not specified,
+the original <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code> are used for checking</p></li>
+<li><p><strong>check_tolerance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – Floating-point comparison tolerance
+to use in the checker procedure.  This can be used to relax the
+checker strictness in the event that results diverge numerically
+for a known reason, such as operator fusion.</p></li>
+<li><p><strong>strict</strong> (<a class="reference internal" href="../storage.html#torch.FloatStorage.bool" title="torch.FloatStorage.bool"><em>bool</em></a><em>, </em><em>optional</em>) – run the tracer in a strict mode or not
+(default: <code class="docutils literal notranslate"><span class="pre">True</span></code>). Only turn this off when you want the tracer to
+record your mutable container types (currently <code class="docutils literal notranslate"><span class="pre">list</span></code>/<code class="docutils literal notranslate"><span class="pre">dict</span></code>)
+and you are sure that the containuer you are using in your
+problem is a <code class="docutils literal notranslate"><span class="pre">constant</span></code> structure and does not get used as
+control flow (if, for) conditions.</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>If <code class="docutils literal notranslate"><span class="pre">callable</span></code> is <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code> or <code class="docutils literal notranslate"><span class="pre">forward</span></code> of <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>, <code class="docutils literal notranslate"><span class="pre">trace</span></code> returns
-a <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> object with a single <code class="docutils literal notranslate"><span class="pre">forward</span></code> method containing the traced code.
-The returned <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> will have the same set of sub-modules and parameters as the
-original <code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>.
-If <code class="docutils literal notranslate"><span class="pre">callable</span></code> is a standalone function, <code class="docutils literal notranslate"><span class="pre">trace</span></code> returns <a class="reference internal" href="torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a></p>
+<dd class="field-odd"><p>If <cite>func</cite> is <cite>nn.Module</cite> or <code class="docutils literal notranslate"><span class="pre">forward</span></code> of <cite>nn.Module</cite>, <cite>trace</cite> returns
+a <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> object with a single <code class="docutils literal notranslate"><span class="pre">forward</span></code> method
+containing the traced code.  The returned <cite>ScriptModule</cite> will
+have the same set of sub-modules and parameters as the original
+<code class="docutils literal notranslate"><span class="pre">nn.Module</span></code>.  If <code class="docutils literal notranslate"><span class="pre">func</span></code> is a standalone function, <code class="docutils literal notranslate"><span class="pre">trace</span></code>
+returns <cite>ScriptFunction</cite>.</p>
 </dd>
 </dl>
 <p>Example (tracing a function):</p>

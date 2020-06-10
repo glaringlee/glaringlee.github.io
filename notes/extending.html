@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -552,7 +552,7 @@ shown above.</p></li>
 <h2>Extending <code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code><a class="headerlink" href="#extending-torch" title="Permalink to this headline">¶</a></h2>
 <p>You can create custom types that emulate <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> by defining a custom
 class with methods that match <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>. But what if you want to be able
-to pass these types to functions like <a class="reference internal" href="../torch.html#torch.add" title="torch.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.add()</span></code></a> in the top-level
+to pass these types to functions like <a class="reference internal" href="../generated/torch.add.html#torch.add" title="torch.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.add()</span></code></a> in the top-level
 <code class="xref py py-mod docutils literal notranslate"><span class="pre">torch</span></code> namespace that accept <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> operands?</p>
 <p>If your custom python type defines a method named <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code>, PyTorch
 will invoke your <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code> implementation when an instance of your
@@ -680,7 +680,7 @@ of doing this is to define a decorator:</p>
 override since it only takes one operand. We can use the same machinery to
 override a function that takes more than one operand, any one of which might be
 a tensor or tensor-like that defines <code class="docutils literal notranslate"><span class="pre">__torch_function__</span></code>, for example for
-<a class="reference internal" href="../torch.html#torch.add" title="torch.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.add()</span></code></a>:</p>
+<a class="reference internal" href="../generated/torch.add.html#torch.add" title="torch.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.add()</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ensure_tensor</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ScalarTensor</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">tensor</span><span class="p">()</span>
@@ -712,7 +712,7 @@ function correctly when either operand is a <code class="docutils literal notran
 </pre></div>
 </div>
 <p>Note that our implementation of <code class="docutils literal notranslate"><span class="pre">add</span></code> does not take <code class="docutils literal notranslate"><span class="pre">alpha</span></code> or <code class="docutils literal notranslate"><span class="pre">out</span></code> as
-keyword arguments like <a class="reference internal" href="../torch.html#torch.add" title="torch.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.add()</span></code></a> does:</p>
+keyword arguments like <a class="reference internal" href="../generated/torch.add.html#torch.add" title="torch.add"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.add()</span></code></a> does:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">TypeError: add() got an unexpected keyword argument &#39;alpha&#39;</span>
 </pre></div>
@@ -755,7 +755,7 @@ implementation of <code class="docutils literal notranslate"><span class="pre">_
     <span class="k">return</span> <span class="n">HANDLED_FUNCTIONS</span><span class="p">[</span><span class="n">func</span><span class="p">](</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Then <a class="reference internal" href="../torch.html#torch.mul" title="torch.mul"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.mul()</span></code></a> will work correctly, although the return type will always
+<p>Then <a class="reference internal" href="../generated/torch.mul.html#torch.mul" title="torch.mul"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.mul()</span></code></a> will work correctly, although the return type will always
 be a <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> rather than a <code class="xref py py-class docutils literal notranslate"><span class="pre">ScalarTensor</span></code>, even if both operands
 are <code class="xref py py-class docutils literal notranslate"><span class="pre">ScalarTensor</span></code> instances:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">ScalarTensor</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>

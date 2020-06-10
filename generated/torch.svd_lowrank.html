@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,12 +339,12 @@
               
   <div class="section" id="torch-svd-lowrank">
 <h1>torch.svd_lowrank<a class="headerlink" href="#torch-svd-lowrank" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.svd_lowrank">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">svd_lowrank</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">q</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">6</span></em>, <em class="sig-param"><span class="n">niter</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">2</span></em>, <em class="sig-param"><span class="n">M</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tensor<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tensor<span class="p">, </span>Tensor<span class="p">, </span>Tensor<span class="p">]</span><a class="reference internal" href="../_modules/torch/_lowrank.html#svd_lowrank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.svd_lowrank" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">svd_lowrank</code><span class="sig-paren">(</span><em class="sig-param">A: torch.Tensor</em>, <em class="sig-param">q: Optional[int] = 6</em>, <em class="sig-param">niter: Optional[int] = 2</em>, <em class="sig-param">M: Optional[torch.Tensor] = None</em><span class="sig-paren">)</span> &#x2192; Tuple[torch.Tensor, torch.Tensor, torch.Tensor]<a class="reference internal" href="../_modules/torch/_lowrank.html#svd_lowrank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.svd_lowrank" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the singular value decomposition <code class="docutils literal notranslate"><span class="pre">(U,</span> <span class="pre">S,</span> <span class="pre">V)</span></code> of a matrix,
 batches of matrices, or a sparse matrix <span class="math">\(A\)</span> such that
-<span class="math">\(A pprox U diag(S) V^T\)</span>. In case <span class="math">\(M\)</span> is given, then
+<span class="math">\(A \approx U diag(S) V^T\)</span>. In case <span class="math">\(M\)</span> is given, then
 SVD is computed for the matrix <span class="math">\(A - M\)</span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

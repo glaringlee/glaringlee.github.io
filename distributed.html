@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -557,14 +557,20 @@ components.</p></li>
 <p>The package needs to be initialized using the <a class="reference internal" href="#torch.distributed.init_process_group" title="torch.distributed.init_process_group"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.distributed.init_process_group()</span></code></a>
 function before calling any other methods. This blocks until all processes have
 joined.</p>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.is_available">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">is_available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed.html#is_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.is_available" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the distributed package is available. Otherwise,
+<code class="docutils literal notranslate"><span class="pre">torch.distributed</span></code> does not expose any other APIs. Currently,
+<code class="docutils literal notranslate"><span class="pre">torch.distributed</span></code> is available on Linux and MacOS. Set
+<code class="docutils literal notranslate"><span class="pre">USE_DISTRIBUTED=1</span></code> to enable it when building PyTorch from source.
+Currently, the default value is <code class="docutils literal notranslate"><span class="pre">USE_DISTRIBUTED=1</span></code> for Linux and
+<code class="docutils literal notranslate"><span class="pre">USE_DISTRIBUTED=0</span></code> for MacOS.</p>
+</dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.init_process_group">
-<code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">init_process_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">backend</span></em>, <em class="sig-param"><span class="n">init_method</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">datetime.timedelta(seconds=1800)</span></em>, <em class="sig-param"><span class="n">world_size</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">rank</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">store</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">group_name</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#init_process_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.init_process_group" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">init_process_group</code><span class="sig-paren">(</span><em class="sig-param">backend</em>, <em class="sig-param">init_method=None</em>, <em class="sig-param">timeout=datetime.timedelta(seconds=1800)</em>, <em class="sig-param">world_size=-1</em>, <em class="sig-param">rank=-1</em>, <em class="sig-param">store=None</em>, <em class="sig-param">group_name=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#init_process_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.init_process_group" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the default distributed process group, and this will also
 initialize the distributed package.</p>
 <dl class="simple">
@@ -608,14 +614,15 @@ is set to 1.</p></li>
 </ul>
 </dd>
 </dl>
-<p>To enable <code class="docutils literal notranslate"><span class="pre">backend</span> <span class="pre">==</span> <span class="pre">Backend.MPI</span></code>, PyTorch needs to built from source
+<p>To enable <code class="docutils literal notranslate"><span class="pre">backend</span> <span class="pre">==</span> <span class="pre">Backend.MPI</span></code>, PyTorch needs to be built from source
 on a system that supports MPI.</p>
 </dd></dl>
 
-<dl class="py class">
+<dl class="class">
 <dt id="torch.distributed.Backend">
 <em class="property">class </em><code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">Backend</code><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#Backend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.Backend" title="Permalink to this definition">¶</a></dt>
-<dd><p>An enum-like class of available backends: GLOO, NCCL, and MPI.</p>
+<dd><p>An enum-like class of available backends: GLOO, NCCL, MPI, and other registered
+backends.</p>
 <p>The values of this class are lowercase strings, e.g., <code class="docutils literal notranslate"><span class="pre">&quot;gloo&quot;</span></code>. They can
 be accessed as attributes, e.g., <code class="docutils literal notranslate"><span class="pre">Backend.NCCL</span></code>.</p>
 <p>This class can be directly called to parse the string, e.g.,
@@ -630,7 +637,7 @@ nor assume its existence.</p>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.get_backend">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">get_backend</code><span class="sig-paren">(</span><em class="sig-param">group=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#get_backend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.get_backend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the backend of the given process group.</p>
@@ -646,7 +653,7 @@ is specified, the calling process must be part of <code class="xref py py-attr d
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.get_rank">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">get_rank</code><span class="sig-paren">(</span><em class="sig-param">group=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#get_rank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.get_rank" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the rank of current process group</p>
@@ -664,7 +671,7 @@ process group. They are always consecutive integers ranging from 0 to
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.get_world_size">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">get_world_size</code><span class="sig-paren">(</span><em class="sig-param">group=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#get_world_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.get_world_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of processes in the current process group</p>
@@ -679,19 +686,19 @@ process group. They are always consecutive integers ranging from 0 to
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.is_initialized">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">is_initialized</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#is_initialized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.is_initialized" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checking if the default process group has been initialized</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.is_mpi_available">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">is_mpi_available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#is_mpi_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.is_mpi_available" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the MPI backend is available.</p>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.is_nccl_available">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">is_nccl_available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#is_nccl_available"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.is_nccl_available" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks if the NCCL backend is available.</p>
@@ -781,9 +788,9 @@ into play. <a class="reference internal" href="#torch.distributed.new_group" tit
 used to create new groups, with arbitrary subsets of all processes. It returns
 an opaque group handle that can be given as a <code class="docutils literal notranslate"><span class="pre">group</span></code> argument to all collectives
 (collectives are distributed functions to exchange information in certain well-known programming patterns).</p>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.new_group">
-<code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">new_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ranks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">datetime.timedelta(seconds=1800)</span></em>, <em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#new_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.new_group" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">new_group</code><span class="sig-paren">(</span><em class="sig-param">ranks=None</em>, <em class="sig-param">timeout=datetime.timedelta(seconds=1800)</em>, <em class="sig-param">backend=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#new_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.new_group" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new distributed group.</p>
 <p>This function requires that all processes in the main group (i.e. all
 processes that are part of the distributed job) enter this function, even
@@ -813,7 +820,7 @@ also be accessed via <a class="reference internal" href="#torch.distributed.Back
 </div>
 <div class="section" id="point-to-point-communication">
 <h2>Point-to-point communication<a class="headerlink" href="#point-to-point-communication" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.send">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">send</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">dst</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">tag=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#send"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.send" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends a tensor synchronously.</p>
@@ -829,7 +836,7 @@ also be accessed via <a class="reference internal" href="#torch.distributed.Back
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.recv">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">recv</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">src=None</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">tag=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#recv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.recv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Receives a tensor synchronously.</p>
@@ -858,7 +865,7 @@ as they should never be created manually, but they are guaranteed to support two
 <li><p><code class="docutils literal notranslate"><span class="pre">wait()</span></code> - will block the process until the operation is finished.
 <code class="docutils literal notranslate"><span class="pre">is_completed()</span></code> is guaranteed to return True once it returns.</p></li>
 </ul>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.isend">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">isend</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">dst</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">tag=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#isend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.isend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends a tensor asynchronously.</p>
@@ -878,7 +885,7 @@ None, if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.irecv">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">irecv</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">src</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">tag=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#irecv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.irecv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Receives a tensor asynchronously.</p>
@@ -918,7 +925,7 @@ is guaranteed to support two methods:</p>
 </div>
 <div class="section" id="collective-functions">
 <h2>Collective functions<a class="headerlink" href="#collective-functions" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.broadcast">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">broadcast</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">src</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#broadcast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.broadcast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Broadcasts the tensor to the whole group.</p>
@@ -941,7 +948,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.all_reduce">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">all_reduce</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">op=ReduceOp.SUM</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#all_reduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.all_reduce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduces the tensor data across all machines in such a way that all get
@@ -966,7 +973,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.reduce">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">reduce</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">dst</em>, <em class="sig-param">op=ReduceOp.SUM</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#reduce"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.reduce" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduces the tensor data across all machines.</p>
@@ -991,7 +998,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.all_gather">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">all_gather</code><span class="sig-paren">(</span><em class="sig-param">tensor_list</em>, <em class="sig-param">tensor</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#all_gather"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.all_gather" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gathers tensors from the whole group in a list.</p>
@@ -1012,7 +1019,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.gather">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">gather</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">gather_list=None</em>, <em class="sig-param">dst=0</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#gather"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.gather" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gathers a list of tensors in a single process.</p>
@@ -1035,7 +1042,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.scatter">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">scatter</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">scatter_list=None</em>, <em class="sig-param">src=0</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scatters a list of tensors to all processes in a group.</p>
@@ -1059,7 +1066,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.reduce_scatter">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">reduce_scatter</code><span class="sig-paren">(</span><em class="sig-param">output</em>, <em class="sig-param">input_list</em>, <em class="sig-param">op=ReduceOp.SUM</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#reduce_scatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.reduce_scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduces, then scatters a list of tensors to all processes in a group.</p>
@@ -1079,7 +1086,87 @@ None, if not async_op or if not part of the group.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
+<dt id="torch.distributed.all_to_all">
+<code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">all_to_all</code><span class="sig-paren">(</span><em class="sig-param">output_tensor_list</em>, <em class="sig-param">input_tensor_list</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#all_to_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.all_to_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each process scatters list of input tensors to all processes in a group and
+return gathered list of tensors in output list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_tensor_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>]</em>) – List of tensors to be gathered one
+per rank.</p></li>
+<li><p><strong>input_tensor_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>]</em>) – List of tensors to scatter one per rank.</p></li>
+<li><p><strong>group</strong> (<em>ProcessGroup</em><em>, </em><em>optional</em>) – The process group to work on.</p></li>
+<li><p><strong>async_op</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether this op should be an async op.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Async work handle, if async_op is set to True.
+None, if not async_op or if not part of the group.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><cite>all_to_all</cite> is experimental and subject to change.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="n">rank</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span>
+<span class="go">[tensor([0]), tensor([1]), tensor([2]), tensor([3])]     # Rank 0</span>
+<span class="go">[tensor([4]), tensor([5]), tensor([6]), tensor([7])]     # Rank 1</span>
+<span class="go">[tensor([8]), tensor([9]), tensor([10]), tensor([11])]   # Rank 2</span>
+<span class="go">[tensor([12]), tensor([13]), tensor([14]), tensor([15])] # Rank 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="mi">4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">all_to_all</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span>
+<span class="go">[tensor([0]), tensor([4]), tensor([8]), tensor([12])]    # Rank 0</span>
+<span class="go">[tensor([1]), tensor([5]), tensor([9]), tensor([13])]    # Rank 1</span>
+<span class="go">[tensor([2]), tensor([6]), tensor([10]), tensor([14])]   # Rank 2</span>
+<span class="go">[tensor([3]), tensor([7]), tensor([11]), tensor([15])]   # Rank 3</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Essentially, it is similar to following operation:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scatter_list</span> <span class="o">=</span> <span class="nb">input</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gather_list</span>  <span class="o">=</span> <span class="n">output</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">world_size</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="n">dist</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">gather_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">scatter_list</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">rank</span> <span class="k">else</span> <span class="p">[],</span> <span class="n">src</span> <span class="o">=</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span>
+<span class="go">tensor([0, 1, 2, 3, 4, 5])                                       # Rank 0</span>
+<span class="go">tensor([10, 11, 12, 13, 14, 15, 16, 17, 18])                     # Rank 1</span>
+<span class="go">tensor([20, 21, 22, 23, 24])                                     # Rank 2</span>
+<span class="go">tensor([30, 31, 32, 33, 34, 35, 36])                             # Rank 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">input_splits</span>
+<span class="go">[2, 2, 1, 1]                                                     # Rank 0</span>
+<span class="go">[3, 2, 2, 2]                                                     # Rank 1</span>
+<span class="go">[2, 1, 1, 1]                                                     # Rank 2</span>
+<span class="go">[2, 2, 2, 1]                                                     # Rank 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output_splits</span>
+<span class="go">[2, 3, 2, 2]                                                     # Rank 0</span>
+<span class="go">[2, 2, 1, 2]                                                     # Rank 1</span>
+<span class="go">[1, 2, 1, 2]                                                     # Rank 2</span>
+<span class="go">[1, 2, 1, 1]                                                     # Rank 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">input_splits</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span>
+<span class="go">[tensor([0, 1]), tensor([2, 3]), tensor([4]), tensor([5])]                   # Rank 0</span>
+<span class="go">[tensor([10, 11, 12]), tensor([13, 14]), tensor([15, 16]), tensor([17, 18])] # Rank 1</span>
+<span class="go">[tensor([20, 21]), tensor([22]), tensor([23]), tensor([24])]                 # Rank 2</span>
+<span class="go">[tensor([30, 31]), tensor([32, 33]), tensor([34, 35]), tensor([36])]         # Rank 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="o">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dist</span><span class="o">.</span><span class="n">all_to_all</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="nb">input</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span>
+<span class="go">[tensor([0, 1]), tensor([10, 11, 12]), tensor([20, 21]), tensor([30, 31])]   # Rank 0</span>
+<span class="go">[tensor([2, 3]), tensor([13, 14]), tensor([22]), tensor([32, 33])]           # Rank 1</span>
+<span class="go">[tensor([4]), tensor([15, 16]), tensor([23]), tensor([34, 35])]              # Rank 2</span>
+<span class="go">[tensor([5]), tensor([17, 18]), tensor([24]), tensor([36])]                  # Rank 3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="torch.distributed.barrier">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">barrier</code><span class="sig-paren">(</span><em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#barrier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.barrier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Synchronizes all processes.</p>
@@ -1099,7 +1186,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py class">
+<dl class="class">
 <dt id="torch.distributed.ReduceOp">
 <em class="property">class </em><code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">ReduceOp</code><a class="headerlink" href="#torch.distributed.ReduceOp" title="Permalink to this definition">¶</a></dt>
 <dd><p>An enum-like class for available reduction operations: <code class="docutils literal notranslate"><span class="pre">SUM</span></code>, <code class="docutils literal notranslate"><span class="pre">PRODUCT</span></code>,
@@ -1119,7 +1206,7 @@ They are used in specifying strategies for reduction collectives, e.g.,
 </div></blockquote>
 </dd></dl>
 
-<dl class="py class">
+<dl class="class">
 <dt id="torch.distributed.reduce_op">
 <em class="property">class </em><code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">reduce_op</code><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#reduce_op"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.reduce_op" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deprecated enum-like class for reduction operations: <code class="docutils literal notranslate"><span class="pre">SUM</span></code>, <code class="docutils literal notranslate"><span class="pre">PRODUCT</span></code>,
@@ -1178,7 +1265,7 @@ like to all-reduce. The following code can serve as a reference:</p>
 </div>
 <p>After the call, all 16 tensors on the two nodes will have the all-reduced value
 of 16</p>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.broadcast_multigpu">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">broadcast_multigpu</code><span class="sig-paren">(</span><em class="sig-param">tensor_list</em>, <em class="sig-param">src</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em>, <em class="sig-param">src_tensor=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#broadcast_multigpu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.broadcast_multigpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Broadcasts the tensor to the whole group with multiple GPU tensors
@@ -1211,7 +1298,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.all_reduce_multigpu">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">all_reduce_multigpu</code><span class="sig-paren">(</span><em class="sig-param">tensor_list</em>, <em class="sig-param">op=ReduceOp.SUM</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#all_reduce_multigpu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.all_reduce_multigpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduces the tensor data across all machines in such a way that all get
@@ -1245,7 +1332,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.reduce_multigpu">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">reduce_multigpu</code><span class="sig-paren">(</span><em class="sig-param">tensor_list</em>, <em class="sig-param">dst</em>, <em class="sig-param">op=ReduceOp.SUM</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em>, <em class="sig-param">dst_tensor=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#reduce_multigpu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.reduce_multigpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduces the tensor data on multiple GPUs across all machines. Each tensor
@@ -1278,7 +1365,7 @@ None, otherwise</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.all_gather_multigpu">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">all_gather_multigpu</code><span class="sig-paren">(</span><em class="sig-param">output_tensor_lists</em>, <em class="sig-param">input_tensor_list</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#all_gather_multigpu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.all_gather_multigpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gathers tensors from the whole group in a list.
@@ -1319,7 +1406,7 @@ None, if not async_op or if not part of the group</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.distributed.reduce_scatter_multigpu">
 <code class="sig-prename descclassname">torch.distributed.</code><code class="sig-name descname">reduce_scatter_multigpu</code><span class="sig-paren">(</span><em class="sig-param">output_tensor_list</em>, <em class="sig-param">input_tensor_lists</em>, <em class="sig-param">op=ReduceOp.SUM</em>, <em class="sig-param">group=&lt;object object&gt;</em>, <em class="sig-param">async_op=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/distributed/distributed_c10d.html#reduce_scatter_multigpu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.distributed.reduce_scatter_multigpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduce and scatter a list of tensors to the whole group.  Only nccl backend

@@ -157,7 +157,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -346,15 +346,11 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">closing</span><span class="p">,</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">_import_dotted_name</span>
-<span class="kn">from</span> <span class="nn">._six</span> <span class="kn">import</span> <span class="n">string_classes</span> <span class="k">as</span> <span class="n">_string_classes</span><span class="p">,</span> <span class="n">PY2</span>
+<span class="kn">from</span> <span class="nn">._six</span> <span class="kn">import</span> <span class="n">string_classes</span> <span class="k">as</span> <span class="n">_string_classes</span>
 <span class="kn">from</span> <span class="nn">torch._utils_internal</span> <span class="kn">import</span> <span class="n">get_source_lines_and_file</span>
-<span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">copy_reg</span> <span class="k">as</span> <span class="nn">copyreg</span>
-    <span class="kn">import</span> <span class="nn">cPickle</span> <span class="k">as</span> <span class="nn">pickle</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">copyreg</span>
-    <span class="kn">import</span> <span class="nn">pickle</span>
-    <span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">copyreg</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
 
 <span class="n">DEFAULT_PROTOCOL</span> <span class="o">=</span> <span class="mi">2</span>
 
@@ -531,7 +527,6 @@
 
 <span class="k">def</span> <span class="nf">_is_path</span><span class="p">(</span><span class="n">name_or_buffer</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name_or_buffer</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> \
-        <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name_or_buffer</span><span class="p">,</span> <span class="n">unicode</span><span class="p">))</span> <span class="ow">or</span> \
         <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name_or_buffer</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">))</span>
 
 
@@ -680,6 +675,9 @@
 <span class="sd">        pickle_module: module used for pickling metadata and objects</span>
 <span class="sd">        pickle_protocol: can be specified to override the default protocol</span>
 
+<span class="sd">    .. note::</span>
+<span class="sd">        A common PyTorch convention is to save tensors using .pt file extension.</span>
+
 <span class="sd">    .. warning::</span>
 <span class="sd">        If you are using Python 2, :func:`torch.save` does NOT support :class:`StringIO.StringIO`</span>
 <span class="sd">        as a valid file-like object. This is because the write method should return</span>
@@ -707,14 +705,6 @@
 
 
 <span class="k">def</span> <span class="nf">_legacy_save</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">pickle_module</span><span class="p">,</span> <span class="n">pickle_protocol</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">StringIO</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">):</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;torch.save received unsupported StringIO.StringIO file object, whose &#39;</span>
-                   <span class="s1">&#39;write method does not return the number of bytes written. &#39;</span>
-                   <span class="s1">&#39;Please use something like io.BytesIO for torch.save instead.&#39;</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
     <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
     <span class="n">serialized_container_types</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">serialized_storages</span> <span class="o">=</span> <span class="p">{}</span>
@@ -822,7 +812,6 @@
         <span class="k">if</span> <span class="n">storage</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;cpu&#39;</span><span class="p">:</span>
             <span class="c1"># If it&#39;s on the CPU we can directly copy it into the zip file</span>
             <span class="n">num_bytes</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">*</span> <span class="n">storage</span><span class="o">.</span><span class="n">element_size</span><span class="p">()</span>
-            <span class="n">buf</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
             <span class="n">zip_file</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">storage</span><span class="o">.</span><span class="n">data_ptr</span><span class="p">(),</span> <span class="n">num_bytes</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Copy to a buffer, then serialize that</span>
@@ -914,7 +903,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_check_dill_version</span><span class="p">(</span><span class="n">pickle_module</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;encoding&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pickle_load_args</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;encoding&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pickle_load_args</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">pickle_load_args</span><span class="p">[</span><span class="s1">&#39;encoding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span>
 
     <span class="k">with</span> <span class="n">_open_file_like</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">opened_file</span><span class="p">:</span>
@@ -1159,14 +1148,12 @@
 
     <span class="n">loaded_storages</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">load_tensor</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
-        <span class="n">loaded_storages</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">restore_location</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">load_tensor</span><span class="p">(</span><span class="n">data_type</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;data/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-        <span class="n">size_long</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&lt;Q&quot;</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
-        <span class="n">tensor_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">size_long</span> <span class="o">+</span> <span class="n">zip_file</span><span class="o">.</span><span class="n">get_record</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-        <span class="n">offset</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">is_real_file</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">loaded_storages</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">_set_from_file</span><span class="p">(</span><span class="n">tensor_file</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">is_real_file</span><span class="p">)</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">data_type</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span>
+
+        <span class="n">storage</span> <span class="o">=</span> <span class="n">zip_file</span><span class="o">.</span><span class="n">get_storage_from_record</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">storage</span><span class="p">()</span>
+        <span class="n">loaded_storages</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">restore_location</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">persistent_load</span><span class="p">(</span><span class="n">saved_id</span><span class="p">):</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">saved_id</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
@@ -1177,7 +1164,7 @@
             <span class="s2">&quot;Unknown typename for persistent_load, expected &#39;storage&#39; but got &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">typename</span><span class="p">)</span>
         <span class="n">data_type</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">data</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">loaded_storages</span><span class="p">:</span>
-            <span class="n">load_tensor</span><span class="p">(</span><span class="n">data_type</span><span class="p">(</span><span class="n">size</span><span class="p">),</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">_maybe_decode_ascii</span><span class="p">(</span><span class="n">location</span><span class="p">))</span>
+            <span class="n">load_tensor</span><span class="p">(</span><span class="n">data_type</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">_maybe_decode_ascii</span><span class="p">(</span><span class="n">location</span><span class="p">))</span>
         <span class="n">storage</span> <span class="o">=</span> <span class="n">loaded_storages</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">storage</span>
 

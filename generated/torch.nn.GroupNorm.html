@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,11 +339,11 @@
               
   <div class="section" id="groupnorm">
 <h1>GroupNorm<a class="headerlink" href="#groupnorm" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.GroupNorm">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">GroupNorm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_groups</span></em>, <em class="sig-param"><span class="n">num_channels</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">1e-05</span></em>, <em class="sig-param"><span class="n">affine</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/normalization.html#GroupNorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.GroupNorm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">GroupNorm</code><span class="sig-paren">(</span><em class="sig-param">num_groups</em>, <em class="sig-param">num_channels</em>, <em class="sig-param">eps=1e-05</em>, <em class="sig-param">affine=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/normalization.html#GroupNorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.GroupNorm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies Group Normalization over a mini-batch of inputs as described in
-the paper <a class="reference external" href="https://arxiv.org/abs/1803.08494">Group Normalization</a> .</p>
+the paper <a class="reference external" href="https://arxiv.org/abs/1803.08494">Group Normalization</a></p>
 <div class="math">
 \[y = \frac{x - \mathrm{E}[x]}{ \sqrt{\mathrm{Var}[x] + \epsilon}} * \gamma + \beta
 

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,12 +339,12 @@
               
   <div class="section" id="torch-remainder">
 <h1>torch.remainder<a class="headerlink" href="#torch-remainder" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.remainder">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">remainder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">out</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.remainder" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">remainder</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">other</em>, <em class="sig-param">out=None</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.remainder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the element-wise remainder of division.</p>
-<p>The divisor and dividend may contain both for integer and floating point
-numbers. The remainder has the same sign as the divisor.</p>
+<p>The dividend and divisor may contain both for integer and floating point
+numbers. The remainder has the same sign as the divisor <code class="xref py py-attr docutils literal notranslate"><span class="pre">other</span></code>.</p>
 <p>When <code class="xref py py-attr docutils literal notranslate"><span class="pre">other</span></code> is a tensor, the shapes of <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> and
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">other</span></code> must be <a class="reference internal" href="../notes/broadcasting.html#broadcasting-semantics"><span class="std std-ref">broadcastable</span></a>.</p>
 <dl class="field-list simple">

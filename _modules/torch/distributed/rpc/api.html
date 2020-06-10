@@ -157,7 +157,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -343,18 +343,17 @@
 <span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">numbers</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">threading</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.distributed</span> <span class="k">as</span> <span class="nn">dist</span>
+<span class="kn">from</span> <span class="nn">torch.jit</span> <span class="kn">import</span> <span class="n">Future</span>  <span class="c1"># noqa F401</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">RpcBackendOptions</span><span class="p">,</span>
     <span class="n">WorkerInfo</span><span class="p">,</span>
     <span class="n">_cleanup_python_rpc_handler</span><span class="p">,</span>
-    <span class="n">_delete_all_user_rrefs</span><span class="p">,</span>
+    <span class="n">_delete_all_user_and_unforked_owner_rrefs</span><span class="p">,</span>
     <span class="n">_destroy_rref_context</span><span class="p">,</span>
     <span class="n">_get_current_rpc_agent</span><span class="p">,</span>
     <span class="n">_invoke_remote_builtin</span><span class="p">,</span>
@@ -366,15 +365,17 @@
     <span class="n">_is_current_rpc_agent_set</span><span class="p">,</span>
     <span class="n">_reset_current_rpc_agent</span><span class="p">,</span>
     <span class="n">_set_and_start_rpc_agent</span><span class="p">,</span>
-    <span class="n">_set_rpc_timeout</span><span class="p">,</span>
     <span class="n">backend_registry</span><span class="p">,</span>
 <span class="p">)</span>
+
 <span class="kn">from</span> <span class="nn">.internal</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">PythonUDF</span><span class="p">,</span>
     <span class="n">RPCExecMode</span><span class="p">,</span>
     <span class="n">_internal_rpc_pickler</span><span class="p">,</span>
-    <span class="n">_start_record_function</span><span class="p">,</span>
+    <span class="n">_build_rpc_profiling_key</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">UNSET_RPC_TIMEOUT</span>
 
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -439,35 +440,37 @@
 <span class="c1"># States used by `def _wait_all_workers()`.</span>
 <span class="c1"># `_ALL_WORKER_NAMES` is initialized on initiaizing RPC layer.</span>
 <span class="n">_ALL_WORKER_NAMES</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">_wait_all_workers_dict_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+<span class="n">_wait_all_workers_dict_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
 <span class="n">_wait_all_workers_sequence_id</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">_wait_all_workers_sequence_id_to_states</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="n">WaitAllWorkersStates</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_on_leader_follower_report_shutdown_intent</span><span class="p">(</span><span class="n">sequence_id</span><span class="p">,</span> <span class="n">worker_name</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="p">(</span>
-        <span class="n">worker_name</span> <span class="ow">in</span> <span class="n">_ALL_WORKER_NAMES</span>
-    <span class="p">),</span> <span class="s2">&quot;</span><span class="si">{worker_name}</span><span class="s2"> is not expected by leader.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">worker_name</span><span class="o">=</span><span class="n">worker_name</span><span class="p">)</span>
-    <span class="n">intent_worker_names</span> <span class="o">=</span> <span class="n">_wait_all_workers_sequence_id_to_states</span><span class="p">[</span>
-        <span class="n">sequence_id</span>
-    <span class="p">]</span><span class="o">.</span><span class="n">intent_worker_names</span>
-    <span class="k">assert</span> <span class="p">(</span>
-        <span class="n">worker_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">intent_worker_names</span>
-    <span class="p">),</span> <span class="s2">&quot;</span><span class="si">{worker_name}</span><span class="s2"> reported intent sequence id </span><span class="si">{sequence_id}</span><span class="s2"> twice. &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">worker_name</span><span class="o">=</span><span class="n">worker_name</span><span class="p">,</span> <span class="n">sequence_id</span><span class="o">=</span><span class="n">sequence_id</span>
-    <span class="p">)</span>
-    <span class="n">intent_worker_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">worker_name</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">_ALL_WORKER_NAMES</span> <span class="o">==</span> <span class="n">intent_worker_names</span><span class="p">:</span>
-        <span class="n">_set_proceed_shutdown_signal</span><span class="p">(</span><span class="n">sequence_id</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">_wait_all_workers_dict_lock</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">worker_name</span> <span class="ow">in</span> <span class="n">_ALL_WORKER_NAMES</span>
+        <span class="p">),</span> <span class="s2">&quot;</span><span class="si">{worker_name}</span><span class="s2"> is not expected by leader.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">worker_name</span><span class="o">=</span><span class="n">worker_name</span><span class="p">)</span>
+        <span class="n">intent_worker_names</span> <span class="o">=</span> <span class="n">_wait_all_workers_sequence_id_to_states</span><span class="p">[</span>
+            <span class="n">sequence_id</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">intent_worker_names</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">worker_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">intent_worker_names</span>
+        <span class="p">),</span> <span class="s2">&quot;</span><span class="si">{worker_name}</span><span class="s2"> reported intent sequence id </span><span class="si">{sequence_id}</span><span class="s2"> twice. &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">worker_name</span><span class="o">=</span><span class="n">worker_name</span><span class="p">,</span> <span class="n">sequence_id</span><span class="o">=</span><span class="n">sequence_id</span>
+        <span class="p">)</span>
+        <span class="n">intent_worker_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">worker_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_ALL_WORKER_NAMES</span> <span class="o">==</span> <span class="n">intent_worker_names</span><span class="p">:</span>
+            <span class="n">_set_proceed_shutdown_signal</span><span class="p">(</span><span class="n">sequence_id</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_set_proceed_shutdown_signal</span><span class="p">(</span><span class="n">sequence_id</span><span class="p">):</span>
-    <span class="n">proceed_signal</span> <span class="o">=</span> <span class="n">_wait_all_workers_sequence_id_to_states</span><span class="p">[</span><span class="n">sequence_id</span><span class="p">]</span><span class="o">.</span><span class="n">proceed_signal</span>
+    <span class="k">with</span> <span class="n">_wait_all_workers_dict_lock</span><span class="p">:</span>
+        <span class="n">proceed_signal</span> <span class="o">=</span> <span class="n">_wait_all_workers_sequence_id_to_states</span><span class="p">[</span>
+            <span class="n">sequence_id</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">proceed_signal</span>
     <span class="k">assert</span> <span class="p">(</span>
         <span class="ow">not</span> <span class="n">proceed_signal</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
-    <span class="p">),</span> <span class="s2">&quot;Termination signal sequence id </span><span class="si">{}</span><span class="s2"> got set twice.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">sequence_id</span><span class="o">=</span><span class="n">sequence_id</span>
-    <span class="p">)</span>
+    <span class="p">),</span> <span class="s2">&quot;Termination signal sequence id </span><span class="si">{}</span><span class="s2"> got set twice.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sequence_id</span><span class="p">)</span>
     <span class="n">proceed_signal</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
 
 
@@ -493,6 +496,8 @@
         <span class="n">_wait_all_workers_sequence_id</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="n">is_leader_worker</span> <span class="o">=</span> <span class="n">leader_worker_name</span> <span class="o">==</span> <span class="n">self_worker_name</span>
+    <span class="c1"># Set a long enough timeout for all shutdown messages to be processed.</span>
+    <span class="n">timeout</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># seconds</span>
 
     <span class="c1"># Phase 1: Followers send intents.</span>
     <span class="c1"># All followers report intents to the leader.</span>
@@ -503,11 +508,13 @@
             <span class="n">leader_worker_name</span><span class="p">,</span>
             <span class="n">_on_leader_follower_report_shutdown_intent</span><span class="p">,</span>
             <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">sequence_id</span><span class="p">,</span> <span class="n">self_worker_name</span><span class="p">,),</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="n">proceed_signal</span> <span class="o">=</span> <span class="n">_wait_all_workers_sequence_id_to_states</span><span class="p">[</span>
-        <span class="n">sequence_id</span>
-    <span class="p">]</span><span class="o">.</span><span class="n">proceed_signal</span>
+    <span class="k">with</span> <span class="n">_wait_all_workers_dict_lock</span><span class="p">:</span>
+        <span class="n">proceed_signal</span> <span class="o">=</span> <span class="n">_wait_all_workers_sequence_id_to_states</span><span class="p">[</span>
+            <span class="n">sequence_id</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">proceed_signal</span>
     <span class="n">proceed_signal</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
     <span class="c1"># Phase 2: Leader asks followers to proceed.</span>
@@ -515,11 +522,10 @@
     <span class="c1"># after receiving all followers&#39; intents.</span>
     <span class="k">if</span> <span class="n">is_leader_worker</span><span class="p">:</span>
         <span class="c1"># The leader sends out proceeed signals to all followers.</span>
-        <span class="n">timeout</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-        <span class="n">_set_rpc_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
         <span class="n">worker_name_to_response_future_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">follower_worker_name</span> <span class="ow">in</span> <span class="n">_ALL_WORKER_NAMES</span> <span class="o">-</span> <span class="p">{</span><span class="n">leader_worker_name</span><span class="p">}:</span>
-            <span class="n">fut</span> <span class="o">=</span> <span class="n">rpc_async</span><span class="p">(</span><span class="n">follower_worker_name</span><span class="p">,</span> <span class="n">_set_proceed_shutdown_signal</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">sequence_id</span><span class="p">,))</span>
+            <span class="n">fut</span> <span class="o">=</span> <span class="n">rpc_async</span><span class="p">(</span><span class="n">follower_worker_name</span><span class="p">,</span> <span class="n">_set_proceed_shutdown_signal</span><span class="p">,</span>
+                            <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">sequence_id</span><span class="p">,),</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
             <span class="n">worker_name_to_response_future_dict</span><span class="p">[</span><span class="n">follower_worker_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">fut</span>
         <span class="k">for</span> <span class="n">follower_worker_name</span><span class="p">,</span> <span class="n">fut</span> <span class="ow">in</span> <span class="n">worker_name_to_response_future_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">try</span><span class="p">:</span>
@@ -542,6 +548,9 @@
 <span class="sd">    and wait for all outstanding work to complete. Otherwise, if</span>
 <span class="sd">    ``graceful=False``, this is a local shutdown, and it does not wait for other</span>
 <span class="sd">    RPC processes to reach this method.</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        Warning, ``future.wait()`` should not be called after ``shutdown()``.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        graceful (bool): Whether to do a graceful shutdown or not. If True,</span>
@@ -578,7 +587,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">graceful</span><span class="p">:</span>
         <span class="n">_wait_all_workers</span><span class="p">()</span>
-        <span class="n">_delete_all_user_rrefs</span><span class="p">()</span>
+        <span class="n">_delete_all_user_and_unforked_owner_rrefs</span><span class="p">()</span>
         <span class="n">_get_current_rpc_agent</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># This raises a `TORCH_CHECK()` exception on RRef leak detected.</span>
@@ -591,6 +600,11 @@
         <span class="c1"># interpreter exists.</span>
         <span class="c1"># No matter if RRef leak exception is raised, this clean-up code</span>
         <span class="c1"># must run to avoid destruction segfault in Python 3.5.</span>
+        <span class="c1">#</span>
+        <span class="c1"># future.wait() should not be called after shutdown().</span>
+        <span class="c1"># pythonRpcHandler is cleaned up in shutdown(), after</span>
+        <span class="c1"># shutdown(), python objects returned from rpc python call can not be</span>
+        <span class="c1"># resolved.</span>
         <span class="n">_cleanup_python_rpc_handler</span><span class="p">()</span>
         <span class="n">_reset_current_rpc_agent</span><span class="p">()</span></div>
 
@@ -604,9 +618,6 @@
     <span class="n">world_size</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">rpc_backend_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;RPC package does not support Python2.&quot;</span><span class="p">)</span>
 
     <span class="n">_validate_rpc_args</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">store</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">world_size</span><span class="p">,</span> <span class="n">rpc_backend_options</span><span class="p">)</span>
 
@@ -680,7 +691,7 @@
 
 
 <div class="viewcode-block" id="remote"><a class="viewcode-back" href="../../../../rpc.html#torch.distributed.rpc.remote">[docs]</a><span class="nd">@_require_initialized</span>
-<span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">remote</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">UNSET_RPC_TIMEOUT</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make a remote call to run ``func`` on worker ``to`` and return an</span>
 <span class="sd">    :class:`~torch.distributed.rpc.RRef` to the result value immediately.</span>
@@ -700,6 +711,19 @@
 <span class="sd">        kwargs (dict): is a dictionary of keyword arguments for the ``func``</span>
 <span class="sd">                       invocation.</span>
 
+<span class="sd">        timeout (float, optional): timeout in seconds for this remote call. If the</span>
+<span class="sd">                                   creation of this</span>
+<span class="sd">                                   :class:`~torch.distributed.rpc.RRef` on worker</span>
+<span class="sd">                                   ``to`` is not successfully processed on this</span>
+<span class="sd">                                   worker within this timeout, then the next time</span>
+<span class="sd">                                   there is an attempt to use the RRef (such as</span>
+<span class="sd">                                   ``to_here()``), a timeout will be raised</span>
+<span class="sd">                                   indicating this failure. A value of 0 indicates</span>
+<span class="sd">                                   an infinite timeout, i.e. a timeout error will</span>
+<span class="sd">                                   never be raised. If not provided, the default</span>
+<span class="sd">                                   value set during initialization or with</span>
+<span class="sd">                                   ``_set_rpc_timeout`` is used.</span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        A user :class:`~torch.distributed.rpc.RRef` instance to the result</span>
 <span class="sd">        value. Use the blocking API :meth:`torch.distributed.rpc.RRef.to_here`</span>
@@ -718,6 +742,18 @@
 <span class="sd">        contents of those tensors stay intact until the returned RRef is</span>
 <span class="sd">        confirmed by the owner, which can be checked using the</span>
 <span class="sd">        :meth:`torch.distributed.rpc.RRef.confirmed_by_owner` API.</span>
+
+<span class="sd">    .. warning ::</span>
+<span class="sd">        Errors such as timeouts for the ``remote`` API are handled on a</span>
+<span class="sd">        best-effort basis. This means that when remote calls initiated by</span>
+<span class="sd">        ``remote`` fail, such as with a timeout error, we take a best-effort</span>
+<span class="sd">        approach to error handling. This means that errors are handled and set</span>
+<span class="sd">        on the resulting RRef on an asynchronous basis. If the RRef has not been</span>
+<span class="sd">        used by the application before this handling (such as ``to_here`` or</span>
+<span class="sd">        fork call), then future uses of the ``RRef`` will appropriately raise</span>
+<span class="sd">        errors. However, it is possible that the user application will use the</span>
+<span class="sd">        ``RRef`` before the errors are handled. In this case, errors may not be</span>
+<span class="sd">        raised as they have not yet been handled.</span>
 
 <span class="sd">    Example::</span>
 <span class="sd">        Make sure that ``MASTER_ADDRESS`` and ``MASTER_PORT`` are set properly</span>
@@ -764,68 +800,150 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">qualified_name</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">_find_builtin</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="n">dst_worker_info</span> <span class="o">=</span> <span class="n">_to_worker_info</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
+    <span class="n">should_profile</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">_profiler_enabled</span><span class="p">()</span>
 
-    <span class="c1"># If profiling is enabled, kick off the timer and retrieve back a</span>
-    <span class="c1"># RecordFunction instance.</span>
-    <span class="n">rf</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">_profiler_enabled</span><span class="p">():</span>
-        <span class="n">rf</span> <span class="o">=</span> <span class="n">_start_record_function</span><span class="p">(</span>
+    <span class="n">ctx_manager</span> <span class="o">=</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">should_profile</span><span class="p">:</span>
+        <span class="c1"># Create appropriate string representation based on type of func</span>
+        <span class="c1"># (builtin, script, python)</span>
+        <span class="k">if</span> <span class="n">qualified_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">func_name</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">_qualified_name</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">func</span><span class="o">.</span><span class="vm">__qualname__</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">func_name</span> <span class="o">=</span> <span class="n">qualified_name</span>
+        <span class="c1"># Build RPC profiling key.</span>
+        <span class="n">rpc_profiling_key</span> <span class="o">=</span> <span class="n">_build_rpc_profiling_key</span><span class="p">(</span>
             <span class="n">RPCExecMode</span><span class="o">.</span><span class="n">REMOTE</span><span class="p">,</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">qualified_name</span><span class="p">)</span> <span class="k">if</span> <span class="n">qualified_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">func</span><span class="o">.</span><span class="vm">__qualname__</span><span class="p">,</span>
+            <span class="n">func_name</span><span class="p">,</span>
             <span class="n">get_worker_info</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="n">dst_worker_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="n">ctx_manager</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">record_function</span><span class="p">(</span><span class="n">rpc_profiling_key</span><span class="p">)</span>
 
-    <span class="n">args</span> <span class="o">=</span> <span class="n">args</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="p">()</span>
-    <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="n">ctx_manager</span> <span class="k">as</span> <span class="n">rf</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">args</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="p">()</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
 
-    <span class="k">if</span> <span class="n">qualified_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_invoke_remote_builtin</span><span class="p">(</span><span class="n">dst_worker_info</span><span class="p">,</span> <span class="n">qualified_name</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_invoke_remote_torchscript</span><span class="p">(</span>
-            <span class="n">dst_worker_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">_jit_internal</span><span class="o">.</span><span class="n">_qualified_name</span><span class="p">(</span><span class="n">func</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-        <span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">pickled_python_udf</span><span class="p">,</span> <span class="n">tensors</span><span class="p">)</span> <span class="o">=</span> <span class="n">_default_pickler</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span>
-            <span class="n">PythonUDF</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">_invoke_remote_python_udf</span><span class="p">(</span><span class="n">dst_worker_info</span><span class="p">,</span> <span class="n">pickled_python_udf</span><span class="p">,</span> <span class="n">tensors</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span></div>
+        <span class="n">is_async_exec</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">&quot;_wrapped_async_rpc_function&quot;</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">qualified_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rref</span> <span class="o">=</span> <span class="n">_invoke_remote_builtin</span><span class="p">(</span><span class="n">dst_worker_info</span><span class="p">,</span> <span class="n">qualified_name</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">):</span>
+            <span class="n">rref</span> <span class="o">=</span> <span class="n">_invoke_remote_torchscript</span><span class="p">(</span>
+                <span class="n">dst_worker_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">_jit_internal</span><span class="o">.</span><span class="n">_qualified_name</span><span class="p">(</span><span class="n">func</span><span class="p">),</span>
+                <span class="n">timeout</span><span class="p">,</span>
+                <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">pickled_python_udf</span><span class="p">,</span> <span class="n">tensors</span><span class="p">)</span> <span class="o">=</span> <span class="n">_default_pickler</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span>
+                <span class="n">PythonUDF</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">rref</span> <span class="o">=</span> <span class="n">_invoke_remote_python_udf</span><span class="p">(</span>
+                <span class="n">dst_worker_info</span><span class="p">,</span>
+                <span class="n">pickled_python_udf</span><span class="p">,</span>
+                <span class="n">tensors</span><span class="p">,</span>
+                <span class="n">timeout</span><span class="p">,</span>
+                <span class="n">is_async_exec</span>
+            <span class="p">)</span>
+        <span class="c1"># attach profiling information</span>
+        <span class="k">if</span> <span class="n">should_profile</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">_profiler_enabled</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="n">rf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="n">fut</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">_call_end_callbacks_on_future</span><span class="p">(</span><span class="n">rref</span><span class="o">.</span><span class="n">_get_future</span><span class="p">())</span>
+            <span class="n">rref</span><span class="o">.</span><span class="n">_set_profiling_future</span><span class="p">(</span><span class="n">fut</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">_invoke_rpc</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">rpc_type</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">rref</span></div>
+
+<span class="k">def</span> <span class="nf">_invoke_rpc</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">rpc_type</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rpc_timeout</span><span class="o">=</span><span class="n">UNSET_RPC_TIMEOUT</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;function should be callable.&quot;</span><span class="p">)</span>
 
     <span class="n">qualified_name</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">_find_builtin</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="n">dst_worker_info</span> <span class="o">=</span> <span class="n">_to_worker_info</span><span class="p">(</span><span class="n">to</span><span class="p">)</span>
-    <span class="c1"># If profiling is enabled, kick off the timer and retrieve back a</span>
-    <span class="c1"># RecordFunction instance.</span>
-    <span class="n">rf</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">_profiler_enabled</span><span class="p">():</span>
-        <span class="n">rf</span> <span class="o">=</span> <span class="n">_start_record_function</span><span class="p">(</span>
+
+    <span class="c1"># TODO: profiling logic does not really belong in invoke_rpc, it should be</span>
+    <span class="c1"># added as part of a context manager or helper (https://github.com/pytorch/pytorch/issues/36360)</span>
+    <span class="n">should_profile</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">_profiler_enabled</span><span class="p">()</span>
+
+    <span class="n">ctx_manager</span> <span class="o">=</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">should_profile</span><span class="p">:</span>
+        <span class="c1"># Create appropriate string representation based on type of func</span>
+        <span class="c1"># (builtin, script, python)</span>
+        <span class="k">if</span> <span class="n">qualified_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">func_name</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">_qualified_name</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">)</span>
+                <span class="k">else</span> <span class="n">func</span><span class="o">.</span><span class="vm">__qualname__</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">func_name</span> <span class="o">=</span> <span class="n">qualified_name</span>
+        <span class="c1"># Build RPC profiling key.</span>
+        <span class="n">rpc_profiling_key</span> <span class="o">=</span> <span class="n">_build_rpc_profiling_key</span><span class="p">(</span>
             <span class="n">rpc_type</span><span class="p">,</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">qualified_name</span><span class="p">)</span> <span class="k">if</span> <span class="n">qualified_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">func</span><span class="o">.</span><span class="vm">__qualname__</span><span class="p">,</span>
+            <span class="n">func_name</span><span class="p">,</span>
             <span class="n">get_worker_info</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="n">dst_worker_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="n">ctx_manager</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">record_function</span><span class="p">(</span><span class="n">rpc_profiling_key</span><span class="p">)</span>
 
-    <span class="n">args</span> <span class="o">=</span> <span class="n">args</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="p">()</span>
-    <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="n">ctx_manager</span> <span class="k">as</span> <span class="n">rf</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">args</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="p">()</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="p">{}</span>
 
-    <span class="k">if</span> <span class="n">qualified_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">fut</span> <span class="o">=</span> <span class="n">_invoke_rpc_builtin</span><span class="p">(</span><span class="n">dst_worker_info</span><span class="p">,</span> <span class="n">qualified_name</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">):</span>
-        <span class="n">fut</span> <span class="o">=</span> <span class="n">_invoke_rpc_torchscript</span><span class="p">(</span><span class="n">dst_worker_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">pickled_python_udf</span><span class="p">,</span> <span class="n">tensors</span><span class="p">)</span> <span class="o">=</span> <span class="n">_default_pickler</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span>
-            <span class="n">PythonUDF</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-        <span class="p">)</span>
-        <span class="n">fut</span> <span class="o">=</span> <span class="n">_invoke_rpc_python_udf</span><span class="p">(</span><span class="n">dst_worker_info</span><span class="p">,</span> <span class="n">pickled_python_udf</span><span class="p">,</span> <span class="n">tensors</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span>
+        <span class="n">is_async_exec</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">&quot;_wrapped_async_rpc_function&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_async_exec</span><span class="p">:</span>
+            <span class="n">wrapped</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">_wrapped_async_rpc_function</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">wrapped</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">):</span>
+                <span class="n">func</span> <span class="o">=</span> <span class="n">wrapped</span>
+
+        <span class="k">if</span> <span class="n">qualified_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fut</span> <span class="o">=</span> <span class="n">_invoke_rpc_builtin</span><span class="p">(</span>
+                <span class="n">dst_worker_info</span><span class="p">,</span>
+                <span class="n">qualified_name</span><span class="p">,</span>
+                <span class="n">rpc_timeout</span><span class="p">,</span>
+                <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">ScriptFunction</span><span class="p">):</span>
+            <span class="n">fut</span> <span class="o">=</span> <span class="n">_invoke_rpc_torchscript</span><span class="p">(</span>
+                <span class="n">dst_worker_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">jit</span><span class="o">.</span><span class="n">_qualified_name</span><span class="p">(</span><span class="n">func</span><span class="p">),</span>
+                <span class="n">args</span><span class="p">,</span>
+                <span class="n">kwargs</span><span class="p">,</span>
+                <span class="n">rpc_timeout</span><span class="p">,</span>
+                <span class="n">is_async_exec</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">pickled_python_udf</span><span class="p">,</span> <span class="n">tensors</span><span class="p">)</span> <span class="o">=</span> <span class="n">_default_pickler</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span>
+                <span class="n">PythonUDF</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">fut</span> <span class="o">=</span> <span class="n">_invoke_rpc_python_udf</span><span class="p">(</span>
+                <span class="n">dst_worker_info</span><span class="p">,</span>
+                <span class="n">pickled_python_udf</span><span class="p">,</span>
+                <span class="n">tensors</span><span class="p">,</span>
+                <span class="n">rpc_timeout</span><span class="p">,</span>
+                <span class="n">is_async_exec</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">should_profile</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">_profiler_enabled</span><span class="p">()</span>
+            <span class="k">assert</span> <span class="n">rf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="c1"># Schedule profiling callbacks to run when the future completes.</span>
+            <span class="c1"># This returns a future that is completed when the original future</span>
+            <span class="c1"># completes and the profiling callbacks have been completed as well,</span>
+            <span class="c1"># to guarantee that fut.wait() completes the profiling. This new</span>
+            <span class="c1"># future will contain the same value as the original future.</span>
+            <span class="n">fut</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">_call_end_callbacks_on_future</span><span class="p">(</span><span class="n">fut</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fut</span>
 
 
 <div class="viewcode-block" id="rpc_sync"><a class="viewcode-back" href="../../../../rpc.html#torch.distributed.rpc.rpc_sync">[docs]</a><span class="nd">@_require_initialized</span>
-<span class="k">def</span> <span class="nf">rpc_sync</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">rpc_sync</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">UNSET_RPC_TIMEOUT</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make a blocking RPC call to run function ``func`` on worker ``to``. RPC</span>
 <span class="sd">    messages are sent and received in parallel to execution of Python code. This</span>
@@ -839,6 +957,14 @@
 <span class="sd">        args (tuple): the argument tuple for the ``func`` invocation.</span>
 <span class="sd">        kwargs (dict): is a dictionary of keyword arguments for the ``func``</span>
 <span class="sd">                       invocation.</span>
+<span class="sd">        timeout (float, optional): timeout in seconds to use for this RPC. If</span>
+<span class="sd">                                   the RPC does not complete in this amount of</span>
+<span class="sd">                                   time, an exception indicating it has</span>
+<span class="sd">                                   timed out will be raised. A value of 0</span>
+<span class="sd">                                   indicates an infinite timeout, i.e. a timeout</span>
+<span class="sd">                                   error will never be raised. If not provided,</span>
+<span class="sd">                                   the default value set during initialization</span>
+<span class="sd">                                   or with `_set_rpc_timeout` is used.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Returns the result of running ``func`` with ``args`` and ``kwargs``.</span>
@@ -890,12 +1016,12 @@
 <span class="sd">        &gt;&gt;&gt; rpc.shutdown()</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fut</span> <span class="o">=</span> <span class="n">_invoke_rpc</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">RPCExecMode</span><span class="o">.</span><span class="n">SYNC</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">fut</span> <span class="o">=</span> <span class="n">_invoke_rpc</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">RPCExecMode</span><span class="o">.</span><span class="n">SYNC</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fut</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="rpc_async"><a class="viewcode-back" href="../../../../rpc.html#torch.distributed.rpc.rpc_async">[docs]</a><span class="nd">@_require_initialized</span>
-<span class="k">def</span> <span class="nf">rpc_async</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">rpc_async</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">UNSET_RPC_TIMEOUT</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make a non-blocking RPC call to run function ``func`` on worker ``to``. RPC</span>
 <span class="sd">    messages are sent and received in parallel to execution of Python code. This</span>
@@ -910,6 +1036,15 @@
 <span class="sd">        args (tuple): the argument tuple for the ``func`` invocation.</span>
 <span class="sd">        kwargs (dict): is a dictionary of keyword arguments for the ``func``</span>
 <span class="sd">                       invocation.</span>
+<span class="sd">        timeout (float, optional): timeout in seconds to use for this RPC. If</span>
+<span class="sd">                                   the RPC does not complete in this amount of</span>
+<span class="sd">                                   time, an exception indicating it has</span>
+<span class="sd">                                   timed out will be raised. A value of 0</span>
+<span class="sd">                                   indicates an infinite timeout, i.e. a timeout</span>
+<span class="sd">                                   error will never be raised. If not provided,</span>
+<span class="sd">                                   the default value set during initialization</span>
+<span class="sd">                                   or with `_set_rpc_timeout` is used.</span>
+
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Returns a Future object that can be waited</span>
@@ -972,7 +1107,7 @@
 <span class="sd">        &gt;&gt;&gt; rpc.init_rpc(&quot;worker1&quot;, rank=1, world_size=2)</span>
 <span class="sd">        &gt;&gt;&gt; rpc.shutdown()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_invoke_rpc</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">RPCExecMode</span><span class="o">.</span><span class="n">ASYNC</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">_invoke_rpc</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">RPCExecMode</span><span class="o">.</span><span class="n">ASYNC</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span></div>
 </pre></div>
 
              </article>

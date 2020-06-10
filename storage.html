@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -340,53 +340,65 @@
 <p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Storage</span></code> is a contiguous, one-dimensional array of a single
 data type.</p>
 <p>Every <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> has a corresponding storage of the same data type.</p>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.FloatStorage">
 <em class="property">class </em><code class="sig-prename descclassname">torch.</code><code class="sig-name descname">FloatStorage</code><a class="reference internal" href="_modules/torch.html#FloatStorage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.FloatStorage" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
+<dd><dl class="method">
 <dt id="torch.FloatStorage.bfloat16">
 <code class="sig-name descname">bfloat16</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.bfloat16" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to bfloat16 type</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.bool">
 <code class="sig-name descname">bool</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.bool" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to bool type</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.byte">
 <code class="sig-name descname">byte</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.byte" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to byte type</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.char">
 <code class="sig-name descname">char</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.char" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to char type</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.clone">
 <code class="sig-name descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.clone" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of this storage</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
+<dt id="torch.FloatStorage.complex_double">
+<code class="sig-name descname">complex_double</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.complex_double" title="Permalink to this definition">¶</a></dt>
+<dd><p>Casts this storage to complex double type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="torch.FloatStorage.complex_float">
+<code class="sig-name descname">complex_float</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.complex_float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Casts this storage to complex float type</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="torch.FloatStorage.copy_">
 <code class="sig-name descname">copy_</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.copy_" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.cpu">
 <code class="sig-name descname">cpu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.cpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a CPU copy of this storage if it’s not already on the CPU</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.cuda">
-<code class="sig-name descname">cuda</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">non_blocking</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.cuda" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cuda</code><span class="sig-paren">(</span><em class="sig-param">device=None</em>, <em class="sig-param">non_blocking=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.cuda" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of this object in CUDA memory.</p>
 <p>If this object is already in CUDA memory and on the correct device, then
 no copy is performed and the original object is returned.</p>
@@ -404,51 +416,51 @@ the <code class="docutils literal notranslate"><span class="pre">non_blocking</s
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.data_ptr">
 <code class="sig-name descname">data_ptr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.data_ptr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="torch.FloatStorage.device">
 <code class="sig-name descname">device</code><a class="headerlink" href="#torch.FloatStorage.device" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.double">
 <code class="sig-name descname">double</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to double type</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="torch.FloatStorage.dtype">
 <code class="sig-name descname">dtype</code><a class="headerlink" href="#torch.FloatStorage.dtype" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.element_size">
 <code class="sig-name descname">element_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.element_size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.fill_">
 <code class="sig-name descname">fill_</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.fill_" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.float">
 <code class="sig-name descname">float</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to float type</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.from_buffer">
 <em class="property">static </em><code class="sig-name descname">from_buffer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.from_buffer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.from_file">
-<em class="property">static </em><code class="sig-name descname">from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">shared</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; Storage<a class="headerlink" href="#torch.FloatStorage.from_file" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">shared=False</em>, <em class="sig-param">size=0</em><span class="sig-paren">)</span> &#x2192; Storage<a class="headerlink" href="#torch.FloatStorage.from_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>If <cite>shared</cite> is <cite>True</cite>, then memory is shared between all processes.
 All changes are written to the file. If <cite>shared</cite> is <cite>False</cite>, then the changes on
 the storage do not affect the file.</p>
@@ -467,61 +479,61 @@ created if needed.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.half">
 <code class="sig-name descname">half</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.half" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to half type</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.int">
 <code class="sig-name descname">int</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.int" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to int type</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="torch.FloatStorage.is_cuda">
 <code class="sig-name descname">is_cuda</code><em class="property"> = False</em><a class="headerlink" href="#torch.FloatStorage.is_cuda" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.is_pinned">
 <code class="sig-name descname">is_pinned</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.is_pinned" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.is_shared">
 <code class="sig-name descname">is_shared</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.is_shared" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="torch.FloatStorage.is_sparse">
 <code class="sig-name descname">is_sparse</code><em class="property"> = False</em><a class="headerlink" href="#torch.FloatStorage.is_sparse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.long">
 <code class="sig-name descname">long</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.long" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to long type</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.new">
 <code class="sig-name descname">new</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.new" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.pin_memory">
 <code class="sig-name descname">pin_memory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.pin_memory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies the storage to pinned memory, if it’s not already pinned.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.resize_">
 <code class="sig-name descname">resize_</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.resize_" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.share_memory_">
 <code class="sig-name descname">share_memory_</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.share_memory_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves the storage to shared memory.</p>
@@ -531,26 +543,26 @@ Storages in shared memory cannot be resized.</p>
 <p>Returns: self</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.short">
 <code class="sig-name descname">short</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.short" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts this storage to short type</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.size">
 <code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.tolist">
 <code class="sig-name descname">tolist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.tolist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list containing the elements of this storage</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.FloatStorage.type">
-<code class="sig-name descname">type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">non_blocking</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">type</code><span class="sig-paren">(</span><em class="sig-param">dtype=None</em>, <em class="sig-param">non_blocking=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.FloatStorage.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the type if <cite>dtype</cite> is not provided, else casts this object to
 the specified type.</p>
 <p>If this is already of the correct type, no copy is performed and the

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,15 +339,10 @@
               
   <div class="section" id="torch-trapz">
 <h1>torch.trapz<a class="headerlink" href="#torch-trapz" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.trapz">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">trapz</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.trapz" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py function">
-<dt id="id0">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">trapz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">dim</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>Estimate <span class="math">\(\int y\,dx\)</span> along <cite>dim</cite>, using the trapezoid rule.</p>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">trapz</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">x</em>, <em class="sig-param">*</em>, <em class="sig-param">dim=-1</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.trapz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate <span class="math">\(\int y\,dx\)</span> along <cite>dim</cite>, using the trapezoid rule.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -376,9 +371,9 @@ Each element of the returned tensor represents the estimated integral
 <span class="go">tensor([-1.2220,  0.9683])</span>
 </pre></div>
 </div>
-<dl class="py function">
-<dt id="id1">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">trapz</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">dx</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">dim</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">trapz</code><span class="sig-paren">(</span><em class="sig-param">y</em>, <em class="sig-param">*</em>, <em class="sig-param">dx=1</em>, <em class="sig-param">dim=-1</em><span class="sig-paren">)</span> &#x2192; Tensor</dt>
 <dd></dd></dl>
 
 <p>As above, but the sample points are spaced uniformly at a distance of <cite>dx</cite>.</p>

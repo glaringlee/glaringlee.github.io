@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-sparse-coo-tensor">
 <h1>torch.sparse_coo_tensor<a class="headerlink" href="#torch-sparse-coo-tensor" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.sparse_coo_tensor">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">sparse_coo_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indices</span></em>, <em class="sig-param"><span class="n">values</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">requires_grad</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.sparse_coo_tensor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">sparse_coo_tensor</code><span class="sig-paren">(</span><em class="sig-param">indices</em>, <em class="sig-param">values</em>, <em class="sig-param">size=None</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">device=None</em>, <em class="sig-param">requires_grad=False</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.sparse_coo_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a sparse tensors in COO(rdinate) format with non-zero elements at the given <code class="xref py py-attr docutils literal notranslate"><span class="pre">indices</span></code>
 with the given <code class="xref py py-attr docutils literal notranslate"><span class="pre">values</span></code>. A sparse tensor can be <cite>uncoalesced</cite>, in that case, there are duplicate
 coordinates in the indices, and the value at that index is the sum of all duplicate value entries:

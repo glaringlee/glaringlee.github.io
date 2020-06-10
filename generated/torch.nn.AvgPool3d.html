@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="avgpool3d">
 <h1>AvgPool3d<a class="headerlink" href="#avgpool3d" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.AvgPool3d">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">AvgPool3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kernel_size</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">ceil_mode</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">count_include_pad</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">divisor_override</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/pooling.html#AvgPool3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AvgPool3d" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">AvgPool3d</code><span class="sig-paren">(</span><em class="sig-param">kernel_size</em>, <em class="sig-param">stride=None</em>, <em class="sig-param">padding=0</em>, <em class="sig-param">ceil_mode=False</em>, <em class="sig-param">count_include_pad=True</em>, <em class="sig-param">divisor_override=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/pooling.html#AvgPool3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AvgPool3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies a 3D average pooling over an input signal composed of several input
 planes.</p>
 <p>In the simplest case, the output value of the layer with input size <span class="math">\((N, C, D, H, W)\)</span>,
@@ -374,7 +374,7 @@ the second <cite>int</cite> for the height dimension and the third <cite>int</ci
 <li><p><strong>padding</strong> – implicit zero padding to be added on all three sides</p></li>
 <li><p><strong>ceil_mode</strong> – when True, will use <cite>ceil</cite> instead of <cite>floor</cite> to compute the output shape</p></li>
 <li><p><strong>count_include_pad</strong> – when True, will include the zero-padding in the averaging calculation</p></li>
-<li><p><strong>divisor_override</strong> – if specified, it will be used as divisor, otherwise attr:<cite>kernel_size</cite> will be used</p></li>
+<li><p><strong>divisor_override</strong> – if specified, it will be used as divisor, otherwise <code class="xref py py-attr docutils literal notranslate"><span class="pre">kernel_size</span></code> will be used</p></li>
 </ul>
 </dd>
 </dl>

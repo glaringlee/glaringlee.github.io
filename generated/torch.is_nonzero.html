@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,10 +339,40 @@
               
   <div class="section" id="torch-is-nonzero">
 <h1>torch.is_nonzero<a class="headerlink" href="#torch-is-nonzero" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.is_nonzero">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">is_nonzero</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.is_nonzero" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">is_nonzero</code><span class="sig-paren">(</span><em class="sig-param">input) -&gt; (bool</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.is_nonzero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> is a single element tensor which is not equal to zero
+after type conversions.
+i.e. not equal to <code class="docutils literal notranslate"><span class="pre">torch.tensor([0.])</span></code> or <code class="docutils literal notranslate"><span class="pre">torch.tensor([0])</span></code> or
+<code class="docutils literal notranslate"><span class="pre">torch.tensor([False])</span></code>.
+Throws a <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> if <code class="docutils literal notranslate"><span class="pre">torch.numel()</span> <span class="pre">!=</span> <span class="pre">1</span></code> (even in case
+of sparse tensors).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – the PyTorch tensor to test</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">is_nonzero</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">]))</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">is_nonzero</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.5</span><span class="p">]))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">is_nonzero</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="kc">False</span><span class="p">]))</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">is_nonzero</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">3</span><span class="p">]))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">is_nonzero</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]))</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">RuntimeError</span>: <span class="n">bool value of Tensor with more than one value is ambiguous</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">is_nonzero</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([]))</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">RuntimeError</span>: <span class="n">bool value of Tensor with no values is ambiguous</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </div>
 

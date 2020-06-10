@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-split">
 <h1>torch.split<a class="headerlink" href="#torch-split" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.split">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em>, <em class="sig-param"><span class="n">split_size_or_sections</span></em>, <em class="sig-param"><span class="n">dim</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/functional.html#split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.split" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param">tensor</em>, <em class="sig-param">split_size_or_sections</em>, <em class="sig-param">dim=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/functional.html#split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Splits the tensor into chunks. Each chunk is a view of the original tensor.</p>
 <p>If <code class="xref py py-attr docutils literal notranslate"><span class="pre">split_size_or_sections</span></code> is an integer type, then <a class="reference internal" href="torch.tensor.html#torch.tensor" title="torch.tensor"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tensor</span></code></a> will
 be split into equally sized chunks (if possible). Last chunk will be smaller if
@@ -358,6 +358,30 @@ to <code class="xref py py-attr docutils literal notranslate"><span class="pre">
 list of sizes for each chunk</p></li>
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – dimension along which to split the tensor.</p></li>
 </ul>
+</dd>
+</dl>
+<dl>
+<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">tensor([[0, 1],</span>
+<span class="go">        [2, 3],</span>
+<span class="go">        [4, 5],</span>
+<span class="go">        [6, 7],</span>
+<span class="go">        [8, 9]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">(tensor([[0, 1],</span>
+<span class="go">         [2, 3]]),</span>
+<span class="go"> tensor([[4, 5],</span>
+<span class="go">         [6, 7]]),</span>
+<span class="go"> tensor([[8, 9]]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="go">(tensor([[0, 1]]),</span>
+<span class="go"> tensor([[2, 3],</span>
+<span class="go">         [4, 5],</span>
+<span class="go">         [6, 7],</span>
+<span class="go">         [8, 9]]))</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd></dl>

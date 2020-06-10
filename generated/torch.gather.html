@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-gather">
 <h1>torch.gather<a class="headerlink" href="#torch-gather" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.gather">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">gather</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">dim</span></em>, <em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">out</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sparse_grad</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.gather" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">gather</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">dim</em>, <em class="sig-param">index</em>, <em class="sig-param">out=None</em>, <em class="sig-param">sparse_grad=False</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.gather" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gathers values along an axis specified by <cite>dim</cite>.</p>
 <p>For a 3-D tensor the output is specified by:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">input</span><span class="p">[</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]][</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>  <span class="c1"># if dim == 0</span>

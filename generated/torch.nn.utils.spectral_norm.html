@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-nn-utils-spectral-norm">
 <h1>torch.nn.utils.spectral_norm<a class="headerlink" href="#torch-nn-utils-spectral-norm" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.nn.utils.spectral_norm">
-<code class="sig-prename descclassname">torch.nn.utils.</code><code class="sig-name descname">spectral_norm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'weight'</span></em>, <em class="sig-param"><span class="n">n_power_iterations</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">1e-12</span></em>, <em class="sig-param"><span class="n">dim</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/spectral_norm.html#spectral_norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.spectral_norm" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.nn.utils.</code><code class="sig-name descname">spectral_norm</code><span class="sig-paren">(</span><em class="sig-param">module</em>, <em class="sig-param">name='weight'</em>, <em class="sig-param">n_power_iterations=1</em>, <em class="sig-param">eps=1e-12</em>, <em class="sig-param">dim=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/utils/spectral_norm.html#spectral_norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.utils.spectral_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies spectral normalization to a parameter in the given module.</p>
 <div class="math">
 \[\mathbf{W}_{SN} = \dfrac{\mathbf{W}}{\sigma(\mathbf{W})},

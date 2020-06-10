@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -535,8 +535,8 @@
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.Hardtanh.html#torch.nn.Hardtanh" title="torch.nn.Hardtanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.Hardtanh</span></code></a></p></td>
 <td><p>Applies the HardTanh function element-wise</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.Hardswish</span></code></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Hardswish.html#torch.nn.Hardswish" title="torch.nn.Hardswish"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.Hardswish</span></code></a></p></td>
+<td><p>Applies the hardswish function, element-wise, as described in the paper:</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LeakyReLU.html#torch.nn.LeakyReLU" title="torch.nn.LeakyReLU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.LeakyReLU</span></code></a></p></td>
 <td><p>Applies the element-wise function:</p></td>
@@ -609,7 +609,7 @@
 <td><p>Applies the <span class="math">\(\log(\text{Softmax}(x))\)</span> function to an n-dimensional input Tensor.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.AdaptiveLogSoftmaxWithLoss.html#torch.nn.AdaptiveLogSoftmaxWithLoss" title="torch.nn.AdaptiveLogSoftmaxWithLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.AdaptiveLogSoftmaxWithLoss</span></code></a></p></td>
-<td><p>Efficient softmax approximation as described in <a href="#id20"><span class="problematic" id="id21">`Efficient softmax approximation for GPUs`_</span></a> by Edouard Grave, Armand Joulin, Moustapha Cissé, David Grangier, and Hervé Jégou.</p></td>
+<td><p>Efficient softmax approximation as described in <a class="reference external" href="https://arxiv.org/abs/1609.04309">Efficient softmax approximation for GPUs by Edouard Grave, Armand Joulin, Moustapha Cissé, David Grangier, and Hervé Jégou</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -619,31 +619,31 @@
 <table class="longtable docutils colwidths-auto align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.BatchNorm1d.html#torch.nn.BatchNorm1d" title="torch.nn.BatchNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.BatchNorm1d</span></code></a></p></td>
-<td><p>Applies Batch Normalization over a 2D or 3D input (a mini-batch of 1D inputs with optional additional channel dimension) as described in the paper <a href="#id22"><span class="problematic" id="id23">`Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift`_</span></a> .</p></td>
+<td><p>Applies Batch Normalization over a 2D or 3D input (a mini-batch of 1D inputs with optional additional channel dimension) as described in the paper <a class="reference external" href="https://arxiv.org/abs/1502.03167">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a> .</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.BatchNorm2d.html#torch.nn.BatchNorm2d" title="torch.nn.BatchNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.BatchNorm2d</span></code></a></p></td>
-<td><p>Applies Batch Normalization over a 4D input (a mini-batch of 2D inputs with additional channel dimension) as described in the paper <a href="#id24"><span class="problematic" id="id25">`Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift`_</span></a> .</p></td>
+<td><p>Applies Batch Normalization over a 4D input (a mini-batch of 2D inputs with additional channel dimension) as described in the paper <a class="reference external" href="https://arxiv.org/abs/1502.03167">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a> .</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d" title="torch.nn.BatchNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.BatchNorm3d</span></code></a></p></td>
-<td><p>Applies Batch Normalization over a 5D input (a mini-batch of 3D inputs with additional channel dimension) as described in the paper <a href="#id26"><span class="problematic" id="id27">`Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift`_</span></a> .</p></td>
+<td><p>Applies Batch Normalization over a 5D input (a mini-batch of 3D inputs with additional channel dimension) as described in the paper <a class="reference external" href="https://arxiv.org/abs/1502.03167">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a> .</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.GroupNorm.html#torch.nn.GroupNorm" title="torch.nn.GroupNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.GroupNorm</span></code></a></p></td>
-<td><p>Applies Group Normalization over a mini-batch of inputs as described in the paper <a href="#id28"><span class="problematic" id="id29">`Group Normalization`_</span></a> .</p></td>
+<td><p>Applies Group Normalization over a mini-batch of inputs as described in the paper <a class="reference external" href="https://arxiv.org/abs/1803.08494">Group Normalization</a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.SyncBatchNorm.html#torch.nn.SyncBatchNorm" title="torch.nn.SyncBatchNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.SyncBatchNorm</span></code></a></p></td>
-<td><p>Applies Batch Normalization over a N-Dimensional input (a mini-batch of [N-2]D inputs with additional channel dimension) as described in the paper <a href="#id30"><span class="problematic" id="id31">`Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift`_</span></a> .</p></td>
+<td><p>Applies Batch Normalization over a N-Dimensional input (a mini-batch of [N-2]D inputs with additional channel dimension) as described in the paper <a class="reference external" href="https://arxiv.org/abs/1502.03167">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a> .</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.InstanceNorm1d.html#torch.nn.InstanceNorm1d" title="torch.nn.InstanceNorm1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.InstanceNorm1d</span></code></a></p></td>
-<td><p>Applies Instance Normalization over a 3D input (a mini-batch of 1D inputs with optional additional channel dimension) as described in the paper <a href="#id32"><span class="problematic" id="id33">`Instance Normalization: The Missing Ingredient for Fast Stylization`_</span></a> .</p></td>
+<td><p>Applies Instance Normalization over a 3D input (a mini-batch of 1D inputs with optional additional channel dimension) as described in the paper <a class="reference external" href="https://arxiv.org/abs/1607.08022">Instance Normalization: The Missing Ingredient for Fast Stylization</a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.InstanceNorm2d.html#torch.nn.InstanceNorm2d" title="torch.nn.InstanceNorm2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.InstanceNorm2d</span></code></a></p></td>
-<td><p>Applies Instance Normalization over a 4D input (a mini-batch of 2D inputs with additional channel dimension) as described in the paper <a href="#id34"><span class="problematic" id="id35">`Instance Normalization: The Missing Ingredient for Fast Stylization`_</span></a> .</p></td>
+<td><p>Applies Instance Normalization over a 4D input (a mini-batch of 2D inputs with additional channel dimension) as described in the paper <a class="reference external" href="https://arxiv.org/abs/1607.08022">Instance Normalization: The Missing Ingredient for Fast Stylization</a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.InstanceNorm3d.html#torch.nn.InstanceNorm3d" title="torch.nn.InstanceNorm3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.InstanceNorm3d</span></code></a></p></td>
-<td><p>Applies Instance Normalization over a 5D input (a mini-batch of 3D inputs with additional channel dimension) as described in the paper <a href="#id36"><span class="problematic" id="id37">`Instance Normalization: The Missing Ingredient for Fast Stylization`_</span></a> .</p></td>
+<td><p>Applies Instance Normalization over a 5D input (a mini-batch of 3D inputs with additional channel dimension) as described in the paper <a class="reference external" href="https://arxiv.org/abs/1607.08022">Instance Normalization: The Missing Ingredient for Fast Stylization</a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.LayerNorm.html#torch.nn.LayerNorm" title="torch.nn.LayerNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.LayerNorm</span></code></a></p></td>
-<td><p>Applies Layer Normalization over a mini-batch of inputs as described in the paper <a href="#id38"><span class="problematic" id="id39">`Layer Normalization`_</span></a> .</p></td>
+<td><p>Applies Layer Normalization over a mini-batch of inputs as described in the paper <a class="reference external" href="https://arxiv.org/abs/1607.06450">Layer Normalization</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.LocalResponseNorm.html#torch.nn.LocalResponseNorm" title="torch.nn.LocalResponseNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.LocalResponseNorm</span></code></a></p></td>
 <td><p>Applies local response normalization over an input signal composed of several input planes, where channels occupy the second dimension.</p></td>
@@ -712,7 +712,7 @@
 <td><p>Applies a linear transformation to the incoming data: <span class="math">\(y = xA^T + b\)</span></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.Bilinear.html#torch.nn.Bilinear" title="torch.nn.Bilinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.Bilinear</span></code></a></p></td>
-<td><p>Applies a bilinear transformation to the incoming data: <span class="math">\(y = x_1 A x_2 + b\)</span></p></td>
+<td><p>Applies a bilinear transformation to the incoming data: <span class="math">\(y = x_1^T A x_2 + b\)</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -785,7 +785,7 @@
 <td><p>Negative log likelihood loss with Poisson distribution of target.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.nn.KLDivLoss.html#torch.nn.KLDivLoss" title="torch.nn.KLDivLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.KLDivLoss</span></code></a></p></td>
-<td><p>The <a href="#id40"><span class="problematic" id="id41">`Kullback-Leibler divergence`_</span></a> Loss</p></td>
+<td><p>The <a href="#id20"><span class="problematic" id="id21">`Kullback-Leibler divergence`_</span></a> Loss</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.nn.BCELoss.html#torch.nn.BCELoss" title="torch.nn.BCELoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nn.BCELoss</span></code></a></p></td>
 <td><p>Creates a criterion that measures the Binary Cross Entropy between the target and the output:</p></td>

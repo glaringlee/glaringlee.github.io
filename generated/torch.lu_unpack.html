@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-lu-unpack">
 <h1>torch.lu_unpack<a class="headerlink" href="#torch-lu-unpack" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.lu_unpack">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">lu_unpack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">LU_data</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">LU_pivots</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">unpack_data</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">unpack_pivots</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Optional<span class="p">[</span>Tensor<span class="p">]</span><span class="p">, </span>Optional<span class="p">[</span>Tensor<span class="p">]</span><span class="p">, </span>Optional<span class="p">[</span>Tensor<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/torch/functional.html#lu_unpack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.lu_unpack" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">lu_unpack</code><span class="sig-paren">(</span><em class="sig-param">LU_data: torch.Tensor</em>, <em class="sig-param">LU_pivots: torch.Tensor</em>, <em class="sig-param">unpack_data: bool = True</em>, <em class="sig-param">unpack_pivots: bool = True</em><span class="sig-paren">)</span> &#x2192; Tuple[Optional[torch.Tensor], Optional[torch.Tensor], Optional[torch.Tensor]]<a class="reference internal" href="../_modules/torch/functional.html#lu_unpack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.lu_unpack" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unpacks the data and pivots from a LU factorization of a tensor.</p>
 <p>Returns a tuple of tensors as <code class="docutils literal notranslate"><span class="pre">(the</span> <span class="pre">pivots,</span> <span class="pre">the</span> <span class="pre">L</span> <span class="pre">tensor,</span> <span class="pre">the</span> <span class="pre">U</span> <span class="pre">tensor)</span></code>.</p>
 <dl class="field-list simple">

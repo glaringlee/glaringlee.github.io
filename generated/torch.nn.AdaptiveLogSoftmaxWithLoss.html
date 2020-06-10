@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,12 +339,12 @@
               
   <div class="section" id="adaptivelogsoftmaxwithloss">
 <h1>AdaptiveLogSoftmaxWithLoss<a class="headerlink" href="#adaptivelogsoftmaxwithloss" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.AdaptiveLogSoftmaxWithLoss">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">AdaptiveLogSoftmaxWithLoss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_features</span></em>, <em class="sig-param"><span class="n">n_classes</span></em>, <em class="sig-param"><span class="n">cutoffs</span></em>, <em class="sig-param"><span class="n">div_value</span><span class="o">=</span><span class="default_value">4.0</span></em>, <em class="sig-param"><span class="n">head_bias</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/adaptive.html#AdaptiveLogSoftmaxWithLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AdaptiveLogSoftmaxWithLoss" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">AdaptiveLogSoftmaxWithLoss</code><span class="sig-paren">(</span><em class="sig-param">in_features</em>, <em class="sig-param">n_classes</em>, <em class="sig-param">cutoffs</em>, <em class="sig-param">div_value=4.0</em>, <em class="sig-param">head_bias=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/adaptive.html#AdaptiveLogSoftmaxWithLoss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AdaptiveLogSoftmaxWithLoss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Efficient softmax approximation as described in
-<a class="reference external" href="https://arxiv.org/abs/1609.04309">Efficient softmax approximation for GPUs</a> by Edouard Grave, Armand Joulin,
-Moustapha Cissé, David Grangier, and Hervé Jégou.</p>
+<a class="reference external" href="https://arxiv.org/abs/1609.04309">Efficient softmax approximation for GPUs by Edouard Grave, Armand Joulin,
+Moustapha Cissé, David Grangier, and Hervé Jégou</a>.</p>
 <p>Adaptive softmax is an approximate strategy for training models with large
 output spaces. It is most effective when the label distribution is highly
 imbalanced, for example in natural language modelling, where the word
@@ -432,9 +432,9 @@ log likelihood loss</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.AdaptiveLogSoftmaxWithLoss.log_prob">
-<code class="sig-name descname">log_prob</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/adaptive.html#AdaptiveLogSoftmaxWithLoss.log_prob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AdaptiveLogSoftmaxWithLoss.log_prob" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">log_prob</code><span class="sig-paren">(</span><em class="sig-param">input</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/adaptive.html#AdaptiveLogSoftmaxWithLoss.log_prob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AdaptiveLogSoftmaxWithLoss.log_prob" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes log probabilities for all <span class="math">\(\texttt{n\_classes}\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -455,9 +455,9 @@ parameter passed to <code class="docutils literal notranslate"><span class="pre"
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.AdaptiveLogSoftmaxWithLoss.predict">
-<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/adaptive.html#AdaptiveLogSoftmaxWithLoss.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AdaptiveLogSoftmaxWithLoss.predict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">input</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/adaptive.html#AdaptiveLogSoftmaxWithLoss.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AdaptiveLogSoftmaxWithLoss.predict" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is equivalent to <cite>self.log_pob(input).argmax(dim=1)</cite>,
 but is more efficient in some cases.</p>
 <dl class="field-list simple">

@@ -157,7 +157,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -350,8 +350,9 @@
 
 <div class="viewcode-block" id="AdaptiveLogSoftmaxWithLoss"><a class="viewcode-back" href="../../../../generated/torch.nn.AdaptiveLogSoftmaxWithLoss.html#torch.nn.AdaptiveLogSoftmaxWithLoss">[docs]</a><span class="k">class</span> <span class="nc">AdaptiveLogSoftmaxWithLoss</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Efficient softmax approximation as described in</span>
-<span class="sd">    `Efficient softmax approximation for GPUs`_ by Edouard Grave, Armand Joulin,</span>
-<span class="sd">    Moustapha Cissé, David Grangier, and Hervé Jégou.</span>
+<span class="sd">    `Efficient softmax approximation for GPUs by Edouard Grave, Armand Joulin,</span>
+<span class="sd">    Moustapha Cissé, David Grangier, and Hervé Jégou</span>
+<span class="sd">    &lt;https://arxiv.org/abs/1609.04309&gt;`__.</span>
 
 <span class="sd">    Adaptive softmax is an approximate strategy for training models with large</span>
 <span class="sd">    output spaces. It is most effective when the label distribution is highly</span>
@@ -430,12 +431,7 @@
 <span class="sd">        - output1: :math:`(N)`</span>
 <span class="sd">        - output2: ``Scalar``</span>
 
-
-<span class="sd">    .. _Efficient softmax approximation for GPUs:</span>
-<span class="sd">        https://arxiv.org/abs/1609.04309</span>
-
-<span class="sd">    .. _Zipf&#39;s law:</span>
-<span class="sd">        https://en.wikipedia.org/wiki/Zipf%27s_law</span>
+<span class="sd">    .. _Zipf&#39;s law: https://en.wikipedia.org/wiki/Zipf%27s_law</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">cutoffs</span><span class="p">,</span> <span class="n">div_value</span><span class="o">=</span><span class="mf">4.</span><span class="p">,</span> <span class="n">head_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,10 +339,27 @@
               
   <div class="section" id="torch-dequantize">
 <h1>torch.dequantize<a class="headerlink" href="#torch-dequantize" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.dequantize">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">dequantize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.dequantize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">dequantize</code><span class="sig-paren">(</span><em class="sig-param">tensor</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.dequantize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a quantized Tensor, dequantize it and return an fp32 Tensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tensor</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – A quantized Tensor</p>
+</dd>
+</dl>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">dequantize</code><span class="sig-paren">(</span><em class="sig-param">tensors</em><span class="sig-paren">)</span> &#x2192; sequence of Tensors</dt>
 <dd></dd></dl>
+
+<p>Given a list of quantized Tensors, dequantize them and return a list of fp32 Tensors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tensors</strong> (<em>sequence of Tensors</em>) – A list of quantized Tensors</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 

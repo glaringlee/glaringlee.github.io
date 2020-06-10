@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-set-printoptions">
 <h1>torch.set_printoptions<a class="headerlink" href="#torch-set-printoptions" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.set_printoptions">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">set_printoptions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">precision</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">edgeitems</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">linewidth</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">profile</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sci_mode</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/_tensor_str.html#set_printoptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.set_printoptions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">set_printoptions</code><span class="sig-paren">(</span><em class="sig-param">precision=None</em>, <em class="sig-param">threshold=None</em>, <em class="sig-param">edgeitems=None</em>, <em class="sig-param">linewidth=None</em>, <em class="sig-param">profile=None</em>, <em class="sig-param">sci_mode=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/_tensor_str.html#set_printoptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.set_printoptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set options for printing. Items shamelessly taken from NumPy</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -358,7 +358,9 @@ ignore this parameter.</p></li>
 <li><p><strong>profile</strong> – Sane defaults for pretty printing. Can override with any of
 the above options. (any one of <cite>default</cite>, <cite>short</cite>, <cite>full</cite>)</p></li>
 <li><p><strong>sci_mode</strong> – Enable (True) or disable (False) scientific notation. If
-None (default) is specified, the value is defined by <cite>_Formatter</cite></p></li>
+None (default) is specified, the value is defined by
+<cite>torch._tensor_str._Formatter</cite>. This value is automatically chosen
+by the framework.</p></li>
 </ul>
 </dd>
 </dl>

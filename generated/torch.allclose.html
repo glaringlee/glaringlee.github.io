@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-allclose">
 <h1>torch.allclose<a class="headerlink" href="#torch-allclose" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.allclose">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">allclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">1e-05</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">1e-08</span></em>, <em class="sig-param"><span class="n">equal_nan</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a><a class="headerlink" href="#torch.allclose" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">allclose</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">other</em>, <em class="sig-param">rtol=1e-05</em>, <em class="sig-param">atol=1e-08</em>, <em class="sig-param">equal_nan=False</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#torch.allclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function checks if all <code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">other</span></code> satisfy the condition:</p>
 <div class="math">
 \[\lvert \text{input} - \text{other} \rvert \leq \texttt{atol} + \texttt{rtol} \times \lvert \text{other} \rvert
@@ -356,7 +356,7 @@
 <li><p><strong>other</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – second tensor to compare</p></li>
 <li><p><strong>atol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – absolute tolerance. Default: 1e-08</p></li>
 <li><p><strong>rtol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em>, </em><em>optional</em>) – relative tolerance. Default: 1e-05</p></li>
-<li><p><strong>equal_nan</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, then two <code class="docutils literal notranslate"><span class="pre">NaN</span></code> s will be compared as equal. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p><strong>equal_nan</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, then two <code class="docutils literal notranslate"><span class="pre">NaN</span></code> s will be considered equal. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
 </ul>
 </dd>
 </dl>

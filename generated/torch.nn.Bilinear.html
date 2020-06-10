@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,11 +339,11 @@
               
   <div class="section" id="bilinear">
 <h1>Bilinear<a class="headerlink" href="#bilinear" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.Bilinear">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">Bilinear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in1_features</span></em>, <em class="sig-param"><span class="n">in2_features</span></em>, <em class="sig-param"><span class="n">out_features</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/linear.html#Bilinear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.Bilinear" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">Bilinear</code><span class="sig-paren">(</span><em class="sig-param">in1_features</em>, <em class="sig-param">in2_features</em>, <em class="sig-param">out_features</em>, <em class="sig-param">bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/linear.html#Bilinear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.Bilinear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies a bilinear transformation to the incoming data:
-<span class="math">\(y = x_1 A x_2 + b\)</span></p>
+<span class="math">\(y = x_1^T A x_2 + b\)</span></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

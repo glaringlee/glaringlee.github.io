@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,13 +339,14 @@
               
   <div class="section" id="torch-histc">
 <h1>torch.histc<a class="headerlink" href="#torch-histc" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.histc">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">histc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">bins</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">min</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">max</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">out</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.histc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">histc</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">bins=100</em>, <em class="sig-param">min=0</em>, <em class="sig-param">max=0</em>, <em class="sig-param">out=None</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.histc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the histogram of a tensor.</p>
-<p>The elements are sorted into equal width bins between <a class="reference internal" href="../torch.html#torch.min" title="torch.min"><code class="xref py py-attr docutils literal notranslate"><span class="pre">min</span></code></a> and
-<a class="reference internal" href="../torch.html#torch.max" title="torch.max"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max</span></code></a>. If <a class="reference internal" href="../torch.html#torch.min" title="torch.min"><code class="xref py py-attr docutils literal notranslate"><span class="pre">min</span></code></a> and <a class="reference internal" href="../torch.html#torch.max" title="torch.max"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max</span></code></a> are both zero, the minimum and
+<p>The elements are sorted into equal width bins between <a class="reference internal" href="torch.min.html#torch.min" title="torch.min"><code class="xref py py-attr docutils literal notranslate"><span class="pre">min</span></code></a> and
+<a class="reference internal" href="torch.max.html#torch.max" title="torch.max"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max</span></code></a>. If <a class="reference internal" href="torch.min.html#torch.min" title="torch.min"><code class="xref py py-attr docutils literal notranslate"><span class="pre">min</span></code></a> and <a class="reference internal" href="torch.max.html#torch.max" title="torch.max"><code class="xref py py-attr docutils literal notranslate"><span class="pre">max</span></code></a> are both zero, the minimum and
 maximum values of the data are used.</p>
+<p>Elements lower than min and higher than max are ignored.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

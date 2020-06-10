@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,19 +339,22 @@
               
   <div class="section" id="torch-jit-save">
 <h1>torch.jit.save<a class="headerlink" href="#torch-jit-save" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.jit.save">
 <code class="sig-prename descclassname">torch.jit.</code><code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">m</em>, <em class="sig-param">f</em>, <em class="sig-param">_extra_files=ExtraFilesMap{}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/jit.html#save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.jit.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save an offline version of this module for use in a separate process. The saved
-module serializes all of the methods, submodules, parameters, and attributes of this
-module. It can be loaded into the C++ API using <code class="docutils literal notranslate"><span class="pre">torch::jit::load(filename)</span></code> or into the Python
-API with <a class="reference internal" href="torch.jit.load.html#torch.jit.load" title="torch.jit.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.load</span></code></a>.</p>
-<p>To be able to save a module, it must not make any calls to native Python functions.
-This means that all submodules must be subclasses of <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> as well.</p>
+<dd><p>Save an offline version of this module for use in a separate process. The
+saved module serializes all of the methods, submodules, parameters, and
+attributes of this module. It can be loaded into the C++ API using
+<code class="docutils literal notranslate"><span class="pre">torch::jit::load(filename)</span></code> or into the Python API with
+<a class="reference internal" href="torch.jit.load.html#torch.jit.load" title="torch.jit.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.load</span></code></a>.</p>
+<p>To be able to save a module, it must not make any calls to native Python
+functions.  This means that all submodules must be subclasses of
+<a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> as well.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>All modules, no matter their device, are always loaded onto the CPU during loading.
-This is different from <a class="reference internal" href="torch.load.html#torch.load" title="torch.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.load()</span></code></a>’s semantics and may change in the future.</p>
+<p>All modules, no matter their device, are always loaded onto the CPU
+during loading.  This is different from <a class="reference internal" href="torch.load.html#torch.load" title="torch.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.load()</span></code></a>’s semantics
+and may change in the future.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -359,15 +362,16 @@ This is different from <a class="reference internal" href="torch.load.html#torch
 <li><p><strong>m</strong> – A <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> to save.</p></li>
 <li><p><strong>f</strong> – A file-like object (has to implement write and flush) or a string
 containing a file name.</p></li>
-<li><p><strong>_extra_files</strong> – Map from filename to contents which will be stored as part of ‘f’.</p></li>
+<li><p><strong>_extra_files</strong> – Map from filename to contents which will be stored as part of <cite>f</cite>.</p></li>
 </ul>
 </dd>
 </dl>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you are using Python 2, <code class="docutils literal notranslate"><span class="pre">torch.jit.save</span></code> does NOT support <code class="xref any docutils literal notranslate"><span class="pre">StringIO.StringIO</span></code>
-as a valid file-like object. This is because the write method should return
-the number of bytes written; <code class="docutils literal notranslate"><span class="pre">StringIO.write()</span></code> does not do this.</p>
+<p>If you are using Python 2, <cite>save</cite> does NOT support <code class="docutils literal notranslate"><span class="pre">StringIO.StringIO</span></code>
+as a valid file-like object. This is because the write method should
+return the number of bytes written; <code class="docutils literal notranslate"><span class="pre">StringIO.write()</span></code> does not do
+this.</p>
 <p>Please use something like <code class="docutils literal notranslate"><span class="pre">io.BytesIO</span></code> instead.</p>
 </div>
 <p>Example:</p>

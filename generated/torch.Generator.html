@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="generator">
 <h1>Generator<a class="headerlink" href="#generator" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.Generator">
-<em class="property">class </em><code class="sig-prename descclassname">torch.</code><code class="sig-name descname">Generator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em><span class="sig-paren">)</span> &#x2192; Generator<a class="headerlink" href="#torch.Generator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.</code><code class="sig-name descname">Generator</code><span class="sig-paren">(</span><em class="sig-param">device='cpu'</em><span class="sig-paren">)</span> &#x2192; Generator<a class="headerlink" href="#torch.Generator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates and returns a generator object which manages the state of the algorithm that
 produces pseudo random numbers. Used as a keyword argument in many <a class="reference internal" href="../torch.html#inplace-random-sampling"><span class="std std-ref">In-place random sampling</span></a>
 functions.</p>
@@ -361,7 +361,7 @@ functions.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">g_cuda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="py attribute">
+<dl class="attribute">
 <dt id="torch.Generator.device">
 <code class="sig-name descname">device</code><a class="headerlink" href="#torch.Generator.device" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generator.device -&gt; device</p>
@@ -374,7 +374,7 @@ functions.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Generator.get_state">
 <code class="sig-name descname">get_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.Generator.get_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the Generator state as a <code class="docutils literal notranslate"><span class="pre">torch.ByteTensor</span></code>.</p>
@@ -394,9 +394,9 @@ to restore a Generator to a specific point in time.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Generator.initial_seed">
-<code class="sig-name descname">initial_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><a class="headerlink" href="#torch.Generator.initial_seed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">initial_seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#torch.Generator.initial_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the initial seed for generating random numbers.</p>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g_cpu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">()</span>
@@ -406,9 +406,9 @@ to restore a Generator to a specific point in time.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Generator.manual_seed">
-<code class="sig-name descname">manual_seed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span></em><span class="sig-paren">)</span> &#x2192; Generator<a class="headerlink" href="#torch.Generator.manual_seed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">manual_seed</code><span class="sig-paren">(</span><em class="sig-param">seed</em><span class="sig-paren">)</span> &#x2192; Generator<a class="headerlink" href="#torch.Generator.manual_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the seed for generating random numbers. Returns a <cite>torch.Generator</cite> object.
 It is recommended to set a large seed, i.e. a number that has a good balance of 0
 and 1 bits. Avoid having many 0 bits in the seed.</p>
@@ -430,9 +430,9 @@ and 1 bits. Avoid having many 0 bits in the seed.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Generator.seed">
-<code class="sig-name descname">seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><a class="headerlink" href="#torch.Generator.seed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">seed</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#torch.Generator.seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a non-deterministic random number from std::random_device or the current
 time and uses it to seed a Generator.</p>
 <p>Example:</p>
@@ -443,9 +443,9 @@ time and uses it to seed a Generator.</p>
 </div>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.Generator.set_state">
-<code class="sig-name descname">set_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_state</span></em><span class="sig-paren">)</span> &#x2192; void<a class="headerlink" href="#torch.Generator.set_state" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_state</code><span class="sig-paren">(</span><em class="sig-param">new_state</em><span class="sig-paren">)</span> &#x2192; void<a class="headerlink" href="#torch.Generator.set_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the Generator state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

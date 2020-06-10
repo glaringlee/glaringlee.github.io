@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-pca-lowrank">
 <h1>torch.pca_lowrank<a class="headerlink" href="#torch-pca-lowrank" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.pca_lowrank">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">pca_lowrank</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">q</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">center</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">niter</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">2</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tensor<span class="p">, </span>Tensor<span class="p">, </span>Tensor<span class="p">]</span><a class="reference internal" href="../_modules/torch/_lowrank.html#pca_lowrank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.pca_lowrank" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">pca_lowrank</code><span class="sig-paren">(</span><em class="sig-param">A: torch.Tensor</em>, <em class="sig-param">q: Optional[int] = None</em>, <em class="sig-param">center: bool = True</em>, <em class="sig-param">niter: int = 2</em><span class="sig-paren">)</span> &#x2192; Tuple[torch.Tensor, torch.Tensor, torch.Tensor]<a class="reference internal" href="../_modules/torch/_lowrank.html#pca_lowrank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.pca_lowrank" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs linear Principal Component Analysis (PCA) on a low-rank
 matrix, batches of such matrices, or sparse matrix.</p>
 <p>This function returns a namedtuple <code class="docutils literal notranslate"><span class="pre">(U,</span> <span class="pre">S,</span> <span class="pre">V)</span></code> which is the

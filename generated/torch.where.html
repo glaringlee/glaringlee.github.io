@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,15 +339,10 @@
               
   <div class="section" id="torch-where">
 <h1>torch.where<a class="headerlink" href="#torch-where" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.where">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">where</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.where" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py function">
-<dt id="id0">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">where</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p>Return a tensor of elements selected from either <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> or <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code>, depending on <code class="xref py py-attr docutils literal notranslate"><span class="pre">condition</span></code>.</p>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">where</code><span class="sig-paren">(</span><em class="sig-param">condition</em>, <em class="sig-param">x</em>, <em class="sig-param">y</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.where" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tensor of elements selected from either <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> or <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code>, depending on <code class="xref py py-attr docutils literal notranslate"><span class="pre">condition</span></code>.</p>
 <p>The operation is defined as:</p>
 <div class="math">
 \[\text{out}_i = \begin{cases}
@@ -388,9 +383,9 @@
 <span class="go">        [ 0.0478,  1.0000]])</span>
 </pre></div>
 </div>
-<dl class="py function">
-<dt id="id1">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">where</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em><span class="sig-paren">)</span> &#x2192; tuple of LongTensor<a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">where</code><span class="sig-paren">(</span><em class="sig-param">condition</em><span class="sig-paren">)</span> &#x2192; tuple of LongTensor</dt>
 <dd></dd></dl>
 
 <p><code class="docutils literal notranslate"><span class="pre">torch.where(condition)</span></code> is identical to

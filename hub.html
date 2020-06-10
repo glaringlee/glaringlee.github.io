@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -408,9 +408,9 @@ In the example above <code class="docutils literal notranslate"><span class="pre
 <h2>Loading models from Hub<a class="headerlink" href="#loading-models-from-hub" title="Permalink to this headline">¶</a></h2>
 <p>Pytorch Hub provides convenient APIs to explore all available models in hub through <code class="docutils literal notranslate"><span class="pre">torch.hub.list()</span></code>,
 show docstring and examples through <code class="docutils literal notranslate"><span class="pre">torch.hub.help()</span></code> and load the pre-trained models using <code class="docutils literal notranslate"><span class="pre">torch.hub.load()</span></code></p>
-<span class="target" id="module-torch.hub"></span><dl class="py function">
+<span class="target" id="module-torch.hub"></span><dl class="function">
 <dt id="torch.hub.list">
-<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">github</span></em>, <em class="sig-param"><span class="n">force_reload</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.list" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">list</code><span class="sig-paren">(</span><em class="sig-param">github</em>, <em class="sig-param">force_reload=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>List all entrypoints available in <cite>github</cite> hubconf.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -435,9 +435,9 @@ Default is <cite>False</cite>.</p></li>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.hub.help">
-<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">help</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">github</span></em>, <em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">force_reload</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.help" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">help</code><span class="sig-paren">(</span><em class="sig-param">github</em>, <em class="sig-param">model</em>, <em class="sig-param">force_reload=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the docstring of entrypoint <cite>model</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -457,9 +457,9 @@ Default is <cite>False</cite>.</p></li>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.hub.load">
-<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">github</span></em>, <em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">github</em>, <em class="sig-param">model</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a model from a github repo, with pretrained weights.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -487,9 +487,9 @@ Default is <cite>True</cite>.</p></li>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.hub.download_url_to_file">
-<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">download_url_to_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="n">dst</span></em>, <em class="sig-param"><span class="n">hash_prefix</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">progress</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#download_url_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.download_url_to_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">download_url_to_file</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">dst</em>, <em class="sig-param">hash_prefix=None</em>, <em class="sig-param">progress=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#download_url_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.download_url_to_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download object at the given URL to a local path.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -509,18 +509,16 @@ Default: True</p></li>
 </div>
 </dd></dl>
 
-<dl class="py function">
+<dl class="function">
 <dt id="torch.hub.load_state_dict_from_url">
-<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">load_state_dict_from_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="n">model_dir</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">map_location</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">progress</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">check_hash</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#load_state_dict_from_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.load_state_dict_from_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">load_state_dict_from_url</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">model_dir=None</em>, <em class="sig-param">map_location=None</em>, <em class="sig-param">progress=True</em>, <em class="sig-param">check_hash=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#load_state_dict_from_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.load_state_dict_from_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads the Torch serialized object at the given URL.</p>
 <p>If downloaded file is a zip file, it will be automatically
 decompressed.</p>
 <p>If the object is already present in <cite>model_dir</cite>, it’s deserialized and
 returned.
-The default value of <cite>model_dir</cite> is <code class="docutils literal notranslate"><span class="pre">$TORCH_HOME/checkpoints</span></code> where
-environment variable <code class="docutils literal notranslate"><span class="pre">$TORCH_HOME</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME/torch</span></code>.
-<code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME</span></code> follows the X Design Group specification of the Linux
-filesytem layout, with a default value <code class="docutils literal notranslate"><span class="pre">~/.cache</span></code> if not set.</p>
+The default value of <cite>model_dir</cite> is <code class="docutils literal notranslate"><span class="pre">&lt;hub_dir&gt;/checkpoints</span></code> where
+<cite>hub_dir</cite> is the directory returned by <a class="reference internal" href="#torch.hub.get_dir" title="torch.hub.get_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_dir()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -565,15 +563,21 @@ to include a minimal working example.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME/torch/hub</span></code>, if environment variable <code class="docutils literal notranslate"><span class="pre">XDG_CACHE_HOME</span></code> is set.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">~/.cache/torch/hub</span></code></p></li>
 </ul>
-<dl class="py function">
-<dt id="torch.hub.set_dir">
-<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">set_dir</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#set_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.set_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optionally set hub_dir to a local dir to save downloaded models &amp; weights.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">set_dir</span></code> is not called, default path is <code class="docutils literal notranslate"><span class="pre">$TORCH_HOME/hub</span></code> where
+<dl class="function">
+<dt id="torch.hub.get_dir">
+<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">get_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#get_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.get_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Torch Hub cache directory used for storing downloaded models &amp; weights.</p>
+<p>If <a class="reference internal" href="#torch.hub.set_dir" title="torch.hub.set_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_dir()</span></code></a> is not called, default path is <code class="docutils literal notranslate"><span class="pre">$TORCH_HOME/hub</span></code> where
 environment variable <code class="docutils literal notranslate"><span class="pre">$TORCH_HOME</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME/torch</span></code>.
 <code class="docutils literal notranslate"><span class="pre">$XDG_CACHE_HOME</span></code> follows the X Design Group specification of the Linux
 filesytem layout, with a default value <code class="docutils literal notranslate"><span class="pre">~/.cache</span></code> if the environment
 variable is not set.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="torch.hub.set_dir">
+<code class="sig-prename descclassname">torch.hub.</code><code class="sig-name descname">set_dir</code><span class="sig-paren">(</span><em class="sig-param">d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/hub.html#set_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.hub.set_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optionally set the Torch Hub directory used to save downloaded models &amp; weights.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>d</strong> (<em>string</em>) – path to a local folder to save downloaded models &amp; weights.</p>
@@ -585,7 +589,7 @@ variable is not set.</p>
 <div class="section" id="caching-logic">
 <h3>Caching logic<a class="headerlink" href="#caching-logic" title="Permalink to this headline">¶</a></h3>
 <p>By default, we don’t clean up files after loading it. Hub uses the cache by default if it already exists in the
-directory returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">get_dir()</span></code>.</p>
+directory returned by <a class="reference internal" href="#torch.hub.get_dir" title="torch.hub.get_dir"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_dir()</span></code></a>.</p>
 <p>Users can force a reload by calling <code class="docutils literal notranslate"><span class="pre">hub.load(...,</span> <span class="pre">force_reload=True)</span></code>. This will delete
 the existing github folder and downloaded weights, reinitialize a fresh download. This is useful
 when updates are published to the same branch, users can keep up with the latest release.</p>

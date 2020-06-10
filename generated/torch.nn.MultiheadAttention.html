@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="multiheadattention">
 <h1>MultiheadAttention<a class="headerlink" href="#multiheadattention" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.MultiheadAttention">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">MultiheadAttention</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">embed_dim</span></em>, <em class="sig-param"><span class="n">num_heads</span></em>, <em class="sig-param"><span class="n">dropout</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">add_bias_kv</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">add_zero_attn</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">kdim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vdim</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/activation.html#MultiheadAttention"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.MultiheadAttention" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">MultiheadAttention</code><span class="sig-paren">(</span><em class="sig-param">embed_dim</em>, <em class="sig-param">num_heads</em>, <em class="sig-param">dropout=0.0</em>, <em class="sig-param">bias=True</em>, <em class="sig-param">add_bias_kv=False</em>, <em class="sig-param">add_zero_attn=False</em>, <em class="sig-param">kdim=None</em>, <em class="sig-param">vdim=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/activation.html#MultiheadAttention"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.MultiheadAttention" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allows the model to jointly attend to information
 from different representation subspaces.
 See reference: Attention Is All You Need</p>
@@ -361,7 +361,7 @@ See reference: Attention Is All You Need</p>
 <li><p><strong>add_zero_attn</strong> – add a new batch of zeros to the key and
 value sequences at dim=1.</p></li>
 <li><p><strong>kdim</strong> – total number of features in key. Default: None.</p></li>
-<li><p><strong>vdim</strong> – total number of features in key. Default: None.</p></li>
+<li><p><strong>vdim</strong> – total number of features in value. Default: None.</p></li>
 <li><p><strong>Note</strong> – if kdim and vdim are None, they will be set to embed_dim such that</p></li>
 <li><p><strong>key, and value have the same number of features.</strong> (<em>query</em><em>,</em>) – </p></li>
 </ul>
@@ -372,20 +372,21 @@ value sequences at dim=1.</p></li>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">attn_output</span><span class="p">,</span> <span class="n">attn_output_weights</span> <span class="o">=</span> <span class="n">multihead_attn</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.MultiheadAttention.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">query</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">key</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">key_padding_mask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tensor<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">need_weights</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">attn_mask</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tensor<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tensor<span class="p">, </span>Optional<span class="p">[</span>Tensor<span class="p">]</span><span class="p">]</span><a class="reference internal" href="../_modules/torch/nn/modules/activation.html#MultiheadAttention.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.MultiheadAttention.forward" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param">query: torch.Tensor</em>, <em class="sig-param">key: torch.Tensor</em>, <em class="sig-param">value: torch.Tensor</em>, <em class="sig-param">key_padding_mask: Optional[torch.Tensor] = None</em>, <em class="sig-param">need_weights: bool = True</em>, <em class="sig-param">attn_mask: Optional[torch.Tensor] = None</em><span class="sig-paren">)</span> &#x2192; Tuple[torch.Tensor, Optional[torch.Tensor]]<a class="reference internal" href="../_modules/torch/nn/modules/activation.html#MultiheadAttention.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.MultiheadAttention.forward" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>key, value</strong> (<em>query</em><em>,</em>) – map a query and a set of key-value pairs to an output.
 See “Attention Is All You Need” for more details.</p></li>
 <li><p><strong>key_padding_mask</strong> – if provided, specified padding elements in the key will
-be ignored by the attention. This is an binary mask. When the value is True,
-the corresponding value on the attention layer will be filled with -inf.</p></li>
+be ignored by the attention. When given a binary mask and a value is True,
+the corresponding value on the attention layer will be ignored. When given
+a byte mask and a value is non-zero, the corresponding value on the attention
+layer will be ignored</p></li>
 <li><p><strong>need_weights</strong> – output attn_output_weights.</p></li>
-<li><p><strong>attn_mask</strong> – 2D or 3D mask that prevents attention to certain positions. This is an additive mask
-(i.e. the values will be added to the attention layer). A 2D mask will be broadcasted for all
+<li><p><strong>attn_mask</strong> – 2D or 3D mask that prevents attention to certain positions. A 2D mask will be broadcasted for all
 the batches while a 3D mask allows to specify a different mask for the entries of each batch.</p></li>
 </ul>
 </dd>
@@ -399,10 +400,17 @@ the embedding dimension.</p></li>
 the embedding dimension.</p></li>
 <li><p>value: <span class="math">\((S, N, E)\)</span> where S is the source sequence length, N is the batch size, E is
 the embedding dimension.</p></li>
-<li><p>key_padding_mask: <span class="math">\((N, S)\)</span>, ByteTensor, where N is the batch size, S is the source sequence length.</p></li>
+<li><p>key_padding_mask: <span class="math">\((N, S)\)</span> where N is the batch size, S is the source sequence length.
+If a ByteTensor is provided, the non-zero positions will be ignored while the position
+with the zero positions will be unchanged. If a BoolTensor is provided, the positions with the
+value of <code class="docutils literal notranslate"><span class="pre">True</span></code> will be ignored while the position with the value of <code class="docutils literal notranslate"><span class="pre">False</span></code> will be unchanged.</p></li>
 <li><p>attn_mask: 2D mask <span class="math">\((L, S)\)</span> where L is the target sequence length, S is the source sequence length.
 3D mask <span class="math">\((N*num_heads, L, S)\)</span> where N is the batch size, L is the target sequence length,
-S is the source sequence length.</p></li>
+S is the source sequence length. attn_mask ensure that position i is allowed to attend the unmasked
+positions. If a ByteTensor is provided, the non-zero positions are not allowed to attend
+while the zero positions will be unchanged. If a BoolTensor is provided, positions with <code class="docutils literal notranslate"><span class="pre">True</span></code>
+is not allowed to attend while <code class="docutils literal notranslate"><span class="pre">False</span></code> values will be unchanged. If a FloatTensor
+is provided, it will be added to the attention weight.</p></li>
 <li><p>Outputs:</p></li>
 <li><p>attn_output: <span class="math">\((L, N, E)\)</span> where L is the target sequence length, N is the batch size,
 E is the embedding dimension.</p></li>

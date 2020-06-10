@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-ormqr">
 <h1>torch.ormqr<a class="headerlink" href="#torch-ormqr" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.ormqr">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">ormqr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em>, <em class="sig-param"><span class="n">input2</span></em>, <em class="sig-param"><span class="n">input3</span></em>, <em class="sig-param"><span class="n">left</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">transpose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.ormqr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">ormqr</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">input2</em>, <em class="sig-param">input3</em>, <em class="sig-param">left=True</em>, <em class="sig-param">transpose=False</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.ormqr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Multiplies <cite>mat</cite> (given by <code class="xref py py-attr docutils literal notranslate"><span class="pre">input3</span></code>) by the orthogonal <cite>Q</cite> matrix of the QR factorization
 formed by <a class="reference internal" href="torch.geqrf.html#torch.geqrf" title="torch.geqrf"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.geqrf()</span></code></a> that is represented by <cite>(a, tau)</cite> (given by (<code class="xref py py-attr docutils literal notranslate"><span class="pre">input</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">input2</span></code>)).</p>
 <p>This directly calls the underlying LAPACK function <cite>?ormqr</cite>.

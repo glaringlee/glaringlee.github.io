@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,12 +339,16 @@
               
   <div class="section" id="hardsigmoid">
 <h1>Hardsigmoid<a class="headerlink" href="#hardsigmoid" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.Hardsigmoid">
 <em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">Hardsigmoid</code><a class="reference internal" href="../_modules/torch/nn/modules/activation.html#Hardsigmoid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.Hardsigmoid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the element-wise function:</p>
 <div class="math">
-\[\text{Hardsigmoid}(x) = \frac{ReLU6(x + 3)}{6}
+\[\text{Hardsigmoid}(x) = \begin{cases}
+    0 & \text{if~} x \le -3, \\
+    1 & \text{if~} x \ge +3, \\
+    x / 6 + 1 / 2 & \text{otherwise}
+\end{cases}
 
 \]</div>
 <dl class="simple">

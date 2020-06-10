@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="moduledict">
 <h1>ModuleDict<a class="headerlink" href="#moduledict" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="class">
 <dt id="torch.nn.ModuleDict">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">ModuleDict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">modules</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">ModuleDict</code><span class="sig-paren">(</span><em class="sig-param">modules=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Holds submodules in a dictionary.</p>
 <p><a class="reference internal" href="#torch.nn.ModuleDict" title="torch.nn.ModuleDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleDict</span></code></a> can be indexed like a regular Python dictionary,
 but modules it contains are properly registered, and will be visible by all
@@ -380,27 +380,27 @@ or an iterable of key-value pairs of type (string, module)</p>
         <span class="k">return</span> <span class="n">x</span>
 </pre></div>
 </div>
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.ModuleDict.clear">
 <code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove all items from the ModuleDict.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.ModuleDict.items">
 <code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict.items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict.items" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterable of the ModuleDict key/value pairs.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.ModuleDict.keys">
 <code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict.keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterable of the ModuleDict keys.</p>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.ModuleDict.pop">
-<code class="sig-name descname">pop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict.pop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict.pop" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pop</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict.pop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict.pop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove key from the ModuleDict and return its module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -409,9 +409,9 @@ or an iterable of key-value pairs of type (string, module)</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.ModuleDict.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">modules</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">modules</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the <a class="reference internal" href="#torch.nn.ModuleDict" title="torch.nn.ModuleDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModuleDict</span></code></a> with the key-value pairs from a
 mapping or an iterable, overwriting existing keys.</p>
 <div class="admonition note">
@@ -427,7 +427,7 @@ or an iterable of key-value pairs of type (string, <a class="reference internal"
 </dl>
 </dd></dl>
 
-<dl class="py method">
+<dl class="method">
 <dt id="torch.nn.ModuleDict.values">
 <code class="sig-name descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/container.html#ModuleDict.values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.ModuleDict.values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterable of the ModuleDict values.</p>

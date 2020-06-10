@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,9 +339,9 @@
               
   <div class="section" id="torch-tril-indices">
 <h1>torch.tril_indices<a class="headerlink" href="#torch-tril-indices" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.tril_indices">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">tril_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">row</span></em>, <em class="sig-param"><span class="n">col</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">torch.long</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">'cpu'</span></em>, <em class="sig-param"><span class="n">layout</span><span class="o">=</span><span class="default_value">torch.strided</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.tril_indices" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">tril_indices</code><span class="sig-paren">(</span><em class="sig-param">row</em>, <em class="sig-param">col</em>, <em class="sig-param">offset=0</em>, <em class="sig-param">dtype=torch.long</em>, <em class="sig-param">device='cpu'</em>, <em class="sig-param">layout=torch.strided</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.tril_indices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the indices of the lower triangular part of a <code class="xref py py-attr docutils literal notranslate"><span class="pre">row</span></code>-by-
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">col</span></code> matrix in a 2-by-N Tensor, where the first row contains row
 coordinates of all indices and the second row contains column coordinates.

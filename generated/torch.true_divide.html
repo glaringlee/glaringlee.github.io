@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.5.0 )
+                  master (1.6.0a0+3413f0a )
                 </div>
               
             
@@ -339,12 +339,12 @@
               
   <div class="section" id="torch-true-divide">
 <h1>torch.true_divide<a class="headerlink" href="#torch-true-divide" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
+<dl class="function">
 <dt id="torch.true_divide">
-<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">true_divide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dividend</span></em>, <em class="sig-param"><span class="n">divisor</span></em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.true_divide" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.</code><code class="sig-name descname">true_divide</code><span class="sig-paren">(</span><em class="sig-param">dividend</em>, <em class="sig-param">divisor</em><span class="sig-paren">)</span> &#x2192; Tensor<a class="headerlink" href="#torch.true_divide" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs “true division” that always computes the division
 in floating point. Analogous to division in Python 3 and equivalent to
-<a class="reference internal" href="../torch.html#torch.div" title="torch.div"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.div()</span></code></a> except when both inputs have bool or integer scalar types,
+<a class="reference internal" href="torch.div.html#torch.div" title="torch.div"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.div()</span></code></a> except when both inputs have bool or integer scalar types,
 in which case they are cast to the default (floating) scalar type before the division.</p>
 <div class="math">
 \[\text{out}_i = \frac{\text{dividend}_i}{\text{divisor}}
