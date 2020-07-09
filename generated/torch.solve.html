@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
@@ -343,7 +345,9 @@
 <dt id="torch.solve">
 <code class="sig-prename descclassname">torch.</code><code class="sig-name descname">solve</code><span class="sig-paren">(</span><em class="sig-param">input</em>, <em class="sig-param">A</em>, <em class="sig-param">out=None) -&gt; (Tensor</em>, <em class="sig-param">Tensor</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.solve" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function returns the solution to the system of linear
-equations represented by <span class="math">\(AX = B\)</span> and the LU factorization of
+equations represented by <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>X</mi><mo>=</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">AX = B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>
+
+</span> and the LU factorization of
 A, in order as a namedtuple <cite>solution, LU</cite>.</p>
 <p><cite>LU</cite> contains <cite>L</cite> and <cite>U</cite> factors for LU factorization of <cite>A</cite>.</p>
 <p><cite>torch.solve(B, A)</cite> can take in 2D inputs <cite>B, A</cite> or inputs that are
@@ -359,10 +363,20 @@ batched outputs <cite>solution, LU</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – input matrix <span class="math">\(B\)</span> of size <span class="math">\((*, m, k)\)</span> , where <span class="math">\(*\)</span>
+<li><p><strong>input</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – input matrix <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span>
+
+</span> of size <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>m</mi><mo separator="true">,</mo><mi>k</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, m, k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span></span></span></span>
+
+</span> , where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span>
+
+</span>
 is zero or more batch dimensions.</p></li>
-<li><p><strong>A</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – input square matrix of size <span class="math">\((*, m, m)\)</span>, where
-<span class="math">\(*\)</span> is zero or more batch dimensions.</p></li>
+<li><p><strong>A</strong> (<a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – input square matrix of size <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>∗</mo><mo separator="true">,</mo><mi>m</mi><mo separator="true">,</mo><mi>m</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(*, m, m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∗</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mclose">)</span></span></span></span>
+
+</span>, where
+<span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo></mrow><annotation encoding="application/x-tex">*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span></span></span></span>
+
+</span> is zero or more batch dimensions.</p></li>
 <li><p><strong>out</strong> (<em>(</em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>, </em><a class="reference internal" href="../tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a><em>)</em><em>, </em><em>optional</em>) – optional output tuple.</p></li>
 </ul>
 </dd>
@@ -457,9 +471,6 @@ is zero or more batch dimensions.</p></li>
          <script src="../_static/underscore.js"></script>
          <script src="../_static/doctools.js"></script>
          <script src="../_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="../_static/katex_autorenderer.js"></script>
      
 
   

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
@@ -794,6 +796,10 @@
 <span class="n">Tensor</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">cosh_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
@@ -1884,8 +1890,6 @@
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="n">requires_grad</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
-<span class="n">Tensor</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="n">requires_grad</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
 <span class="n">Tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">reshape_as</span><span class="p">(</span><span class="n">other</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
@@ -1944,6 +1948,16 @@
                 <span class="n">index</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                 <span class="n">value</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
+<span class="n">Tensor</span><span class="o">.</span><span class="n">scatter_</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">index</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                <span class="n">src</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                <span class="n">reduce</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">scatter_</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">index</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                <span class="n">value</span> <span class="p">:</span> <span class="n">number</span><span class="p">,</span>
+                <span class="n">reduce</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
 <span class="n">Tensor</span><span class="o">.</span><span class="n">scatter_add</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                    <span class="n">index</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                    <span class="n">src</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
@@ -1997,9 +2011,9 @@
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">sinh_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
-<span class="n">Tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
-
 <span class="n">Tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
 
@@ -2066,9 +2080,9 @@
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">square_</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
-<span class="n">Tensor</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
 <span class="n">Tensor</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
@@ -2138,11 +2152,11 @@
 <span class="n">Tensor</span><span class="o">.</span><span class="n">sub_</span><span class="p">(</span><span class="n">other</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
             <span class="n">alpha</span> <span class="p">:</span> <span class="n">number</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
-<span class="n">Tensor</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dtype</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
 <span class="n">Tensor</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
            <span class="n">keepdim</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
            <span class="n">dtype</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dtype</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
            <span class="n">keepdim</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -2256,11 +2270,11 @@
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">trace</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
-<span class="n">Tensor</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">dim0</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                 <span class="n">dim1</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
 <span class="n">Tensor</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">dim0</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                  <span class="n">dim1</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">Tensor</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">dim0</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">dim1</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">Tensor</span><span class="o">.</span><span class="n">transpose_</span><span class="p">(</span><span class="n">dim0</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                   <span class="n">dim1</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
@@ -2784,6 +2798,9 @@
 
 <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
+<span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">silu</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                         <span class="n">inplace</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
 <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">smooth_l1_loss</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                                    <span class="n">target</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                                    <span class="n">size_average</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
@@ -2898,6 +2915,9 @@
 <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="p">],</span>
           <span class="n">b</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
 
+<span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+          <span class="n">b</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+
 <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
           <span class="n">b</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 
@@ -2912,9 +2932,6 @@
 
 <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">,</span>
           <span class="n">b</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-          <span class="n">b</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">addbmm</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
              <span class="n">batch1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
@@ -3166,12 +3183,6 @@
 
 <span class="n">torch</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
 <span class="n">torch</span><span class="o">.</span><span class="n">asinh_</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
@@ -3213,12 +3224,6 @@
 
 <span class="n">torch</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
             <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
@@ -3655,12 +3660,6 @@
 
 <span class="n">torch</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
 <span class="n">torch</span><span class="o">.</span><span class="n">cosh_</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">cosine_embedding_loss</span><span class="p">(</span><span class="n">input1</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
@@ -3673,6 +3672,12 @@
                         <span class="n">x2</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                         <span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                         <span class="n">eps</span> <span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                    <span class="n">dim</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                    <span class="n">dim</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
             <span class="n">other</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
@@ -3972,6 +3977,16 @@
                  <span class="n">pin_memory</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
                  <span class="n">memory_format</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
+<span class="n">torch</span><span class="o">.</span><span class="n">empty_meta</span><span class="p">(</span><span class="n">size</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+                 <span class="n">dtype</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+                 <span class="n">layout</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+                 <span class="n">device</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Device</span><span class="p">],</span>
+                 <span class="n">pin_memory</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">],</span>
+                 <span class="n">memory_format</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">empty_quantized</span><span class="p">(</span><span class="n">size</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+                      <span class="n">qtensor</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
 <span class="n">torch</span><span class="o">.</span><span class="n">empty_strided</span><span class="p">(</span><span class="n">size</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
                     <span class="n">stride</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
                     <span class="n">dtype</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
@@ -4016,12 +4031,6 @@
 
 <span class="n">torch</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">Device</span><span class="p">,</span>
          <span class="n">b</span> <span class="p">:</span> <span class="n">Device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-         <span class="n">b</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-         <span class="n">b</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
          <span class="n">b</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
@@ -4674,8 +4683,6 @@
 <span class="n">torch</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 
@@ -5448,9 +5455,6 @@
 <span class="n">torch</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
          <span class="n">b</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-         <span class="n">b</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
-
 <span class="n">torch</span><span class="o">.</span><span class="n">ne</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
          <span class="n">b</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 
@@ -5653,9 +5657,6 @@
 <span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">,</span>
           <span class="n">b</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">,</span>
-          <span class="n">b</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
 <span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
           <span class="n">b</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 
@@ -5735,14 +5736,6 @@
                            <span class="n">output_scale</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
                            <span class="n">output_zero_point</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">quantized_group_norm</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                           <span class="n">num_groups</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                           <span class="n">weight</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                           <span class="n">bias</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                           <span class="n">eps</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                           <span class="n">output_scale</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                           <span class="n">output_zero_point</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
 <span class="n">torch</span><span class="o">.</span><span class="n">quantized_gru</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                     <span class="n">hx</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                     <span class="n">params</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">__torch__</span><span class="o">.</span><span class="n">torch</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">rnn</span><span class="o">.</span><span class="n">CellParamsBase</span><span class="p">],</span>
@@ -5797,21 +5790,6 @@
                          <span class="n">scale_hh</span> <span class="p">:</span> <span class="n">number</span><span class="p">,</span>
                          <span class="n">zero_point_ih</span> <span class="p">:</span> <span class="n">number</span><span class="p">,</span>
                          <span class="n">zero_point_hh</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">quantized_instance_norm</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                              <span class="n">weight</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                              <span class="n">bias</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                              <span class="n">eps</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                              <span class="n">output_scale</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                              <span class="n">output_zero_point</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">quantized_layer_norm</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                           <span class="n">normalized_shape</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-                           <span class="n">weight</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                           <span class="n">bias</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
-                           <span class="n">eps</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                           <span class="n">output_scale</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                           <span class="n">output_zero_point</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">quantized_lstm</span><span class="p">(</span><span class="nb">input</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                      <span class="n">hx</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">],</span>
@@ -6408,12 +6386,6 @@
 
 <span class="n">torch</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
 <span class="n">torch</span><span class="o">.</span><span class="n">sinh_</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">slogdet</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]</span>
@@ -6498,7 +6470,7 @@
             <span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-            <span class="n">separator</span> <span class="p">:</span> <span class="nb">str</span><span class="o">=</span> <span class="p">,</span>
+            <span class="n">separator</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
             <span class="nb">max</span> <span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
@@ -6526,10 +6498,10 @@
 
 <span class="n">torch</span><span class="o">.</span><span class="n">square_</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
 <span class="n">torch</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
               <span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
               <span class="n">dim</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
@@ -6621,11 +6593,11 @@
           <span class="n">b</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+          <span class="n">dim</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+          <span class="n">keepdim</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
           <span class="n">dtype</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-          <span class="n">dim</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-          <span class="n">keepdim</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
           <span class="n">dtype</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
@@ -6699,12 +6671,6 @@
 
 <span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
-<span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
 <span class="n">torch</span><span class="o">.</span><span class="n">tanh_</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">t</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -6762,12 +6728,12 @@
 <span class="n">torch</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
-                <span class="n">dim0</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                <span class="n">dim1</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
-
-<span class="n">torch</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                 <span class="n">dim0</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                 <span class="n">dim1</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                <span class="n">dim0</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="n">dim1</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">y</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
             <span class="n">x</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
@@ -6897,6 +6863,10 @@
                <span class="n">dim</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
                <span class="n">unbiased</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                <span class="n">keepdim</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">view_as_complex</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">view_as_real</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Future</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">t</span>
 
@@ -7321,6 +7291,13 @@
                                <span class="n">training</span> <span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                                <span class="n">generator</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Generator</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
 
+<span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_nn</span><span class="o">.</span><span class="n">silu</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_nn</span><span class="o">.</span><span class="n">silu</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
+                  <span class="n">out</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_nn</span><span class="o">.</span><span class="n">silu_</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tensor</span>
+
 <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_nn</span><span class="o">.</span><span class="n">slow_conv3d</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                          <span class="n">weight</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
                          <span class="n">kernel_size</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
@@ -7615,7 +7592,7 @@
                        <span class="n">dim</span> <span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tensor</span><span class="p">]</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                       <span class="n">separator</span> <span class="p">:</span> <span class="nb">str</span><span class="o">=</span> <span class="p">,</span>
+                       <span class="n">separator</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
                        <span class="nb">max</span> <span class="p">:</span> <span class="nb">int</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 
 <span class="n">torch</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span>
@@ -7679,30 +7656,30 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.float" title="torch.jit.ScriptModule.float"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">float</span></code></a></p></td>
+<tr class="row-even"><td><p>float</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">__float__</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="storage.html#torch.FloatStorage.int" title="torch.FloatStorage.int"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">int</span></code></a></p></td>
+<tr class="row-odd"><td><p>int</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">__int__</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="storage.html#torch.FloatStorage.bool" title="torch.FloatStorage.bool"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">bool</span></code></a></p></td>
+<tr class="row-even"><td><p>bool</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">__bool__</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">str</span></code></a></p></td>
+<tr class="row-odd"><td><p>str</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">__str__</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#len" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">len</span></code></a></p></td>
+<tr class="row-even"><td><p>len</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">__len__</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#hex" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">hex</span></code></a></p></td>
+<tr class="row-odd"><td><p>hex</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">__hex__</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#oct" title="(in Python v3.8)"><code class="xref any docutils literal notranslate"><span class="pre">oct</span></code></a></p></td>
+<tr class="row-even"><td><p>oct</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">__oct__</span></code></p></td>
 </tr>
 </tbody>
 </table>
-<p>These built-in functions do have a schema</p>
+<p>These built-in functions use the schema</p>
 <div class="codeblock-height-limiter highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 <span class="nb">float</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 <span class="nb">float</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
@@ -7721,13 +7698,13 @@
 
 <span class="nb">str</span><span class="p">(</span><span class="n">elem</span> <span class="p">:</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 
+<span class="nb">len</span><span class="p">(</span><span class="n">s</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">t</span> <span class="p">:</span> <span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 <span class="nb">len</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 <span class="nb">len</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 <span class="nb">len</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 <span class="nb">len</span><span class="p">(</span><span class="bp">self</span> <span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span>
-<span class="nb">len</span><span class="p">(</span><span class="n">s</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 
 <span class="nb">hex</span><span class="p">(</span><span class="n">i</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
@@ -7818,8 +7795,8 @@
 <span class="nb">divmod</span><span class="p">(</span><span class="n">x</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
        <span class="n">y</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 
-<span class="nb">list</span><span class="p">(</span><span class="n">l</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
 <span class="nb">list</span><span class="p">(</span><span class="n">t</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">l</span> <span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
 
 <span class="nb">ord</span><span class="p">(</span><span class="n">string</span> <span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 
@@ -7954,9 +7931,6 @@
 <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">,</span>
          <span class="n">b</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
-<span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">,</span>
-         <span class="n">b</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
 <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
          <span class="n">b</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 
@@ -7968,25 +7942,11 @@
 
 <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 
-<span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
-
 <span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
@@ -8000,29 +7960,11 @@
 
 <span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
-<span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
 <span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
@@ -8087,18 +8029,6 @@
 
 <span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
-<span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">asinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
 <span class="n">math</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">atanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
@@ -8117,29 +8047,11 @@
 
 <span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
-<span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
 <span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
-
-<span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">number</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 
@@ -8170,8 +8082,6 @@
 
 <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 
-<span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
-
 <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
@@ -8193,6 +8103,21 @@
          <span class="n">b</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 
 <span class="n">math</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+
+<span class="n">math</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+               <span class="n">b</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+
+<span class="n">math</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+               <span class="n">b</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+
+<span class="n">math</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+               <span class="n">b</span> <span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+
+<span class="n">math</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+               <span class="n">b</span> <span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+
+<span class="n">math</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">a</span> <span class="p">:</span> <span class="n">number</span><span class="p">,</span>
+               <span class="n">b</span> <span class="p">:</span> <span class="n">number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 </pre></div>
 </div>
 </div>
@@ -8268,9 +8193,6 @@
          <script src="_static/underscore.js"></script>
          <script src="_static/doctools.js"></script>
          <script src="_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="_static/katex_autorenderer.js"></script>
      
 
   

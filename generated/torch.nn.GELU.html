@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Sigmoid" href="torch.nn.Sigmoid.html" />
+    <link rel="next" title="SiLU" href="torch.nn.SiLU.html" />
     <link rel="prev" title="CELU" href="torch.nn.CELU.html" /> 
 
   
@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
@@ -344,15 +346,22 @@
 <em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">GELU</code><a class="reference internal" href="../_modules/torch/nn/modules/activation.html#GELU"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.GELU" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Gaussian Error Linear Units function:</p>
 <div class="math">
-\[\text{GELU}(x) = x * \Phi(x)
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>GELU</mtext><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi><mo>∗</mo><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\text{GELU}(x) = x * \Phi(x)
 
-\]</div>
-<p>where <span class="math">\(\Phi(x)\)</span> is the Cumulative Distribution Function for Gaussian Distribution.</p>
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">GELU</span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span></span>
+
+</div><p>where <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Φ</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\Phi(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Φ</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span></span></span></span>
+
+</span> is the Cumulative Distribution Function for Gaussian Distribution.</p>
 <dl class="simple">
 <dt>Shape:</dt><dd><ul class="simple">
-<li><p>Input: <span class="math">\((N, *)\)</span> where <cite>*</cite> means, any number of additional
+<li><p>Input: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span> where <cite>*</cite> means, any number of additional
 dimensions</p></li>
-<li><p>Output: <span class="math">\((N, *)\)</span>, same shape as the input</p></li>
+<li><p>Output: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mclose">)</span></span></span></span>
+
+</span>, same shape as the input</p></li>
 </ul>
 </dd>
 </dl>
@@ -375,7 +384,7 @@ dimensions</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="torch.nn.Sigmoid.html" class="btn btn-neutral float-right" title="Sigmoid" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="torch.nn.SiLU.html" class="btn btn-neutral float-right" title="SiLU" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
         <a href="torch.nn.CELU.html" class="btn btn-neutral" title="CELU" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
@@ -430,9 +439,6 @@ dimensions</p></li>
          <script src="../_static/underscore.js"></script>
          <script src="../_static/doctools.js"></script>
          <script src="../_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="../_static/katex_autorenderer.js"></script>
      
 
   

@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
@@ -341,10 +343,10 @@
 <h1>RNNBase<a class="headerlink" href="#rnnbase" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="torch.nn.RNNBase">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">RNNBase</code><span class="sig-paren">(</span><em class="sig-param">mode</em>, <em class="sig-param">input_size</em>, <em class="sig-param">hidden_size</em>, <em class="sig-param">num_layers=1</em>, <em class="sig-param">bias=True</em>, <em class="sig-param">batch_first=False</em>, <em class="sig-param">dropout=0.0</em>, <em class="sig-param">bidirectional=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/rnn.html#RNNBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.RNNBase" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">RNNBase</code><span class="sig-paren">(</span><em class="sig-param">mode: str</em>, <em class="sig-param">input_size: int</em>, <em class="sig-param">hidden_size: int</em>, <em class="sig-param">num_layers: int = 1</em>, <em class="sig-param">bias: bool = True</em>, <em class="sig-param">batch_first: bool = False</em>, <em class="sig-param">dropout: float = 0.0</em>, <em class="sig-param">bidirectional: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/rnn.html#RNNBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.RNNBase" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="torch.nn.RNNBase.flatten_parameters">
-<code class="sig-name descname">flatten_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/rnn.html#RNNBase.flatten_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.RNNBase.flatten_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">flatten_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="../_modules/torch/nn/modules/rnn.html#RNNBase.flatten_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.RNNBase.flatten_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets parameter data pointer so that they can use faster code paths.</p>
 <p>Right now, this works only if the module is on the GPU and cuDNN is enabled.
 Otherwise, it’s a no-op.</p>
@@ -417,9 +419,6 @@ Otherwise, it’s a no-op.</p>
          <script src="../_static/underscore.js"></script>
          <script src="../_static/doctools.js"></script>
          <script src="../_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="../_static/katex_autorenderer.js"></script>
      
 
   

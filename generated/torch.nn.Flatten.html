@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
@@ -341,14 +343,18 @@
 <h1>Flatten<a class="headerlink" href="#flatten" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="torch.nn.Flatten">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">Flatten</code><span class="sig-paren">(</span><em class="sig-param">start_dim=1</em>, <em class="sig-param">end_dim=-1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/flatten.html#Flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.Flatten" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">Flatten</code><span class="sig-paren">(</span><em class="sig-param">start_dim: int = 1</em>, <em class="sig-param">end_dim: int = -1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/flatten.html#Flatten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.Flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flattens a contiguous range of dims into a tensor. For use with <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequential</span></code>.
 :param start_dim: first dim to flatten (default = 1).
 :param end_dim: last dim to flatten (default = -1).</p>
 <dl>
 <dt>Shape:</dt><dd><ul class="simple">
-<li><p>Input: <span class="math">\((N, *dims)\)</span></p></li>
-<li><p>Output: <span class="math">\((N, \prod *dims)\)</span> (for the default case).</p></li>
+<li><p>Input: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∗</mo><mi>d</mi><mi>i</mi><mi>m</mi><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, *dims)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span>
+
+</span></p></li>
+<li><p>Output: <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo separator="true">,</mo><mo>∏</mo><mo>∗</mo><mi>d</mi><mi>i</mi><mi>m</mi><mi>s</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(N, \prod *dims)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.00001em;vertical-align:-0.25001em;"></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∏</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∗</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mclose">)</span></span></span></span>
+
+</span> (for the default case).</p></li>
 </ul>
 </dd>
 <dt>Examples::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
@@ -361,7 +367,7 @@
 </dl>
 <dl class="method">
 <dt id="torch.nn.Flatten.add_module">
-<code class="sig-name descname">add_module</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">module</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.add_module" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_module</code><span class="sig-paren">(</span><em class="sig-param">name: str, module: Optional[Module]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#torch.nn.Flatten.add_module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a child module to the current module.</p>
 <p>The module can be accessed as an attribute using the given name.</p>
 <dl class="field-list simple">
@@ -377,7 +383,7 @@ accessed from this module using the given name</p></li>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.apply">
-<code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">fn</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.apply" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">fn: Callable[[Module], None]</em><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies <code class="docutils literal notranslate"><span class="pre">fn</span></code> recursively to every submodule (as returned by <code class="docutils literal notranslate"><span class="pre">.children()</span></code>)
 as well as self. Typical use includes initializing the parameters of a model
 (see also <a class="reference internal" href="../nn.init.html#nn-init-doc"><span class="std std-ref">torch.nn.init</span></a>).</p>
@@ -423,7 +429,7 @@ as well as self. Typical use includes initializing the parameters of a model
 
 <dl class="method">
 <dt id="torch.nn.Flatten.bfloat16">
-<code class="sig-name descname">bfloat16</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.bfloat16" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">bfloat16</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.bfloat16" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> datatype.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -437,7 +443,7 @@ as well as self. Typical use includes initializing the parameters of a model
 
 <dl class="method">
 <dt id="torch.nn.Flatten.buffers">
-<code class="sig-name descname">buffers</code><span class="sig-paren">(</span><em class="sig-param">recurse=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.buffers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">buffers</code><span class="sig-paren">(</span><em class="sig-param">recurse: bool = True</em><span class="sig-paren">)</span> &#x2192; Iterator[torch.Tensor]<a class="headerlink" href="#torch.nn.Flatten.buffers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over module buffers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -460,7 +466,7 @@ are direct members of this module.</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.children">
-<code class="sig-name descname">children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.children" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">children</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator[torch.nn.modules.module.Module]<a class="headerlink" href="#torch.nn.Flatten.children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over immediate children modules.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Yields</dt>
@@ -471,7 +477,7 @@ are direct members of this module.</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.cpu">
-<code class="sig-name descname">cpu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.cpu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cpu</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.cpu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves all model parameters and buffers to the CPU.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -485,7 +491,7 @@ are direct members of this module.</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.cuda">
-<code class="sig-name descname">cuda</code><span class="sig-paren">(</span><em class="sig-param">device=None</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.cuda" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cuda</code><span class="sig-paren">(</span><em class="sig-param">device: Union[int</em>, <em class="sig-param">torch.device</em>, <em class="sig-param">None] = None</em><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.cuda" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves all model parameters and buffers to the GPU.</p>
 <p>This also makes associated parameters and buffers different objects. So
 it should be called before constructing optimizer if the module will
@@ -506,7 +512,7 @@ copied to that device</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.double">
-<code class="sig-name descname">double</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.double" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">double</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.double" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">double</span></code> datatype.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -520,7 +526,7 @@ copied to that device</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.eval">
-<code class="sig-name descname">eval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.eval" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.eval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the module in evaluation mode.</p>
 <p>This has any effect only on certain modules. See documentations of
 particular modules for details of their behaviors in training/evaluation
@@ -539,16 +545,16 @@ etc.</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.extra_repr">
-<code class="sig-name descname">extra_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.extra_repr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">extra_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#torch.nn.Flatten.extra_repr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the extra representation of the module</p>
-<p>To print customized extra information, you should reimplement
+<p>To print customized extra information, you should re-implement
 this method in your own modules. Both single-line and multi-line
 strings are acceptable.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.float">
-<code class="sig-name descname">float</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.float" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">float</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.float" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all floating point parameters and buffers to float datatype.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -562,7 +568,7 @@ strings are acceptable.</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.half">
-<code class="sig-name descname">half</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.half" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">half</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.half" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all floating point parameters and buffers to <code class="docutils literal notranslate"><span class="pre">half</span></code> datatype.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -576,7 +582,7 @@ strings are acceptable.</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.load_state_dict">
-<code class="sig-name descname">load_state_dict</code><span class="sig-paren">(</span><em class="sig-param">state_dict</em>, <em class="sig-param">strict=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.load_state_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load_state_dict</code><span class="sig-paren">(</span><em class="sig-param">state_dict: Dict[str, torch.Tensor], strict: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.load_state_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies parameters and buffers from <a class="reference internal" href="#torch.nn.Flatten.state_dict" title="torch.nn.Flatten.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> into
 this module and its descendants. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">strict</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, then
 the keys of <a class="reference internal" href="#torch.nn.Flatten.state_dict" title="torch.nn.Flatten.state_dict"><code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code></a> must exactly match the keys returned
@@ -606,7 +612,7 @@ in <a class="reference internal" href="#torch.nn.Flatten.state_dict" title="torc
 
 <dl class="method">
 <dt id="torch.nn.Flatten.modules">
-<code class="sig-name descname">modules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.modules" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">modules</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator[torch.nn.modules.module.Module]<a class="headerlink" href="#torch.nn.Flatten.modules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over all modules in the network.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Yields</dt>
@@ -635,7 +641,7 @@ example, <code class="docutils literal notranslate"><span class="pre">l</span></
 
 <dl class="method">
 <dt id="torch.nn.Flatten.named_buffers">
-<code class="sig-name descname">named_buffers</code><span class="sig-paren">(</span><em class="sig-param">prefix=''</em>, <em class="sig-param">recurse=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.named_buffers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">named_buffers</code><span class="sig-paren">(</span><em class="sig-param">prefix: str = ''</em>, <em class="sig-param">recurse: bool = True</em><span class="sig-paren">)</span> &#x2192; Iterator[Tuple[str, torch.Tensor]]<a class="headerlink" href="#torch.nn.Flatten.named_buffers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over module buffers, yielding both the
 name of the buffer as well as the buffer itself.</p>
 <dl class="field-list simple">
@@ -661,7 +667,7 @@ are direct members of this module.</p></li>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.named_children">
-<code class="sig-name descname">named_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.named_children" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">named_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Iterator[Tuple[str, torch.nn.modules.module.Module]]<a class="headerlink" href="#torch.nn.Flatten.named_children" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over immediate children modules, yielding both
 the name of the module as well as the module itself.</p>
 <dl class="field-list simple">
@@ -679,7 +685,7 @@ the name of the module as well as the module itself.</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.named_modules">
-<code class="sig-name descname">named_modules</code><span class="sig-paren">(</span><em class="sig-param">memo=None</em>, <em class="sig-param">prefix=''</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.named_modules" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">named_modules</code><span class="sig-paren">(</span><em class="sig-param">memo: Optional[Set[Module]] = None</em>, <em class="sig-param">prefix: str = ''</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.named_modules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over all modules in the network, yielding
 both the name of the module as well as the module itself.</p>
 <dl class="field-list simple">
@@ -709,7 +715,7 @@ example, <code class="docutils literal notranslate"><span class="pre">l</span></
 
 <dl class="method">
 <dt id="torch.nn.Flatten.named_parameters">
-<code class="sig-name descname">named_parameters</code><span class="sig-paren">(</span><em class="sig-param">prefix=''</em>, <em class="sig-param">recurse=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.named_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">named_parameters</code><span class="sig-paren">(</span><em class="sig-param">prefix: str = ''</em>, <em class="sig-param">recurse: bool = True</em><span class="sig-paren">)</span> &#x2192; Iterator[Tuple[str, torch.Tensor]]<a class="headerlink" href="#torch.nn.Flatten.named_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over module parameters, yielding both the
 name of the parameter as well as the parameter itself.</p>
 <dl class="field-list simple">
@@ -735,7 +741,7 @@ are direct members of this module.</p></li>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.parameters">
-<code class="sig-name descname">parameters</code><span class="sig-paren">(</span><em class="sig-param">recurse=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parameters</code><span class="sig-paren">(</span><em class="sig-param">recurse: bool = True</em><span class="sig-paren">)</span> &#x2192; Iterator[torch.nn.parameter.Parameter]<a class="headerlink" href="#torch.nn.Flatten.parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an iterator over module parameters.</p>
 <p>This is typically passed to an optimizer.</p>
 <dl class="field-list simple">
@@ -759,7 +765,7 @@ are direct members of this module.</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.register_backward_hook">
-<code class="sig-name descname">register_backward_hook</code><span class="sig-paren">(</span><em class="sig-param">hook</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.register_backward_hook" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_backward_hook</code><span class="sig-paren">(</span><em class="sig-param">hook: Callable[[Module, Union[Tuple[torch.Tensor, ...], torch.Tensor], Union[Tuple[torch.Tensor, ...], torch.Tensor]], Union[None, torch.Tensor]]</em><span class="sig-paren">)</span> &#x2192; torch.utils.hooks.RemovableHandle<a class="headerlink" href="#torch.nn.Flatten.register_backward_hook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a backward hook on the module.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -794,7 +800,7 @@ as positional arguments.</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.register_buffer">
-<code class="sig-name descname">register_buffer</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">tensor</em>, <em class="sig-param">persistent=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.register_buffer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_buffer</code><span class="sig-paren">(</span><em class="sig-param">name: str, tensor: Optional[torch.Tensor], persistent: bool = True</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#torch.nn.Flatten.register_buffer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a buffer to the module.</p>
 <p>This is typically used to register a buffer that should not to be
 considered a model parameter. For example, BatchNorm’s <code class="docutils literal notranslate"><span class="pre">running_mean</span></code>
@@ -824,7 +830,7 @@ from this module using the given name</p></li>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.register_forward_hook">
-<code class="sig-name descname">register_forward_hook</code><span class="sig-paren">(</span><em class="sig-param">hook</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.register_forward_hook" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_forward_hook</code><span class="sig-paren">(</span><em class="sig-param">hook: Callable[[...], None]</em><span class="sig-paren">)</span> &#x2192; torch.utils.hooks.RemovableHandle<a class="headerlink" href="#torch.nn.Flatten.register_forward_hook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a forward hook on the module.</p>
 <p>The hook will be called every time after <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> has computed an output.
 It should have the following signature:</p>
@@ -849,7 +855,7 @@ it will not have effect on forward since this is called after
 
 <dl class="method">
 <dt id="torch.nn.Flatten.register_forward_pre_hook">
-<code class="sig-name descname">register_forward_pre_hook</code><span class="sig-paren">(</span><em class="sig-param">hook</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.register_forward_pre_hook" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_forward_pre_hook</code><span class="sig-paren">(</span><em class="sig-param">hook: Callable[[...], None]</em><span class="sig-paren">)</span> &#x2192; torch.utils.hooks.RemovableHandle<a class="headerlink" href="#torch.nn.Flatten.register_forward_pre_hook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a forward pre-hook on the module.</p>
 <p>The hook will be called every time before <code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code> is invoked.
 It should have the following signature:</p>
@@ -874,7 +880,7 @@ if a single value is returned(unless that value is already a tuple).</p>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.register_parameter">
-<code class="sig-name descname">register_parameter</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">param</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.register_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_parameter</code><span class="sig-paren">(</span><em class="sig-param">name: str, param: Optional[torch.nn.parameter.Parameter]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#torch.nn.Flatten.register_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a parameter to the module.</p>
 <p>The parameter can be accessed as an attribute using given name.</p>
 <dl class="field-list simple">
@@ -890,7 +896,7 @@ from this module using the given name</p></li>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.requires_grad_">
-<code class="sig-name descname">requires_grad_</code><span class="sig-paren">(</span><em class="sig-param">requires_grad=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.requires_grad_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">requires_grad_</code><span class="sig-paren">(</span><em class="sig-param">requires_grad: bool = True</em><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.requires_grad_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change if autograd should record operations on parameters in this
 module.</p>
 <p>This method sets the parameters’ <code class="xref py py-attr docutils literal notranslate"><span class="pre">requires_grad</span></code> attributes
@@ -1023,7 +1029,7 @@ only argument)</p></li>
 
 <dl class="method">
 <dt id="torch.nn.Flatten.train">
-<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">mode=True</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.train" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">mode: bool = True</em><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.train" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the module in training mode.</p>
 <p>This has any effect only on certain modules. See documentations of
 particular modules for details of their behaviors in training/evaluation
@@ -1045,7 +1051,7 @@ mode (<code class="docutils literal notranslate"><span class="pre">False</span><
 
 <dl class="method">
 <dt id="torch.nn.Flatten.type">
-<code class="sig-name descname">type</code><span class="sig-paren">(</span><em class="sig-param">dst_type</em><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.type" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">type</code><span class="sig-paren">(</span><em class="sig-param">dst_type: Union[torch.dtype, str]</em><span class="sig-paren">)</span> &#x2192; T<a class="headerlink" href="#torch.nn.Flatten.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts all parameters and buffers to <code class="xref py py-attr docutils literal notranslate"><span class="pre">dst_type</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1062,7 +1068,7 @@ mode (<code class="docutils literal notranslate"><span class="pre">False</span><
 
 <dl class="method">
 <dt id="torch.nn.Flatten.zero_grad">
-<code class="sig-name descname">zero_grad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#torch.nn.Flatten.zero_grad" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">zero_grad</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#torch.nn.Flatten.zero_grad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets gradients of all model parameters to zero.</p>
 </dd></dl>
 
@@ -1133,9 +1139,6 @@ mode (<code class="docutils literal notranslate"><span class="pre">False</span><
          <script src="../_static/underscore.js"></script>
          <script src="../_static/doctools.js"></script>
          <script src="../_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="../_static/katex_autorenderer.js"></script>
      
 
   

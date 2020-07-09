@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
@@ -356,7 +358,9 @@ in the Jacobian-vector product, usually the gradient of the differentiated
 function w.r.t. corresponding tensors (<code class="docutils literal notranslate"><span class="pre">None</span></code> is an acceptable value for
 all tensors that don’t need gradient tensors).</p>
 <p>This function accumulates gradients in the leaves - you might need to zero
-them before calling it.</p>
+<code class="docutils literal notranslate"><span class="pre">.grad</span></code> attributes or set them to <code class="docutils literal notranslate"><span class="pre">None</span></code> before calling it.
+See <a class="reference internal" href="#default-grad-layouts"><span class="std std-ref">Default gradient layouts</span></a>
+for details on the memory layout of accumulated gradients.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Using this method with <code class="docutils literal notranslate"><span class="pre">create_graph=True</span></code> will create a reference cycle
@@ -428,7 +432,7 @@ is an error. Defaults to <code class="docutils literal notranslate"><span class=
 <span id="functional-api"></span><h2>Functional higher level API<a class="headerlink" href="#functional-higher-level-api" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This API is experimental. Even though the function signatures are very unlikely to change, major
+<p>This API is in beta. Even though the function signatures are very unlikely to change, major
 improvements to performances are planned before we consider this stable.</p>
 </div>
 <p>This section contains the higher level API for the autograd that builds on the basic API above
@@ -760,46 +764,46 @@ Hessian of a given scalar function at the point given by the inputs.</p>
 <li><p><strong>func</strong> (<em>function</em>) – a Python function that takes Tensor inputs and returns
 a Tensor with a single element.</p></li>
 <li><p><strong>inputs</strong> (<em>tuple of Tensors</em><em> or </em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – inputs to the function <code class="docutils literal notranslate"><span class="pre">func</span></code>.</p></li>
-<li><p><strong>v</strong> (<em>tuple of Tensors</em><em> or </em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – The vector for which the vector Hessian product is computed. Must be the
-same size as the input of <code class="docutils literal notranslate"><span class="pre">func</span></code>. This argument is optional when
-<code class="docutils literal notranslate"><span class="pre">func</span></code>’s input contains a single element and (if it is not provided) will be set as a Tensor
-containing a single <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
-<li><p><strong>create_graph</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, both the output and result will be
-computed in a differentiable way. Note that when <code class="docutils literal notranslate"><span class="pre">strict</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, the result can not
-require gradients or be disconnected from the inputs.
+<li><p><strong>v</strong> (<em>tuple of Tensors</em><em> or </em><a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor"><em>Tensor</em></a>) – The vector for which the vector Hessian
+product is computed. Must be the same size as the input of
+<code class="docutils literal notranslate"><span class="pre">func</span></code>. This argument is optional when <code class="docutils literal notranslate"><span class="pre">func</span></code>’s input contains
+a single element and (if it is not provided) will be set as a
+Tensor containing a single <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p><strong>create_graph</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, both the output and result
+will be computed in a differentiable way. Note that when <code class="docutils literal notranslate"><span class="pre">strict</span></code>
+is <code class="docutils literal notranslate"><span class="pre">False</span></code>, the result can not require gradients or be
+disconnected from the inputs.
 Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, an error will be raised when we detect that there exists an input
-such that all the outputs are independent of it. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, we return a Tensor of zeros as the
+<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, an error will be raised when we
+detect that there exists an input such that all the outputs are
+independent of it. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, we return a Tensor of zeros as the
 vhp for said inputs, which is the expected mathematical value.
 Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p>output of <code class="docutils literal notranslate"><span class="pre">func(inputs)</span></code>
-vhp (tuple of Tensors or Tensor): result of the dot product with the same shape</p>
-<blockquote>
-<div><p>as the inputs.</p>
-</div></blockquote>
+<dd class="field-even"><p><dl>
+<dt>tuple with:</dt><dd><p>func_output (tuple of Tensors or Tensor): output of <code class="docutils literal notranslate"><span class="pre">func(inputs)</span></code></p>
+<p>vhp (tuple of Tensors or Tensor): result of the dot product with the
+same shape as the inputs.</p>
+</dd>
+</dl>
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>func_output (tuple of Tensors or <a class="reference internal" href="tensors.html#torch.Tensor" title="torch.Tensor">Tensor</a>)</p>
+<dd class="field-odd"><p>output (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a>)</p>
 </dd>
 </dl>
-<dl>
-<dt>Example::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">pow_reducer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">pow_reducer</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="gp">... </span>  <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vhp</span><span class="p">(</span><span class="n">pow_reducer</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl>
-<dt>(tensor(0.5591),</dt><dd><dl class="simple">
-<dt>tensor([[1.0689, 1.2431],</dt><dd><p>[3.0989, 4.4456]]))</p>
-</dd>
-</dl>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vhp</span><span class="p">(</span><span class="n">pow_reducer</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">(tensor(0.5591),</span>
+<span class="go"> tensor([[1.0689, 1.2431],</span>
+<span class="go">         [3.0989, 4.4456]]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vhp</span><span class="p">(</span><span class="n">pow_reducer</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">(tensor(0.5591, grad_fn=&lt;SumBackward0&gt;),</span>
 <span class="go"> tensor([[1.0689, 1.2431],</span>
 <span class="go">         [3.0989, 4.4456]], grad_fn=&lt;MulBackward0&gt;))</span>
@@ -813,10 +817,6 @@ vhp (tuple of Tensors or Tensor): result of the dot product with the same shape<
 <span class="go">  tensor([6., 6.])))</span>
 </pre></div>
 </div>
-</dd>
-</dl>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="function">
@@ -906,7 +906,6 @@ that you will not call <code class="xref py py-meth docutils literal notranslate
 consumption for computations that would otherwise have <cite>requires_grad=True</cite>.</p>
 <p>In this mode, the result of every computation will have
 <cite>requires_grad=False</cite>, even when the inputs have <cite>requires_grad=True</cite>.</p>
-<p>This mode has no effect when using <a class="reference internal" href="#torch.autograd.enable_grad" title="torch.autograd.enable_grad"><code class="xref py py-class docutils literal notranslate"><span class="pre">enable_grad</span></code></a> context manager .</p>
 <p>This context manager is thread local; it will not affect computation
 in other threads.</p>
 <p>Also functions as a decorator. (Make sure to instantiate with parenthesis.)</p>
@@ -961,8 +960,6 @@ in other threads.</p>
 <dd><p>Context-manager that sets gradient calculation to on or off.</p>
 <p><code class="docutils literal notranslate"><span class="pre">set_grad_enabled</span></code> will enable or disable grads based on its argument <code class="xref py py-attr docutils literal notranslate"><span class="pre">mode</span></code>.
 It can be used as a context-manager or as a function.</p>
-<p>When using <a class="reference internal" href="#torch.autograd.enable_grad" title="torch.autograd.enable_grad"><code class="xref py py-class docutils literal notranslate"><span class="pre">enable_grad</span></code></a> context manager, <code class="xref py py-class docutils literal notranslate"><span class="pre">set_grad_enabled(False)</span></code>
-has no effect.</p>
 <p>This context manager is thread local; it will not affect computation
 in other threads.</p>
 <dl class="field-list simple">
@@ -991,6 +988,52 @@ gradients.</p>
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="default-gradient-layouts">
+<span id="default-grad-layouts"></span><h2>Default gradient layouts<a class="headerlink" href="#default-gradient-layouts" title="Permalink to this headline">¶</a></h2>
+<p>When a non-sparse <code class="docutils literal notranslate"><span class="pre">param</span></code> receives a non-sparse gradient during
+<a class="reference internal" href="#torch.autograd.backward" title="torch.autograd.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.autograd.backward()</span></code></a> or <a class="reference internal" href="#torch.Tensor.backward" title="torch.Tensor.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.Tensor.backward()</span></code></a>
+<code class="docutils literal notranslate"><span class="pre">param.grad</span></code> is accumulated as follows.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">param.grad</span></code> is initially <code class="docutils literal notranslate"><span class="pre">None</span></code>:</p>
+<ol class="arabic simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">param</span></code>’s memory is non-overlapping and dense, <code class="docutils literal notranslate"><span class="pre">.grad</span></code> is
+created with strides matching <code class="docutils literal notranslate"><span class="pre">param</span></code> (thus matching <code class="docutils literal notranslate"><span class="pre">param</span></code>’s
+layout).</p></li>
+<li><p>Otherwise, <code class="docutils literal notranslate"><span class="pre">.grad</span></code> is created with rowmajor-contiguous strides.</p></li>
+</ol>
+<p>If <code class="docutils literal notranslate"><span class="pre">param</span></code> already has a non-sparse <code class="docutils literal notranslate"><span class="pre">.grad</span></code> attribute:</p>
+<ol class="arabic simple" start="3">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">create_graph=False</span></code>, <code class="docutils literal notranslate"><span class="pre">backward()</span></code> accumulates into <code class="docutils literal notranslate"><span class="pre">.grad</span></code>
+in-place, which preserves its strides.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">create_graph=True</span></code>, <code class="docutils literal notranslate"><span class="pre">backward()</span></code> replaces <code class="docutils literal notranslate"><span class="pre">.grad</span></code> with a
+new tensor <code class="docutils literal notranslate"><span class="pre">.grad</span> <span class="pre">+</span> <span class="pre">new</span> <span class="pre">grad</span></code>, which attempts (but does not guarantee)
+matching the preexisting <code class="docutils literal notranslate"><span class="pre">.grad</span></code>’s strides.</p></li>
+</ol>
+<p>The default behavior (letting <code class="docutils literal notranslate"><span class="pre">.grad</span></code>s be <code class="docutils literal notranslate"><span class="pre">None</span></code> before the first
+<code class="docutils literal notranslate"><span class="pre">backward()</span></code>, such that their layout is created according to 1 or 2,
+and retained over time according to 3 or 4) is recommended for best performance.
+Calls to <code class="docutils literal notranslate"><span class="pre">model.zero_grad()</span></code> or <code class="docutils literal notranslate"><span class="pre">optimizer.zero_grad()</span></code> will not affect <code class="docutils literal notranslate"><span class="pre">.grad</span></code>
+layouts.</p>
+<p>In fact, resetting all <code class="docutils literal notranslate"><span class="pre">.grad</span></code>s to <code class="docutils literal notranslate"><span class="pre">None</span></code> before each
+accumulation phase, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">iterations</span><span class="o">...</span>
+    <span class="o">...</span>
+    <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>such that they’re recreated according to 1 or 2 every time,
+is a valid alternative to <code class="docutils literal notranslate"><span class="pre">model.zero_grad()</span></code> or <code class="docutils literal notranslate"><span class="pre">optimizer.zero_grad()</span></code>
+that may improve performance for some networks.</p>
+<div class="section" id="manual-gradient-layouts">
+<h3>Manual gradient layouts<a class="headerlink" href="#manual-gradient-layouts" title="Permalink to this headline">¶</a></h3>
+<p>If you need manual control over <code class="docutils literal notranslate"><span class="pre">.grad</span></code>’s strides,
+assign <code class="docutils literal notranslate"><span class="pre">param.grad</span> <span class="pre">=</span></code> a zeroed tensor with desired strides
+before the first <code class="docutils literal notranslate"><span class="pre">backward()</span></code>, and never reset it to <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+3 guarantees your layout is preserved as long as <code class="docutils literal notranslate"><span class="pre">create_graph=False</span></code>.
+4 indicates your layout is <em>likely</em> preserved even if <code class="docutils literal notranslate"><span class="pre">create_graph=True</span></code>.</p>
+</div>
 </div>
 <div class="section" id="in-place-operations-on-tensors">
 <h2>In-place operations on Tensors<a class="headerlink" href="#in-place-operations-on-tensors" title="Permalink to this headline">¶</a></h2>
@@ -1101,8 +1144,10 @@ non-scalar (i.e. its data has more than one element) and requires
 gradient, the function additionally requires specifying <code class="docutils literal notranslate"><span class="pre">gradient</span></code>.
 It should be a tensor of matching type and location, that contains
 the gradient of the differentiated function w.r.t. <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
-<p>This function accumulates gradients in the leaves - you might need to
-zero them before calling it.</p>
+<p>This function accumulates gradients in the leaves - you might need to zero
+<code class="docutils literal notranslate"><span class="pre">.grad</span></code> attributes or set them to <code class="docutils literal notranslate"><span class="pre">None</span></code> before calling it.
+See <a class="reference internal" href="#default-grad-layouts"><span class="std std-ref">Default gradient layouts</span></a>
+for details on the memory layout of accumulated gradients.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1748,6 +1793,10 @@ or disable (<code class="docutils literal notranslate"><span class="pre">False</
 <li><a class="reference internal" href="#">Automatic differentiation package - torch.autograd</a><ul>
 <li><a class="reference internal" href="#functional-higher-level-api">Functional higher level API</a></li>
 <li><a class="reference internal" href="#locally-disabling-gradient-computation">Locally disabling gradient computation</a></li>
+<li><a class="reference internal" href="#default-gradient-layouts">Default gradient layouts</a><ul>
+<li><a class="reference internal" href="#manual-gradient-layouts">Manual gradient layouts</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#in-place-operations-on-tensors">In-place operations on Tensors</a><ul>
 <li><a class="reference internal" href="#in-place-correctness-checks">In-place correctness checks</a></li>
 </ul>
@@ -1780,9 +1829,6 @@ or disable (<code class="docutils literal notranslate"><span class="pre">False</
          <script src="_static/underscore.js"></script>
          <script src="_static/doctools.js"></script>
          <script src="_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="_static/katex_autorenderer.js"></script>
      
 
   

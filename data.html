@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
@@ -684,7 +686,7 @@ type(s).</p>
 </div>
 <dl class="class">
 <dt id="torch.utils.data.DataLoader">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">DataLoader</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">batch_size=1</em>, <em class="sig-param">shuffle=False</em>, <em class="sig-param">sampler=None</em>, <em class="sig-param">batch_sampler=None</em>, <em class="sig-param">num_workers=0</em>, <em class="sig-param">collate_fn=None</em>, <em class="sig-param">pin_memory=False</em>, <em class="sig-param">drop_last=False</em>, <em class="sig-param">timeout=0</em>, <em class="sig-param">worker_init_fn=None</em>, <em class="sig-param">multiprocessing_context=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataloader.html#DataLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.DataLoader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">DataLoader</code><span class="sig-paren">(</span><em class="sig-param">dataset: torch.utils.data.dataset.Dataset[+T_co][T_co], batch_size: Optional[int] = 1, shuffle: bool = False, sampler: Optional[torch.utils.data.sampler.Sampler[int][int]] = None, batch_sampler: Optional[torch.utils.data.sampler.Sampler[typing.Sequence[int]][Sequence[int]]] = None, num_workers: int = 0, collate_fn: Callable[[List[T]], Any] = None, pin_memory: bool = False, drop_last: bool = False, timeout: float = 0, worker_init_fn: Callable[[int], None] = None, multiprocessing_context=None, generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataloader.html#DataLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.DataLoader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Data loader. Combines a dataset and a sampler, and provides an iterable over
 the given dataset.</p>
 <p>The <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> supports both map-style and
@@ -870,7 +872,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="class">
 <dt id="torch.utils.data.TensorDataset">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">TensorDataset</code><span class="sig-paren">(</span><em class="sig-param">*tensors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataset.html#TensorDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.TensorDataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">TensorDataset</code><span class="sig-paren">(</span><em class="sig-param">*tensors: torch.Tensor</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataset.html#TensorDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.TensorDataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dataset wrapping tensors.</p>
 <p>Each sample will be retrieved by indexing tensors along the first dimension.</p>
 <dl class="field-list simple">
@@ -882,7 +884,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="class">
 <dt id="torch.utils.data.ConcatDataset">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">ConcatDataset</code><span class="sig-paren">(</span><em class="sig-param">datasets</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataset.html#ConcatDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.ConcatDataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">ConcatDataset</code><span class="sig-paren">(</span><em class="sig-param">datasets: Iterable[torch.utils.data.dataset.Dataset]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataset.html#ConcatDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.ConcatDataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dataset as a concatenation of multiple datasets.</p>
 <p>This class is useful to assemble different existing datasets.</p>
 <dl class="field-list simple">
@@ -894,7 +896,7 @@ dataset’s <code class="xref py py-meth docutils literal notranslate"><span cla
 
 <dl class="class">
 <dt id="torch.utils.data.ChainDataset">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">ChainDataset</code><span class="sig-paren">(</span><em class="sig-param">datasets</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataset.html#ChainDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.ChainDataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">ChainDataset</code><span class="sig-paren">(</span><em class="sig-param">datasets: Iterable[torch.utils.data.dataset.Dataset]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataset.html#ChainDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.ChainDataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dataset for chainning multiple <a class="reference internal" href="#torch.utils.data.IterableDataset" title="torch.utils.data.IterableDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterableDataset</span></code></a> s.</p>
 <p>This class is useful to assemble different existing dataset streams. The
 chainning operation is done on-the-fly, so concatenating large-scale
@@ -908,7 +910,7 @@ datasets with this class will be efficient.</p>
 
 <dl class="class">
 <dt id="torch.utils.data.Subset">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">Subset</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">indices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataset.html#Subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.Subset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">Subset</code><span class="sig-paren">(</span><em class="sig-param">dataset: torch.utils.data.dataset.Dataset[+T_co][T_co], indices: Sequence[int]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataset.html#Subset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.Subset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subset of a dataset at specified indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -951,7 +953,7 @@ code (e.g., NumPy).</p>
 
 <dl class="function">
 <dt id="torch.utils.data.random_split">
-<code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">random_split</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">lengths</em>, <em class="sig-param">generator=&lt;torch._C.Generator object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/dataset.html#random_split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.random_split" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">random_split</code><span class="sig-paren">(</span><em class="sig-param">dataset: torch.utils.data.dataset.Dataset[~T][T], lengths: Sequence[int], generator: Optional[torch._C.Generator] = &lt;torch._C.Generator object&gt;</em><span class="sig-paren">)</span> &#x2192; List[torch.utils.data.dataset.Subset[~T][T]]<a class="reference internal" href="_modules/torch/utils/data/dataset.html#random_split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.random_split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Randomly split a dataset into non-overlapping new datasets of given lengths.
 Optionally fix the generator for reproducible results, e.g.:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random_split</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="n">generator</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">()</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>
@@ -970,7 +972,7 @@ Optionally fix the generator for reproducible results, e.g.:</p>
 
 <dl class="class">
 <dt id="torch.utils.data.Sampler">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">Sampler</code><span class="sig-paren">(</span><em class="sig-param">data_source</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#Sampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.Sampler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">Sampler</code><span class="sig-paren">(</span><em class="sig-param">data_source: Optional[Sized]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#Sampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.Sampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for all Samplers.</p>
 <p>Every Sampler subclass has to provide an <code class="xref py py-meth docutils literal notranslate"><span class="pre">__iter__()</span></code> method, providing a
 way to iterate over indices of dataset elements, and a <code class="xref py py-meth docutils literal notranslate"><span class="pre">__len__()</span></code> method
@@ -996,7 +998,7 @@ calculation involving the length of a <a class="reference internal" href="#torch
 
 <dl class="class">
 <dt id="torch.utils.data.RandomSampler">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">RandomSampler</code><span class="sig-paren">(</span><em class="sig-param">data_source</em>, <em class="sig-param">replacement=False</em>, <em class="sig-param">num_samples=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#RandomSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.RandomSampler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">RandomSampler</code><span class="sig-paren">(</span><em class="sig-param">data_source: Sized</em>, <em class="sig-param">replacement: bool = False</em>, <em class="sig-param">num_samples: Optional[int] = None</em>, <em class="sig-param">generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#RandomSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.RandomSampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Samples elements randomly. If without replacement, then sample from a shuffled dataset.
 If with replacement, then user can specify <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_samples</span></code> to draw.</p>
 <dl class="field-list simple">
@@ -1006,6 +1008,7 @@ If with replacement, then user can specify <code class="xref py py-attr docutils
 <li><p><strong>replacement</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – samples are drawn with replacement if <code class="docutils literal notranslate"><span class="pre">True</span></code>, default=``False``</p></li>
 <li><p><strong>num_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – number of samples to draw, default=`len(dataset)`. This argument
 is supposed to be specified only when <cite>replacement</cite> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p><strong>generator</strong> (<a class="reference internal" href="generated/torch.Generator.html#torch.Generator" title="torch.Generator"><em>Generator</em></a>) – Generator used in sampling.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1013,18 +1016,21 @@ is supposed to be specified only when <cite>replacement</cite> is <code class="d
 
 <dl class="class">
 <dt id="torch.utils.data.SubsetRandomSampler">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">SubsetRandomSampler</code><span class="sig-paren">(</span><em class="sig-param">indices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#SubsetRandomSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.SubsetRandomSampler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">SubsetRandomSampler</code><span class="sig-paren">(</span><em class="sig-param">indices: Sequence[int], generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#SubsetRandomSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.SubsetRandomSampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Samples elements randomly from a given list of indices, without replacement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>indices</strong> (<em>sequence</em>) – a sequence of indices</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indices</strong> (<em>sequence</em>) – a sequence of indices</p></li>
+<li><p><strong>generator</strong> (<a class="reference internal" href="generated/torch.Generator.html#torch.Generator" title="torch.Generator"><em>Generator</em></a>) – Generator used in sampling.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="class">
 <dt id="torch.utils.data.WeightedRandomSampler">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">WeightedRandomSampler</code><span class="sig-paren">(</span><em class="sig-param">weights</em>, <em class="sig-param">num_samples</em>, <em class="sig-param">replacement=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#WeightedRandomSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.WeightedRandomSampler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">WeightedRandomSampler</code><span class="sig-paren">(</span><em class="sig-param">weights: Sequence[float], num_samples: int, replacement: bool = True, generator=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#WeightedRandomSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.WeightedRandomSampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Samples elements from <code class="docutils literal notranslate"><span class="pre">[0,..,len(weights)-1]</span></code> with given probabilities (weights).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1034,6 +1040,7 @@ is supposed to be specified only when <cite>replacement</cite> is <code class="d
 <li><p><strong>replacement</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, samples are drawn with replacement.
 If not, they are drawn without replacement, which means that when a
 sample index is drawn for a row, it cannot be drawn again for that row.</p></li>
+<li><p><strong>generator</strong> (<a class="reference internal" href="generated/torch.Generator.html#torch.Generator" title="torch.Generator"><em>Generator</em></a>) – Generator used in sampling.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1048,13 +1055,12 @@ sample index is drawn for a row, it cannot be drawn again for that row.</p></li>
 
 <dl class="class">
 <dt id="torch.utils.data.BatchSampler">
-<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">BatchSampler</code><span class="sig-paren">(</span><em class="sig-param">sampler</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">drop_last</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#BatchSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.BatchSampler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.utils.data.</code><code class="sig-name descname">BatchSampler</code><span class="sig-paren">(</span><em class="sig-param">sampler: torch.utils.data.sampler.Sampler[int][int], batch_size: int, drop_last: bool</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch/utils/data/sampler.html#BatchSampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.utils.data.BatchSampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wraps another sampler to yield a mini-batch of indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sampler</strong> (<a class="reference internal" href="#torch.utils.data.Sampler" title="torch.utils.data.Sampler"><em>Sampler</em></a><em> or </em><em>Iterable</em>) – Base sampler. Can be any iterable object
-with <code class="docutils literal notranslate"><span class="pre">__len__</span></code> implemented.</p></li>
+<li><p><strong>sampler</strong> (<a class="reference internal" href="#torch.utils.data.Sampler" title="torch.utils.data.Sampler"><em>Sampler</em></a><em> or </em><em>Iterable</em>) – Base sampler. Can be any iterable object</p></li>
 <li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Size of mini-batch.</p></li>
 <li><p><strong>drop_last</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the sampler will drop the last batch if
 its size would be less than <code class="docutils literal notranslate"><span class="pre">batch_size</span></code></p></li>
@@ -1076,7 +1082,7 @@ its size would be less than <code class="docutils literal notranslate"><span cla
 <dd><p>Sampler that restricts data loading to a subset of the dataset.</p>
 <p>It is especially useful in conjunction with
 <a class="reference internal" href="generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel" title="torch.nn.parallel.DistributedDataParallel"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.parallel.DistributedDataParallel</span></code></a>. In such a case, each
-process can pass a :class`~torch.utils.data.DistributedSampler` instance as a
+process can pass a <code class="xref py py-class docutils literal notranslate"><span class="pre">DistributedSampler</span></code> instance as a
 <a class="reference internal" href="#torch.utils.data.DataLoader" title="torch.utils.data.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> sampler, and load a subset of the
 original dataset that is exclusive to it.</p>
 <div class="admonition note">
@@ -1103,7 +1109,7 @@ processes in the distributed group. Default: <code class="docutils literal notra
 </dl>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>In distributed mode, calling the :meth`set_epoch(epoch) &lt;set_epoch&gt;` method at
+<p>In distributed mode, calling the <code class="xref py py-meth docutils literal notranslate"><span class="pre">set_epoch()</span></code> method at
 the beginning of each epoch <strong>before</strong> creating the <code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code> iterator
 is necessary to make shuffling work properly across multiple epochs. Otherwise,
 the same ordering will be always used.</p>
@@ -1210,9 +1216,6 @@ the same ordering will be always used.</p>
          <script src="_static/underscore.js"></script>
          <script src="_static/doctools.js"></script>
          <script src="_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="_static/katex_autorenderer.js"></script>
      
 
   

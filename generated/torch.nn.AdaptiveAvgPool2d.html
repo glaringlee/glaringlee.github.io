@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
@@ -341,7 +343,7 @@
 <h1>AdaptiveAvgPool2d<a class="headerlink" href="#adaptiveavgpool2d" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="torch.nn.AdaptiveAvgPool2d">
-<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">AdaptiveAvgPool2d</code><span class="sig-paren">(</span><em class="sig-param">output_size</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/pooling.html#AdaptiveAvgPool2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AdaptiveAvgPool2d" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">torch.nn.</code><code class="sig-name descname">AdaptiveAvgPool2d</code><span class="sig-paren">(</span><em class="sig-param">output_size: Union[int, Tuple[int, ...]]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/nn/modules/pooling.html#AdaptiveAvgPool2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.nn.AdaptiveAvgPool2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies a 2D adaptive average pooling over an input signal composed of several input planes.</p>
 <p>The output is of size H x W, for any input size.
 The number of output features is equal to the number of input planes.</p>
@@ -363,7 +365,7 @@ be the same as that of the input.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># target output size of 10x7</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveMaxPool2d</span><span class="p">((</span><span class="kc">None</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveAvgPool2d</span><span class="p">((</span><span class="kc">None</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
 </pre></div>
@@ -435,9 +437,6 @@ be the same as that of the input.</p>
          <script src="../_static/underscore.js"></script>
          <script src="../_static/doctools.js"></script>
          <script src="../_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="../_static/katex_autorenderer.js"></script>
      
 
   

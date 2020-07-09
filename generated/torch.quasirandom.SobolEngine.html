@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
@@ -348,7 +350,7 @@ discrepancy quasi-random sequences.</p>
 <p>This implementation of an engine for Sobol sequences is capable of
 sampling sequences up to a maximum dimension of 1111. It uses direction
 numbers to generate these sequences, and these numbers have been adapted
-from <a class="reference external" href="http://web.maths.unsw.edu.au/~fkuo/sobol/joe-kuo-old.1111">here</a>.</p>
+from <a class="reference external" href="https://web.maths.unsw.edu.au/~fkuo/sobol/joe-kuo-old.1111">here</a>.</p>
 <p class="rubric">References</p>
 <ul class="simple">
 <li><p>Art B. Owen. Scrambling Sobol and Niederreiter-Xing points.
@@ -385,7 +387,9 @@ Default: <code class="docutils literal notranslate"><span class="pre">None</span
 <code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param">n=1</em>, <em class="sig-param">out=None</em>, <em class="sig-param">dtype=torch.float32</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/quasirandom.html#SobolEngine.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.quasirandom.SobolEngine.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to draw a sequence of <code class="xref py py-attr docutils literal notranslate"><span class="pre">n</span></code> points from a Sobol sequence.
 Note that the samples are dependent on the previous samples. The size
-of the result is <span class="math">\((n, dimension)\)</span>.</p>
+of the result is <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>n</mi><mo separator="true">,</mo><mi>d</mi><mi>i</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(n, dimension)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>
+
+</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -486,9 +490,6 @@ without using the samples.</p>
          <script src="../_static/underscore.js"></script>
          <script src="../_static/doctools.js"></script>
          <script src="../_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="../_static/katex_autorenderer.js"></script>
      
 
   

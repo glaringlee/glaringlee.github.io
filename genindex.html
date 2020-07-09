@@ -158,7 +158,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -227,12 +227,14 @@
 <li class="toctree-l1"><a class="reference internal" href="amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
@@ -801,6 +803,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributed.html#torch.distributed.Backend">Backend (class in torch.distributed)</a>
 </li>
+      <li><a href="rpc.html#torch.distributed.rpc.BackendType">BackendType (class in torch.distributed.rpc)</a>
+</li>
       <li><a href="autograd.html#torch.autograd.backward">backward() (in module torch.autograd)</a>
 
       <ul>
@@ -834,9 +838,17 @@
       <li><a href="generated/torch.nn.BatchNorm1d.html#torch.nn.BatchNorm1d">BatchNorm1d (class in torch.nn)</a>
 </li>
       <li><a href="generated/torch.nn.BatchNorm2d.html#torch.nn.BatchNorm2d">BatchNorm2d (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.BatchNorm2d">(class in torch.nn.quantized)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.nn.BatchNorm3d.html#torch.nn.BatchNorm3d">BatchNorm3d (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.BatchNorm3d">(class in torch.nn.quantized)</a>
 </li>
+      </ul></li>
       <li><a href="data.html#torch.utils.data.BatchSampler">BatchSampler (class in torch.utils.data)</a>
 </li>
       <li><a href="generated/torch.nn.BCELoss.html#torch.nn.BCELoss">BCELoss (class in torch.nn)</a>
@@ -873,6 +885,8 @@
 </li>
       <li><a href="nn.functional.html#torch.nn.functional.binary_cross_entropy">binary_cross_entropy() (in module torch.nn.functional)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nn.functional.html#torch.nn.functional.binary_cross_entropy_with_logits">binary_cross_entropy_with_logits() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.bincount.html#torch.bincount">bincount() (in module torch)</a>
@@ -881,8 +895,6 @@
         <li><a href="tensors.html#torch.Tensor.bincount">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.binomial.Binomial">Binomial (class in torch.distributions.binomial)</a>
 </li>
       <li><a href="generated/torch.bitwise_and.html#torch.bitwise_and">bitwise_and() (in module torch)</a>
@@ -1115,6 +1127,8 @@
 </li>
       <li><a href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule.code_with_constants">code_with_constants() (torch.jit.ScriptModule property)</a>
 </li>
+      <li><a href="futures.html#torch.futures.collect_all">collect_all() (in module torch.futures)</a>
+</li>
       <li><a href="generated/torch.combinations.html#torch.combinations">combinations() (in module torch)</a>
 </li>
       <li><a href="generated/torch.compiled_with_cxx11_abi.html#torch.compiled_with_cxx11_abi">compiled_with_cxx11_abi() (in module torch)</a>
@@ -1293,6 +1307,12 @@
 </li>
       <li><a href="generated/torch.nn.utils.rnn.PackedSequence.html#torch.nn.utils.rnn.PackedSequence.count">count() (torch.nn.utils.rnn.PackedSequence method)</a>
 </li>
+      <li><a href="generated/torch.count_nonzero.html#torch.count_nonzero">count_nonzero() (in module torch)</a>
+
+      <ul>
+        <li><a href="tensors.html#torch.Tensor.count_nonzero">(torch.Tensor method)</a>
+</li>
+      </ul></li>
       <li><a href="distributions.html#torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal.covariance_matrix">covariance_matrix (torch.distributions.lowrank_multivariate_normal.LowRankMultivariateNormal attribute)</a>
 
       <ul>
@@ -1590,7 +1610,11 @@
 </li>
       </ul></li>
       <li><a href="generated/torch.nn.ELU.html#torch.nn.ELU">ELU (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.ELU">(class in torch.nn.quantized)</a>
 </li>
+      </ul></li>
       <li><a href="nn.functional.html#torch.nn.functional.elu">elu() (in module torch.nn.functional)</a>
 </li>
       <li><a href="nn.functional.html#torch.nn.functional.elu_">elu_() (in module torch.nn.functional)</a>
@@ -1982,13 +2006,13 @@
 </li>
       <li><a href="nn.functional.html#torch.nn.functional.fold">fold() (in module torch.nn.functional)</a>
 </li>
-      <li><a href="random.html#torch.random.fork_rng">fork_rng() (in module torch.random)</a>, <a href="random.html#torch.random.fork_rng">[1]</a>
+      <li><a href="generated/torch.jit.fork.html#torch.jit.fork">fork() (in module torch.jit)</a>
+</li>
+      <li><a href="random.html#torch.random.fork_rng">fork_rng() (in module torch.random)</a>
 </li>
       <li><a href="autograd.html#torch.autograd.Function.forward">forward() (torch.autograd.Function static method)</a>
 
       <ul>
-        <li><a href="generated/torch.nn.Module.html#torch.nn.Module.forward">(torch.nn.Module method)</a>
-</li>
         <li><a href="generated/torch.nn.MultiheadAttention.html#torch.nn.MultiheadAttention.forward">(torch.nn.MultiheadAttention method)</a>
 </li>
         <li><a href="generated/torch.nn.Transformer.html#torch.nn.Transformer.forward">(torch.nn.Transformer method)</a>
@@ -2011,6 +2035,8 @@
       <li><a href="tensors.html#torch.Tensor.frac_">frac_() (torch.Tensor method)</a>
 </li>
       <li><a href="generated/torch.nn.FractionalMaxPool2d.html#torch.nn.FractionalMaxPool2d">FractionalMaxPool2d (class in torch.nn)</a>
+</li>
+      <li><a href="generated/torch.jit.freeze.html#torch.jit.freeze">freeze() (in module torch.jit)</a>
 </li>
       <li><a href="storage.html#torch.FloatStorage.from_buffer">from_buffer() (torch.FloatStorage static method)</a>
 </li>
@@ -2051,6 +2077,8 @@
       <li><a href="autograd.html#torch.autograd.Function">Function (class in torch.autograd)</a>
 </li>
       <li><a href="quantization.html#torch.quantization.fuse_modules">fuse_modules() (in module torch.quantization)</a>
+</li>
+      <li><a href="futures.html#torch.futures.Future">Future (class in torch.futures)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -2132,10 +2160,10 @@
 </li>
       <li><a href="optim.html#torch.optim.lr_scheduler.CyclicLR.get_lr">get_lr() (torch.optim.lr_scheduler.CyclicLR method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.get_num_interop_threads.html#torch.get_num_interop_threads">get_num_interop_threads() (in module torch)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generated/torch.get_num_threads.html#torch.get_num_threads">get_num_threads() (in module torch)</a>
 </li>
       <li><a href="quantization.html#torch.quantization.get_observer_dict">get_observer_dict() (in module torch.quantization)</a>
@@ -2147,7 +2175,7 @@
       <ul>
         <li><a href="cuda.html#torch.cuda.get_rng_state">(in module torch.cuda)</a>
 </li>
-        <li><a href="random.html#torch.random.get_rng_state">(in module torch.random)</a>, <a href="random.html#torch.random.get_rng_state">[1]</a>
+        <li><a href="random.html#torch.random.get_rng_state">(in module torch.random)</a>
 </li>
       </ul></li>
       <li><a href="cuda.html#torch.cuda.get_rng_state_all">get_rng_state_all() (in module torch.cuda)</a>
@@ -2189,11 +2217,19 @@
       <li><a href="nn.functional.html#torch.nn.functional.grid_sample">grid_sample() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.GroupNorm.html#torch.nn.GroupNorm">GroupNorm (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.GroupNorm">(class in torch.nn.quantized)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.nn.GRU.html#torch.nn.GRU">GRU (class in torch.nn)</a>
 </li>
       <li><a href="generated/torch.nn.GRUCell.html#torch.nn.GRUCell">GRUCell (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.dynamic.GRUCell">(class in torch.nn.quantized.dynamic)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.gt.html#torch.gt">gt() (in module torch)</a>
 
       <ul>
@@ -2247,7 +2283,11 @@
       <li><a href="nn.functional.html#torch.nn.functional.hardsigmoid">hardsigmoid() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.Hardswish.html#torch.nn.Hardswish">Hardswish (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.Hardswish">(class in torch.nn.quantized)</a>
 </li>
+      </ul></li>
       <li><a href="nn.functional.html#torch.nn.functional.hardswish">hardswish() (in module torch.nn.functional)</a>
 
       <ul>
@@ -2388,6 +2428,8 @@
       </ul></li>
       <li><a href="generated/torch.jit.ignore.html#torch.jit.ignore">ignore() (in module torch.jit)</a>
 </li>
+      <li><a href="tensors.html#torch.Tensor.imag">imag (torch.Tensor attribute)</a>
+</li>
       <li><a href="generated/torch.imag.html#torch.imag">imag() (in module torch)</a>
 </li>
       <li><a href="cpp_extension.html#torch.utils.cpp_extension.include_paths">include_paths() (in module torch.utils.cpp_extension)</a>
@@ -2423,7 +2465,13 @@
       <li><a href="cuda.html#torch.cuda.init">init() (in module torch.cuda)</a>
 </li>
       <li><a href="rpc.html#torch.distributed.rpc.ProcessGroupRpcBackendOptions.init_method">init_method() (torch.distributed.rpc.ProcessGroupRpcBackendOptions property)</a>
+
+      <ul>
+        <li><a href="rpc.html#torch.distributed.rpc.RpcBackendOptions.init_method">(torch.distributed.rpc.RpcBackendOptions property)</a>
 </li>
+        <li><a href="rpc.html#torch.distributed.rpc.TensorPipeRpcBackendOptions.init_method">(torch.distributed.rpc.TensorPipeRpcBackendOptions property)</a>
+</li>
+      </ul></li>
       <li><a href="distributed.html#torch.distributed.init_process_group">init_process_group() (in module torch.distributed)</a>
 </li>
       <li><a href="rpc.html#torch.distributed.rpc.init_rpc">init_rpc() (in module torch.distributed.rpc)</a>
@@ -2433,7 +2481,7 @@
       <ul>
         <li><a href="cuda.html#torch.cuda.initial_seed">(in module torch.cuda)</a>
 </li>
-        <li><a href="random.html#torch.random.initial_seed">(in module torch.random)</a>, <a href="random.html#torch.random.initial_seed">[1]</a>
+        <li><a href="random.html#torch.random.initial_seed">(in module torch.random)</a>
 </li>
         <li><a href="generated/torch.Generator.html#torch.Generator.initial_seed">(torch.Generator method)</a>
 </li>
@@ -2445,11 +2493,23 @@
       <li><a href="nn.functional.html#torch.nn.functional.instance_norm">instance_norm() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.InstanceNorm1d.html#torch.nn.InstanceNorm1d">InstanceNorm1d (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.InstanceNorm1d">(class in torch.nn.quantized)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.nn.InstanceNorm2d.html#torch.nn.InstanceNorm2d">InstanceNorm2d (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.InstanceNorm2d">(class in torch.nn.quantized)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.nn.InstanceNorm3d.html#torch.nn.InstanceNorm3d">InstanceNorm3d (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.InstanceNorm3d">(class in torch.nn.quantized)</a>
 </li>
+      </ul></li>
       <li><a href="storage.html#torch.FloatStorage.int">int() (torch.FloatStorage method)</a>
 
       <ul>
@@ -2468,6 +2528,8 @@
       </ul></li>
       <li><a href="distributions.html#torch.distributions.constraints.interval">interval (in module torch.distributions.constraints)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.transforms.Transform.inv">inv() (torch.distributions.transforms.Transform property)</a>
 </li>
       <li><a href="generated/torch.inverse.html#torch.inverse">inverse() (in module torch)</a>
@@ -2476,8 +2538,6 @@
         <li><a href="tensors.html#torch.Tensor.inverse">(torch.Tensor method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cuda.html#torch.cuda.ipc_collect">ipc_collect() (in module torch.cuda)</a>
 </li>
       <li><a href="cuda.html#torch.cuda.Event.ipc_handle">ipc_handle() (torch.cuda.Event method)</a>
@@ -2531,6 +2591,8 @@
 </li>
       </ul></li>
       <li><a href="autograd.html#torch.Tensor.is_leaf">is_leaf (torch.Tensor attribute)</a>
+</li>
+      <li><a href="tensors.html#torch.Tensor.is_meta">is_meta (torch.Tensor attribute)</a>
 </li>
       <li><a href="distributed.html#torch.distributed.is_mpi_available">is_mpi_available() (in module torch.distributed)</a>
 </li>
@@ -2685,7 +2747,11 @@
       <li><a href="nn.functional.html#torch.nn.functional.layer_norm">layer_norm() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.nn.LayerNorm.html#torch.nn.LayerNorm">LayerNorm (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.LayerNorm">(class in torch.nn.quantized)</a>
 </li>
+      </ul></li>
       <li><a href="optim.html#torch.optim.LBFGS">LBFGS (class in torch.optim)</a>
 </li>
       <li><a href="generated/torch.le.html#torch.le">le() (in module torch)</a>
@@ -3025,7 +3091,11 @@
 </li>
       </ul></li>
       <li><a href="generated/torch.nn.LSTMCell.html#torch.nn.LSTMCell">LSTMCell (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.dynamic.LSTMCell">(class in torch.nn.quantized.dynamic)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.lstsq.html#torch.lstsq">lstsq() (in module torch)</a>
 
       <ul>
@@ -3065,7 +3135,7 @@
       <ul>
         <li><a href="cuda.html#torch.cuda.manual_seed">(in module torch.cuda)</a>
 </li>
-        <li><a href="random.html#torch.random.manual_seed">(in module torch.random)</a>, <a href="random.html#torch.random.manual_seed">[1]</a>
+        <li><a href="random.html#torch.random.manual_seed">(in module torch.random)</a>
 </li>
         <li><a href="generated/torch.Generator.html#torch.Generator.manual_seed">(torch.Generator method)</a>
 </li>
@@ -3484,6 +3554,8 @@
 </li>
       <li><a href="rpc.html#torch.distributed.rpc.ProcessGroupRpcBackendOptions.num_send_recv_threads">num_send_recv_threads() (torch.distributed.rpc.ProcessGroupRpcBackendOptions property)</a>
 </li>
+      <li><a href="rpc.html#torch.distributed.rpc.TensorPipeRpcBackendOptions.num_worker_threads">num_worker_threads() (torch.distributed.rpc.TensorPipeRpcBackendOptions property)</a>
+</li>
       <li><a href="generated/torch.numel.html#torch.numel">numel() (in module torch)</a>
 
       <ul>
@@ -3832,6 +3904,8 @@
 </li>
       <li><a href="cuda.html#torch.cuda.nvtx.range_push">range_push() (in module torch.cuda.nvtx)</a>
 </li>
+      <li><a href="tensors.html#torch.Tensor.real">real (torch.Tensor attribute)</a>
+</li>
       <li><a href="generated/torch.real.html#torch.real">real() (in module torch)</a>
 </li>
       <li><a href="generated/torch.reciprocal.html#torch.reciprocal">reciprocal() (in module torch)</a>
@@ -4067,7 +4141,11 @@
       <li><a href="generated/torch.nn.RNNBase.html#torch.nn.RNNBase">RNNBase (class in torch.nn)</a>
 </li>
       <li><a href="generated/torch.nn.RNNCell.html#torch.nn.RNNCell">RNNCell (class in torch.nn)</a>
+
+      <ul>
+        <li><a href="quantization.html#torch.nn.quantized.dynamic.RNNCell">(class in torch.nn.quantized.dynamic)</a>
 </li>
+      </ul></li>
       <li><a href="generated/torch.roll.html#torch.roll">roll() (in module torch)</a>
 
       <ul>
@@ -4101,6 +4179,14 @@
 </li>
       </ul></li>
       <li><a href="rpc.html#torch.distributed.rpc.ProcessGroupRpcBackendOptions.rpc_timeout">rpc_timeout() (torch.distributed.rpc.ProcessGroupRpcBackendOptions property)</a>
+
+      <ul>
+        <li><a href="rpc.html#torch.distributed.rpc.RpcBackendOptions.rpc_timeout">(torch.distributed.rpc.RpcBackendOptions property)</a>
+</li>
+        <li><a href="rpc.html#torch.distributed.rpc.TensorPipeRpcBackendOptions.rpc_timeout">(torch.distributed.rpc.TensorPipeRpcBackendOptions property)</a>
+</li>
+      </ul></li>
+      <li><a href="rpc.html#torch.distributed.rpc.RpcBackendOptions">RpcBackendOptions (class in torch.distributed.rpc)</a>
 </li>
       <li><a href="optim.html#torch.optim.Rprop">Rprop (class in torch.optim)</a>
 </li>
@@ -4257,7 +4343,7 @@
       <ul>
         <li><a href="cuda.html#torch.cuda.seed">(in module torch.cuda)</a>
 </li>
-        <li><a href="random.html#torch.random.seed">(in module torch.random)</a>, <a href="random.html#torch.random.seed">[1]</a>
+        <li><a href="random.html#torch.random.seed">(in module torch.random)</a>
 </li>
         <li><a href="generated/torch.Generator.html#torch.Generator.seed">(torch.Generator method)</a>
 </li>
@@ -4312,12 +4398,14 @@
 </li>
       <li><a href="generated/torch.set_printoptions.html#torch.set_printoptions">set_printoptions() (in module torch)</a>
 </li>
+      <li><a href="futures.html#torch.futures.Future.set_result">set_result() (torch.futures.Future method)</a>
+</li>
       <li><a href="generated/torch.set_rng_state.html#torch.set_rng_state">set_rng_state() (in module torch)</a>
 
       <ul>
         <li><a href="cuda.html#torch.cuda.set_rng_state">(in module torch.cuda)</a>
 </li>
-        <li><a href="random.html#torch.random.set_rng_state">(in module torch.random)</a>, <a href="random.html#torch.random.set_rng_state">[1]</a>
+        <li><a href="random.html#torch.random.set_rng_state">(in module torch.random)</a>
 </li>
       </ul></li>
       <li><a href="cuda.html#torch.cuda.set_rng_state_all">set_rng_state_all() (in module torch.cuda)</a>
@@ -4369,6 +4457,10 @@
 </li>
       </ul></li>
       <li><a href="tensors.html#torch.Tensor.sign_">sign_() (torch.Tensor method)</a>
+</li>
+      <li><a href="generated/torch.nn.SiLU.html#torch.nn.SiLU">SiLU (class in torch.nn)</a>
+</li>
+      <li><a href="nn.functional.html#torch.nn.functional.silu">silu() (in module torch.nn.functional)</a>
 </li>
       <li><a href="generated/torch.sin.html#torch.sin">sin() (in module torch)</a>
 
@@ -4804,6 +4896,10 @@
 </li>
       <li><a href="generated/torch.tensordot.html#torch.tensordot">tensordot() (in module torch)</a>
 </li>
+      <li><a href="rpc.html#torch.distributed.rpc.TensorPipeRpcBackendOptions">TensorPipeRpcBackendOptions (class in torch.distributed.rpc)</a>
+</li>
+      <li><a href="futures.html#torch.futures.Future.then">then() (torch.futures.Future method)</a>
+</li>
       <li><a href="generated/torch.nn.Threshold.html#torch.nn.Threshold">Threshold (class in torch.nn)</a>
 </li>
       <li><a href="nn.functional.html#torch.nn.functional.threshold">threshold() (in module torch.nn.functional)</a>
@@ -4878,12 +4974,14 @@
 </li>
       <li><a href="type_info.html#torch.torch.finfo">torch.finfo (class in torch)</a>
 </li>
-      <li><a href="hub.html#module-torch.hub">torch.hub (module)</a>
+      <li><a href="futures.html#module-torch.futures">torch.futures (module)</a>
 </li>
-      <li><a href="type_info.html#torch.torch.iinfo">torch.iinfo (class in torch)</a>
+      <li><a href="hub.html#module-torch.hub">torch.hub (module)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="type_info.html#torch.torch.iinfo">torch.iinfo (class in torch)</a>
+</li>
       <li><a href="jit.html#module-torch.jit">torch.jit (module)</a>
 </li>
       <li><a href="jit_builtin_functions.html#module-torch.jit.supported_ops">torch.jit.supported_ops (module)</a>
@@ -5224,6 +5322,10 @@
 </li>
       <li><a href="tensors.html#torch.Tensor.view_as">view_as() (torch.Tensor method)</a>
 </li>
+      <li><a href="generated/torch.view_as_complex.html#torch.view_as_complex">view_as_complex() (in module torch)</a>
+</li>
+      <li><a href="generated/torch.view_as_real.html#torch.view_as_real">view_as_real() (in module torch)</a>
+</li>
       <li><a href="autograd.html#torch.autograd.functional.vjp">vjp() (in module torch.autograd.functional)</a>
 </li>
       <li><a href="distributions.html#torch.distributions.von_mises.VonMises">VonMises (class in torch.distributions.von_mises)</a>
@@ -5234,18 +5336,26 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="cuda.html#torch.cuda.Event.wait">wait() (torch.cuda.Event method)</a>
+      <li><a href="generated/torch.jit.wait.html#torch.jit.wait">wait() (in module torch.jit)</a>
+
+      <ul>
+        <li><a href="cuda.html#torch.cuda.Event.wait">(torch.cuda.Event method)</a>
+</li>
+        <li><a href="futures.html#torch.futures.Future.wait">(torch.futures.Future method)</a>
+</li>
+      </ul></li>
+      <li><a href="futures.html#torch.futures.wait_all">wait_all() (in module torch.futures)</a>
 </li>
       <li><a href="cuda.html#torch.cuda.Stream.wait_event">wait_event() (torch.cuda.Stream method)</a>
 </li>
       <li><a href="cuda.html#torch.cuda.Stream.wait_stream">wait_stream() (torch.cuda.Stream method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="distributions.html#torch.distributions.weibull.Weibull">Weibull (class in torch.distributions.weibull)</a>
 </li>
       <li><a href="generated/torch.nn.utils.weight_norm.html#torch.nn.utils.weight_norm">weight_norm() (in module torch.nn.utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data.html#torch.utils.data.WeightedRandomSampler">WeightedRandomSampler (class in torch.utils.data)</a>
 </li>
       <li><a href="generated/torch.where.html#torch.where">where() (in module torch)</a>, <a href="generated/torch.where.html#torch.where">[1]</a>
@@ -5357,9 +5467,6 @@
          <script src="_static/underscore.js"></script>
          <script src="_static/doctools.js"></script>
          <script src="_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="_static/katex_autorenderer.js"></script>
      
 
   

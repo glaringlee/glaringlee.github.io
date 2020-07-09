@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="ScriptModule" href="torch.jit.ScriptModule.html" />
+    <link rel="next" title="torch.jit.fork" href="torch.jit.fork.html" />
     <link rel="prev" title="torch.jit.trace" href="torch.jit.trace.html" /> 
 
   
@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
@@ -341,7 +343,7 @@
 <h1>torch.jit.trace_module<a class="headerlink" href="#torch-jit-trace-module" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="torch.jit.trace_module">
-<code class="sig-prename descclassname">torch.jit.</code><code class="sig-name descname">trace_module</code><span class="sig-paren">(</span><em class="sig-param">mod</em>, <em class="sig-param">inputs</em>, <em class="sig-param">optimize=None</em>, <em class="sig-param">check_trace=True</em>, <em class="sig-param">check_inputs=None</em>, <em class="sig-param">check_tolerance=1e-05</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">_force_outplace=False</em>, <em class="sig-param">_module_class=None</em>, <em class="sig-param">_compilation_unit=&lt;torch._C.CompilationUnit object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/jit.html#trace_module"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.jit.trace_module" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">torch.jit.</code><code class="sig-name descname">trace_module</code><span class="sig-paren">(</span><em class="sig-param">mod</em>, <em class="sig-param">inputs</em>, <em class="sig-param">optimize=None</em>, <em class="sig-param">check_trace=True</em>, <em class="sig-param">check_inputs=None</em>, <em class="sig-param">check_tolerance=1e-05</em>, <em class="sig-param">strict=True</em>, <em class="sig-param">_force_outplace=False</em>, <em class="sig-param">_module_class=None</em>, <em class="sig-param">_compilation_unit=&lt;torch._C.CompilationUnit object&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/torch/jit/_trace.html#trace_module"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.jit.trace_module" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trace a module and return an executable <a class="reference internal" href="torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> that will be optimized
 using just-in-time compilation. When a module is passed to <a class="reference internal" href="torch.jit.trace.html#torch.jit.trace" title="torch.jit.trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.trace</span></code></a>, only
 the <code class="docutils literal notranslate"><span class="pre">forward</span></code> method is run and traced. With <code class="docutils literal notranslate"><span class="pre">trace_module</span></code>, you can specify a dictionary of
@@ -351,9 +353,9 @@ method names to example inputs to trace (see the <code class="docutils literal n
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mod</strong> (<a class="reference internal" href="torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module"><em>torch.nn.Module</em></a>) – A <code class="docutils literal notranslate"><span class="pre">torch.nn.Module</span></code> containing methods whose names are
-specified in <code class="docutils literal notranslate"><span class="pre">example_inputs</span></code>. The given methods will be compiled
+specified in <code class="docutils literal notranslate"><span class="pre">inputs</span></code>. The given methods will be compiled
 as a part of a single <cite>ScriptModule</cite>.</p></li>
-<li><p><strong>example_inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – A dict containing sample inputs indexed by method names in <code class="docutils literal notranslate"><span class="pre">mod</span></code>.
+<li><p><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – A dict containing sample inputs indexed by method names in <code class="docutils literal notranslate"><span class="pre">mod</span></code>.
 The inputs will be passed to methods whose names correspond to inputs’
 keys while tracing.
 <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">'forward'</span> <span class="pre">:</span> <span class="pre">example_forward_input,</span> <span class="pre">'method2':</span> <span class="pre">example_method2_input}</span></code></p></li>
@@ -430,7 +432,7 @@ sub-modules and parameters as <code class="docutils literal notranslate"><span c
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="torch.jit.ScriptModule.html" class="btn btn-neutral float-right" title="ScriptModule" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="torch.jit.fork.html" class="btn btn-neutral float-right" title="torch.jit.fork" accesskey="n" rel="next">Next <img src="../_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
         <a href="torch.jit.trace.html" class="btn btn-neutral" title="torch.jit.trace" accesskey="p" rel="prev"><img src="../_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
@@ -485,9 +487,6 @@ sub-modules and parameters as <code class="docutils literal notranslate"><span c
          <script src="../_static/underscore.js"></script>
          <script src="../_static/doctools.js"></script>
          <script src="../_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="../_static/katex_autorenderer.js"></script>
      
 
   

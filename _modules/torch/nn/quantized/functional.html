@@ -157,7 +157,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -226,12 +226,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../storage.html">torch.Storage</a></li>
@@ -418,7 +420,7 @@
 <span class="sd">    Applies a 2D adaptive average pooling over a quantized input signal composed</span>
 <span class="sd">    of several quantized input planes.</span>
 
-<span class="sd">    .. note:: The input quantization paramteres propagate to the output.</span>
+<span class="sd">    .. note:: The input quantization parameters propagate to the output.</span>
 
 <span class="sd">    See :class:`~torch.nn.quantized.AdaptiveAvgPool2d` for details and output shape.</span>
 
@@ -427,8 +429,27 @@
 <span class="sd">                     double-integer tuple)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">input</span><span class="o">.</span><span class="n">is_quantized</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input to &#39;quantized.adaptive_avg_pool2d&#39; must be quantized!&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input to &#39;quantized.functional.adaptive_avg_pool2d&#39; must be quantized!&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">adaptive_avg_pool2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">adaptive_avg_pool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output_size</span><span class="p">):</span>
+    <span class="c1"># type: (Tensor, BroadcastingList2[int]) -&gt; Tensor</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies a 3D adaptive average pooling over a quantized input signal composed</span>
+<span class="sd">    of several quantized input planes.</span>
+
+<span class="sd">    .. note:: The input quantization paramteres propagate to the output.</span>
+
+<span class="sd">    See :class:`~torch.nn.quantized.AdaptiveAvgPool3d` for details and output shape.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_size: the target output size (single integer or</span>
+<span class="sd">                     double-integer tuple)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">input</span><span class="o">.</span><span class="n">is_quantized</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Input to &#39;quantized.functional.adaptive_avg_pool3d&#39; must be quantized!&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">adaptive_avg_pool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span>
 
 <div class="viewcode-block" id="conv1d"><a class="viewcode-back" href="../../../../quantization.html#torch.nn.quantized.functional.conv1d">[docs]</a><span class="k">def</span> <span class="nf">conv1d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="p">,</span>
            <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -748,12 +769,7 @@
 
 <span class="k">def</span> <span class="nf">hardtanh</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">min_val</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">max_val</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="c1"># type: (Tensor, float, float, bool) -&gt; Tensor</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    hardtanh(input, min_val=-1., max_val=1., inplace=False) -&gt; Tensor</span>
-
-<span class="sd">    Applies the quantized HardTanh function element-wise, with scale and</span>
-<span class="sd">    zero-point carried over from the input tensor. See :class:`~torch.nn.Hardtanh`</span>
-<span class="sd">    for more details.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is the quantized version of :func:`~torch.nn.functional.hardtanh`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">input</span><span class="o">.</span><span class="n">is_quantized</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input to &#39;quantized.hardtanh&#39; must be quantized!&quot;</span><span class="p">)</span>
@@ -763,26 +779,12 @@
 
 <div class="viewcode-block" id="hardswish"><a class="viewcode-back" href="../../../../quantization.html#torch.nn.quantized.functional.hardswish">[docs]</a><span class="k">def</span> <span class="nf">hardswish</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span><span class="p">):</span>
     <span class="c1"># type: (Tensor, float, int) -&gt; Tensor</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies the quantized version of the hardswish function, element-wise,</span>
-<span class="sd">    as described in the paper:</span>
-
-<span class="sd">    `Searching for MobileNetV3`_.</span>
-
-<span class="sd">    .. math::</span>
-<span class="sd">        \text{Hardswish}(x) = \begin{cases}</span>
-<span class="sd">            0 &amp; \text{if~} x \le -3, \\</span>
-<span class="sd">            x &amp; \text{if~} x \ge +3, \\</span>
-<span class="sd">            x^2/6 &amp; \text{otherwise}</span>
-<span class="sd">        \end{cases}</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is the quantized version of :func:`~torch.nn.functional.hardswish`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        input: quantized input</span>
-<span class="sd">        scale, zero_point: Scale and zero point of the output tensor.</span>
-
-<span class="sd">    See :class:`~torch.nn.Hardswish` for more details.</span>
-
-<span class="sd">    .. _`Searching for MobileNetV3`:</span>
-<span class="sd">        https://arxiv.org/abs/1905.02244</span>
+<span class="sd">        scale: quantization scale of the output tensor</span>
+<span class="sd">        zero_point: quantization zero point of the output tensor</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">input</span><span class="o">.</span><span class="n">is_quantized</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input to &#39;quantized.hardswish&#39; must be quantized!&quot;</span><span class="p">)</span>
@@ -808,49 +810,23 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input to &#39;value&#39; must be specified!&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_ops</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">elu</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="c1"># type: (Tensor, Optional[float], bool, Optional[float], Optional[int]) -&gt; Tensor</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Applies the quantized ELU function element-wise:</span>
-
-<span class="sd">    .. math::</span>
-<span class="sd">        \text{ELU}(x) = \max(0,x) + \min(0, \alpha * (\exp(x) - 1))</span>
+<span class="k">def</span> <span class="nf">elu</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="p">):</span>
+    <span class="c1"># type: (Tensor, float, int, float) -&gt; Tensor</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is the quantized version of :func:`~torch.nn.functional.elu`.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        input: quantized input</span>
-<span class="sd">        alpha: the :math:`\alpha` value for the ELU formulation. Default: 1.0</span>
-<span class="sd">        inplace: Inplace modification of the input tensor</span>
-<span class="sd">        scale, zero_point: Scale and zero point of the output tensor.</span>
+<span class="sd">        scale: quantization scale of the output tensor</span>
+<span class="sd">        zero_point: quantization zero point of the output tensor</span>
+<span class="sd">        alpha: the alpha constant</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">input</span><span class="o">.</span><span class="n">is_quantized</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input to &#39;quantized.elu&#39; must be quantized!&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="n">zero_point</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either both or none of (scale, zero_point) must be specified!&quot;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">zero_point</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">,</span> <span class="s2">&quot;Cannot rescale with `inplace`&quot;</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">_empty_affine_quantized</span><span class="p">(</span>
-            <span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">zero_point</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">input</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_nn</span><span class="o">.</span><span class="n">elu</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">output</span>
-    <span class="k">elif</span> <span class="n">inplace</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_nn</span><span class="o">.</span><span class="n">elu_</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">_C</span><span class="o">.</span><span class="n">_nn</span><span class="o">.</span><span class="n">elu</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">quantized</span><span class="o">.</span><span class="n">elu</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">hardsigmoid</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
     <span class="c1"># type: (Tensor) -&gt; Tensor</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Applies the quantized element-wise function</span>
-
-<span class="sd">    .. math::</span>
-<span class="sd">        \text{Hardsigmoid}(x) = \begin{cases}</span>
-<span class="sd">            0 &amp; \text{if~} x \le -3, \\</span>
-<span class="sd">            1 &amp; \text{if~} x \ge +3, \\</span>
-<span class="sd">            x / 6 &amp; \text{otherwise}</span>
-<span class="sd">        \end{cases}</span>
-
-<span class="sd">    See :class:`~torch.nn.Hardsigmoid` for more details.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;This is the quantized version of :func:`~torch.nn.functional.hardsigmoid`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">input</span><span class="o">.</span><span class="n">is_quantized</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input to &#39;quantized.hardsigmoid&#39; must be quantized!&quot;</span><span class="p">)</span>
@@ -1020,9 +996,6 @@
          <script src="../../../../_static/underscore.js"></script>
          <script src="../../../../_static/doctools.js"></script>
          <script src="../../../../_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="../../../../_static/katex_autorenderer.js"></script>
      
 
   

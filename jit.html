@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hub.html">torch.hub</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">torch.Storage</a></li>
@@ -394,22 +396,31 @@ for performance and multi-threading reasons.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.jit.trace_module.html#torch.jit.trace_module" title="torch.jit.trace_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trace_module</span></code></a>(mod, inputs[, optimize, …])</p></td>
 <td><p>Trace a module and return an executable <a class="reference internal" href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> that will be optimized using just-in-time compilation.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.jit.fork.html#torch.jit.fork" title="torch.jit.fork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fork</span></code></a>(func, *args, **kwargs)</p></td>
+<td><p>Creates an asynchronous task executing <cite>func</cite> and a reference to the value of the result of this execution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.jit.wait.html#torch.jit.wait" title="torch.jit.wait"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait</span></code></a>(future)</p></td>
+<td><p>Forces completion of a <cite>torch.jit.Future[T]</cite> asynchronous task, returning the result of the task.</p></td>
+</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScriptModule</span></code></a>()</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ScriptModule``s</span> <span class="pre">wrap</span> <span class="pre">a</span> <span class="pre">C++</span> <span class="pre">``torch::jit::Module</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a></p></td>
 <td><p>Functionally equivalent to a <a class="reference internal" href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a>, but represents a single function and does not have any attributes or Parameters.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.jit.save.html#torch.jit.save" title="torch.jit.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(m, f[, _extra_files])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.jit.freeze.html#torch.jit.freeze" title="torch.jit.freeze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">freeze</span></code></a>(mod[, preserved_attrs])</p></td>
+<td><p>Freezing a <a class="reference internal" href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> will clone it and attempt to inline the cloned module’s submodules, parameters, and attributes as constants in the TorchScript IR Graph.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.jit.save.html#torch.jit.save" title="torch.jit.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(m, f[, _extra_files])</p></td>
 <td><p>Save an offline version of this module for use in a separate process.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.jit.load.html#torch.jit.load" title="torch.jit.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a>(f[, map_location, _extra_files])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.jit.load.html#torch.jit.load" title="torch.jit.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load</span></code></a>(f[, map_location, _extra_files])</p></td>
 <td><p>Load a <a class="reference internal" href="generated/torch.jit.ScriptModule.html#torch.jit.ScriptModule" title="torch.jit.ScriptModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptModule</span></code></a> or <a class="reference internal" href="generated/torch.jit.ScriptFunction.html#torch.jit.ScriptFunction" title="torch.jit.ScriptFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScriptFunction</span></code></a> previously saved with <a class="reference internal" href="generated/torch.jit.save.html#torch.jit.save" title="torch.jit.save"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.jit.save</span></code></a></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.jit.ignore.html#torch.jit.ignore" title="torch.jit.ignore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ignore</span></code></a>([drop])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.jit.ignore.html#torch.jit.ignore" title="torch.jit.ignore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ignore</span></code></a>([drop])</p></td>
 <td><p>This decorator indicates to the compiler that a function or method should be ignored and left as a Python function.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/torch.jit.unused.html#torch.jit.unused" title="torch.jit.unused"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unused</span></code></a>(fn)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/torch.jit.unused.html#torch.jit.unused" title="torch.jit.unused"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unused</span></code></a>(fn)</p></td>
 <td><p>This decorator indicates to the compiler that a function or method should be ignored and replaced with the raising of an exception.</p></td>
 </tr>
 </tbody>
@@ -612,7 +623,7 @@ including control flow operators for loops and conditionals. As an example:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">graph</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">graph</span></code> follows the same rules described in the <a class="reference internal" href="#inspecting-code">Inspecting Code</a> section
+<p><code class="docutils literal notranslate"><span class="pre">graph</span></code> follows the same rules described in the <cite>inspecting-code</cite> section
 with regard to <code class="docutils literal notranslate"><span class="pre">forward</span></code> method lookup.</p>
 <p>The example script above produces the graph:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>graph(%len.1 : int):
@@ -1239,9 +1250,6 @@ now supported.</p>
          <script src="_static/underscore.js"></script>
          <script src="_static/doctools.js"></script>
          <script src="_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="_static/katex_autorenderer.js"></script>
      
 
   

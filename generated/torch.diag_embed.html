@@ -159,7 +159,7 @@
               
               
                 <div class="version">
-                  master (1.6.0a0+3413f0a )
+                  master (1.7.0a0+5ab5566 )
                 </div>
               
             
@@ -228,12 +228,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../amp.html">torch.cuda.amp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributed.html">torch.distributed</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../distributions.html">torch.distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../futures.html">torch.futures</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hub.html">torch.hub</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../jit.html">torch.jit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../nn.init.html">torch.nn.init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../onnx.html">torch.onnx</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optim.html">torch.optim</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quantization.html">Quantization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rpc.html">Distributed RPC Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../random.html">torch.random</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../sparse.html">torch.sparse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../storage.html">torch.Storage</a></li>
@@ -354,7 +356,9 @@ the last two dimensions of the returned tensor are chosen by default.</p>
 </ul>
 <p>The size of the new matrix will be calculated to make the specified diagonal
 of the size of the last input dimension.
-Note that for <code class="xref py py-attr docutils literal notranslate"><span class="pre">offset</span></code> other than <span class="math">\(0\)</span>, the order of <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim1</span></code>
+Note that for <code class="xref py py-attr docutils literal notranslate"><span class="pre">offset</span></code> other than <span class="math"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>
+
+</span>, the order of <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim1</span></code>
 and <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim2</span></code> matters. Exchanging them is equivalent to changing the
 sign of <code class="xref py py-attr docutils literal notranslate"><span class="pre">offset</span></code>.</p>
 <p>Applying <a class="reference internal" href="torch.diagonal.html#torch.diagonal" title="torch.diagonal"><code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.diagonal()</span></code></a> to the output of this function with
@@ -466,9 +470,6 @@ take diagonal. Default: -1.</p></li>
          <script src="../_static/underscore.js"></script>
          <script src="../_static/doctools.js"></script>
          <script src="../_static/language_data.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
-         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
-         <script src="../_static/katex_autorenderer.js"></script>
      
 
   
